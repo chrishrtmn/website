@@ -152,6 +152,12 @@ export default class MyDocument extends Document {
           <meta name='theme-color' content='#ffffff' />
 
           {/* Fonts */}
+          <link
+            href='https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;700&display=swap'
+            rel='stylesheet'
+          />
+
+          {/* font-family: 'Inter', sans-serif; */}
         </Head>
         <body>
           <Main />
