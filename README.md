@@ -2,11 +2,12 @@
 
 ### About
 
-- Made with HTML, CSS (PostCSS, SCSS), JavaScript (ES6+).
-- Animated with GSAP.
+- React with Next.js.
+- CSS-in-JS with styled-components.
+- Animations with Framer Motion.
 - Hosted on Vercel.
 
 ### To-Do
 
-- Convert old setup into plain HTML, Sass, JS
 - Verify Google Analytics tag
+- [Dark mode](https://github.com/donavon/use-dark-mode)
