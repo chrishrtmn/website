@@ -1,5 +1,5 @@
 import { ThemeProvider } from 'styled-components'
-import { GlobalStyles } from '../assets/styles/global'
+import { GlobalStyles } from '../styles/global'
 
 const theme = {
   colors: {

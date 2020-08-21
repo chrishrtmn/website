@@ -10,4 +10,5 @@
 ### To-Do
 
 - Verify Google Analytics tag
-- [Dark mode](https://github.com/donavon/use-dark-mode)
+- [Dark Mode](https://github.com/donavon/use-dark-mode)
+- [Change 'src' directory](https://nextjs.org/docs/advanced-features/src-directory)

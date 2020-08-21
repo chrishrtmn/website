@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styled, { createGlobalStyle } from 'styled-components'
-import { MastheadLogoDark } from '../assets/components/masthead-logo'
-import ToggleDarkMode from '../assets/components/toggle-dark-mode'
+import { MastheadLogoDark } from '../partials/components/masthead-logo'
+import ToggleDarkMode from '../partials/components/toggle-dark-mode'
 
 const GlobalStyle = createGlobalStyle`
   body.light-mode {
