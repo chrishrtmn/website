@@ -33,6 +33,11 @@ export default function Index() {
       <Container>
         <GlobalStyle />
         <h1>Hello, world!</h1>
+        <p>Welcome to my website. This is a work in progress.</p>
+        <p>
+          Please visit Github, Twitter, LinkedIn for other stuff about me in the
+          meantime.
+        </p>
         <MastheadLogoDark />
         <ToggleDarkMode />
       </Container>
