@@ -23,4 +23,15 @@ export const GlobalStyles = createGlobalStyle`
     font-family: Tahoma, Helvetica, Arial, Roboto, sans-serif;
     transition: all 0.50s linear;
   }
+
+  body.light-mode {
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+
+  body.dark-mode {
+    background-color: #1a1919;
+    color: #999;
+  }
 `
