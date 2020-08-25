@@ -1,14 +1,14 @@
 const Toggle = ({ checked, onChange }) => (
-  <span className="toggle-control">
+  <span className='toggle-control'>
     <input
-      className="dmcheck"
-      type="checkbox"
+      id='toggle'
+      type='checkbox'
+      role='switch'
       checked={checked}
       onChange={onChange}
-      id="dmcheck"
     />
-    <label htmlFor="dmcheck" />
+    <label for='toggle' />
   </span>
-);
+)
 
-export default Toggle;
+export default Toggle

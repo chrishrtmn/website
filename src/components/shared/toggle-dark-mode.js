@@ -1,4 +1,5 @@
 import useDarkMode from 'use-dark-mode'
+import Toggle from './toggle'
 
 export default function ToggleDarkMode() {
   const darkMode = useDarkMode(false)
@@ -9,15 +10,15 @@ export default function ToggleDarkMode() {
         ☀
       </button>*/}
 
-      {/*<Toggle checked={darkMode.value} onChange={darkMode.toggle} />*/}
+      <Toggle checked={darkMode.value} onChange={darkMode.toggle} />
 
       {/*<button type='button' onClick={darkMode.enable}>
         ☾
-      </button>*/}
-
-      <button type='button' onClick={darkMode.toggle}>
-        Toggle
       </button>
+
+      <span className={darkMode.value} onClick={darkMode.toggle}>
+        ☀ / ☾
+      </span>*/}
     </>
   )
 }

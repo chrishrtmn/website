@@ -7,7 +7,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        <title>SSR styled-components with Next.js Starter</title>
+        <title>Chris Hartman</title>
       </Head>
 
       <div className='container'>
