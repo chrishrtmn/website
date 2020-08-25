@@ -9,13 +9,21 @@ export default function Header() {
     <>
       <header>
         <Wrapper>
-          <Link href='/'>Logo</Link>
+          <Link href='/'>
+            <a>Logo</a>
+          </Link>
           <div>
             <ToggleDarkMode />
             <nav>
-              <Link href='/about'>About</Link>
-              <Link href='/work'>Work</Link>
-              <Link href='/contact'>Contact</Link>
+              <Link href='/about'>
+                <a>About</a>
+              </Link>
+              <Link href='/work'>
+                <a>Work</a>
+              </Link>
+              <Link href='/contact'>
+                <a>Contact</a>
+              </Link>
             </nav>
           </div>
         </Wrapper>

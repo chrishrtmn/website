@@ -7,7 +7,7 @@ const Toggle = ({ checked, onChange }) => (
       checked={checked}
       onChange={onChange}
     />
-    <label for='toggle' />
+    <label htmlFor='toggle' />
   </span>
 )
 

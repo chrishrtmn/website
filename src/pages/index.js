@@ -12,7 +12,11 @@ export default function Index() {
 
       <div className='container'>
         <Header />
-        <Wrapper>Home</Wrapper>
+        <Wrapper>
+          <h1>Chris Hartman</h1>
+          <h2>Front-End Developer</h2>
+          <p>Site is a work in progress.</p>
+        </Wrapper>
       </div>
     </>
   )
