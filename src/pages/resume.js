@@ -3,16 +3,16 @@ import Head from 'next/head'
 import Wrapper from '../components/shared/wrapper'
 import Header from '../components/shared/header'
 
-export default function Work() {
+export default function Resume() {
   return (
     <>
       <Head>
-        <title>Work - Chris Hartman</title>
+        <title>Resume - Chris Hartman</title>
       </Head>
 
       <div className='container'>
         <Header />
-        <Wrapper>Work</Wrapper>
+        <Wrapper>Resume</Wrapper>
       </div>
     </>
   )

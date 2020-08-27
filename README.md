@@ -1,12 +1,10 @@
 # Website (WIP)
 
-### About
+### Built With
 
-- React with Next.js.
-- CSS-in-JS with styled-components.
-- Animations with Framer Motion.
-- Hosted on Vercel.
-
-### To-Do
-
-- Adjust [Dark Mode](https://github.com/donavon/use-dark-mode).
+- React with [Next.js](https://nextjs.org).
+- CSS-in-JS with [styled-components](https://styled-components.com).
+- Animations with [Framer Motion](https://www.framer.com/motion/).
+- Static pre-rendered posts using [MDX](https://github.com/mdx-js/mdx).
+- Hosted on [Vercel](http://vercel.com/).
+- Headless CMS with [Contentful](https://contentful.com).

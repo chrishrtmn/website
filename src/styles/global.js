@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
-export const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
+  /* Custom Properties */
   html {
     --color-base: #222;
 
@@ -13,21 +14,25 @@ export const GlobalStyles = createGlobalStyle`
     --font-family-heading: 'Inter', sans-serif;
   }
 
+  /* Reset */
   body {
-    color: ${({ theme }) => theme.text};
-    background: ${({ theme }) => theme.body};
-
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Tahoma, Helvetica, Arial, Roboto, sans-serif;
-    transition: all 0.50s linear;
   }
 
+  /* Base */
+  body {
+    color: ${({ theme }) => theme.text};
+    background-color: ${({ theme }) => theme.body};
+
+    transition: all 0.25s linear;
+  }
+
+  /* Themes */
   body.light-mode {
     background-color: #fff;
     color: #333;
-    transition: background-color 0.3s ease;
   }
 
   body.dark-mode {
@@ -35,3 +40,5 @@ export const GlobalStyles = createGlobalStyle`
     color: #999;
   }
 `
+
+export default GlobalStyles
