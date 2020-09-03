@@ -1,4 +1,4 @@
-export default function MetaTags() {
+export default function MetaData() {
   return (
     <>
       {/* React DevTools */}

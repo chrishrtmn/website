@@ -3,7 +3,7 @@
 
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-import MetaTags from '../utilities/metatags'
+import MetaData from '../utilities/metadata'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <MetaTags />
+          <MetaData />
         </Head>
         <body>
           <Main />

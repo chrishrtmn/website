@@ -1,6 +1,22 @@
 /* purgecss start ignore */
 @tailwind base;
+
+/*
+@font-face {
+  font-family: 'Gallaudet';
+  src: url('/fonts/gallaudet-regular.woff2') format('woff2'),
+    url('/fonts/gallaudet-regular.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
 @tailwind components;
+
+.skills span {
+  @apply inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-500 uppercase border border-gray-400 rounded;
+}
 /* purgecss end ignore */
 
 @tailwind utilities;
