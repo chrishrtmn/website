@@ -15,7 +15,7 @@
 @tailwind components;
 
 .skills span {
-  @apply inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-500 uppercase border border-gray-400 rounded;
+  @apply inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-500 uppercase border border-gray-300 rounded;
 }
 /* purgecss end ignore */
 
