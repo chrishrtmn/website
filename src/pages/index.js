@@ -58,9 +58,9 @@ export default function Index() {
           focused on building beautiful interfaces and experiences.
         </p>
 
-        <section className='my-32'>
-          <div className='flex content-between mb-6 align-middle'>
-            <h2 className='flex-grow text-2xl font-bold text-gray-800'>
+        <section className='my-16 md:my-32'>
+          <div className='flex items-center content-between mb-6'>
+            <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
               Skills &amp; Experience
             </h2>
             <span
@@ -196,7 +196,9 @@ export default function Index() {
       <div className='w-full transform -skew-y-3 bg-gradient-to-r from-secondary to-primary'>
         <section className='max-w-screen-lg grid-cols-3 mx-auto transform skew-y-3 md:grid'>
           <div className='py-6 text-center md:py-24 '>
-            <div className='text-5xl font-bold'>250+</div>
+            <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>
+              250+
+            </div>
             <div>Websites Developed</div>
             <svg
               className='h-8 mx-auto mt-2'
@@ -214,7 +216,9 @@ export default function Index() {
             </svg>
           </div>
           <div className='py-6 text-center md:py-24'>
-            <div className='text-5xl font-bold'>12+</div>
+            <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>
+              12+
+            </div>
             <div>Years of Experience</div>
             <svg
               className='h-8 mx-auto mt-2'
@@ -232,7 +236,7 @@ export default function Index() {
             </svg>
           </div>
           <div className='py-6 text-center md:py-24'>
-            <div className='text-5xl font-bold'>11</div>
+            <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>11</div>
             <div>Volume Cranked</div>
             <svg
               className='h-8 mx-auto mt-2'
@@ -254,9 +258,9 @@ export default function Index() {
 
       <div className='w-full max-w-screen-lg py-10 mx-auto'>
         <div className='w-full max-w-screen-lg px-4 mx-auto'>
-          <section className='my-32'>
-            <div className='flex content-between mb-6 align-middle'>
-              <h2 className='flex-grow text-2xl font-bold text-gray-800'>
+          <section className='my-16 md:my-32'>
+            <div className='flex items-center content-between mb-6'>
+              <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
                 Up-Close &amp; Personal
               </h2>
               <span
@@ -297,14 +301,42 @@ export default function Index() {
               })}
             </div>
 
-            <div className='mt-24 text-gray-700'>
-              <span>Site made with:</span>
+            <div className='mt-12 text-gray-700'>
+              <div>Site made with:</div>
               <ul className='ml-6 list-disc'>
                 <li>React using Next.js</li>
                 <li>Styled with Tailwind CSS</li>
                 <li>Static hosted on Vercel</li>
               </ul>
-              <div className='mt-8 italic'>Site is a work in progress.</div>
+
+              <div className='mt-6'>Visit other links of mine:</div>
+              <ul className='ml-6 list-disc'>
+                <li>
+                  <a
+                    className='text-blue-800 hover:text-blue-600'
+                    href='http://github.com/chrishrtmn'
+                  >
+                    Github
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-blue-800 hover:text-blue-600'
+                    href='http://linkedin.com/in/chrishrtmn'
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-blue-800 hover:text-blue-600'
+                    href='http://twitter.com/chrishrtmn'
+                  >
+                    Twitter
+                  </a>
+                </li>
+              </ul>
+              <div className='mt-16 italic'>Site is a work in progress.</div>
             </div>
           </section>
         </div>
