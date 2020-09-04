@@ -7,7 +7,20 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter, Arial, sans-serif'],
+        signs: ['Gallaudet, Arial, sans-serif'],
+      },
+      fontSize: {
+        massive: '10rem',
+      },
+    },
+    gradientColorStops: (theme) => ({
+      ...theme('colors'),
+      primary: '#E4FAFF',
+      secondary: '#F9EDFE',
+    }),
   },
   variants: {},
   plugins: [],

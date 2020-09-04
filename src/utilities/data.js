@@ -29,7 +29,19 @@ export const Design = [
   'UI Design',
   'Style Guides',
   'Design Systems',
-  'Prototyping',
+]
+
+export const Services = [
+  'Accessibility Solutions',
+  'Browser Testing',
+  'Design',
+  'Development',
+  'Documentations',
+  'HTML Newsletters',
+  'Site Building',
+  'Search Engine Optimization',
+  'Support',
+  'Quality Assurance',
 ]
 
 export const Principles = [
@@ -43,10 +55,24 @@ export const Principles = [
 
 export const Interests = [
   'Minimalism',
+  'Technology',
   'Entrepreneurship',
   'Onewheel',
   'Mountain Biking',
   'Traveling',
+]
+
+export const History = [
+  {
+    Company: 'Freelance',
+    Position: 'Front-End Developer',
+    Date: 'April 2020 - Current',
+  },
+  {
+    Company: 'Double Slash Studios',
+    Position: 'Founder, Lead Engineer',
+    Date: 'September 2019 - Current',
+  },
 ]
 
 export const Sites = ['Bahama Breeze']
