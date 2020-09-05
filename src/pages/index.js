@@ -266,7 +266,7 @@ export default function Index() {
 
       <div className='w-full max-w-screen-lg py-10 mx-auto'>
         <div className='w-full max-w-screen-lg px-4 mx-auto'>
-          <section className='mt-16 md:mt-32'>
+          <section className='mt-8 md:mt-16'>
             <div className='flex items-center content-between mb-6'>
               <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
                 Up-Close &amp; Personal
