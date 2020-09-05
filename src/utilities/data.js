@@ -65,15 +65,16 @@ export const Interests = [
 
 export const Software = [
   'Safari',
+  'Apple Music',
+  'Apple Notes',
   'Visual Studio Code',
   'Adobe Creative Suite',
   'Figma',
-  'Apple Music',
 ]
 
 export const Hardware = [
   '16-inch Macbook Pro (2019)',
-  'Dell UltraSharp 38-inch Curved Monitor (U3818DW)',
+  'Dell UltraSharp 38-inch Curved Monitor',
   'Apple Magic Keyboard',
   'Logitech MX Master 2S Wireless Mouse',
   'Autonomous SmartDesk 2',

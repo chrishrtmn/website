@@ -63,7 +63,7 @@ export default function Index() {
           <strong className='font-bold text-gray-800'>
             Front-End Developer
           </strong>{' '}
-          focused on building beautiful interfaces and experiences.
+          focused on building beautiful user interfaces and experiences.
         </p>
 
         <section className='my-16 md:my-32'>
@@ -393,21 +393,21 @@ export default function Index() {
               Profiles
             </h3>
             <div>
-              <span className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded hover:border-blue-600 hover:text-blue-600'>
-                <a href='http://github.com/chrishrtmn' target='_blank'>
+              <a href='http://github.com/chrishrtmn' target='_blank'>
+                <span className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded hover:border-blue-600 hover:text-blue-600'>
                   Github
-                </a>
-              </span>
-              <span className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded hover:border-blue-600 hover:text-blue-600'>
-                <a href='http://linkedin.com/in/chrishrtmn' target='_blank'>
+                </span>
+              </a>
+              <a href='http://linkedin.com/in/chrishrtmn' target='_blank'>
+                <span className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded hover:border-blue-600 hover:text-blue-600'>
                   LinkedIn
-                </a>
-              </span>
-              <span className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded hover:border-blue-600 hover:text-blue-600'>
-                <a href='http://twitter.com/chrishrtmn' target='_blank'>
+                </span>
+              </a>
+              <a href='http://twitter.com/chrishrtmn' target='_blank'>
+                <span className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded hover:border-blue-600 hover:text-blue-600'>
                   Twitter
-                </a>
-              </span>
+                </span>
+              </a>
             </div>
 
             <div className='mt-16 text-xs italic text-center text-gray-500'>
