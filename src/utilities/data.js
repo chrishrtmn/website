@@ -57,24 +57,35 @@ export const Interests = [
   'Minimalism',
   'Technology',
   'Entrepreneurship',
+  'Coffee',
   'Onewheel',
   'Mountain Biking',
   'Traveling',
 ]
 
-export const History = [
-  {
-    Company: 'Freelance',
-    Position: 'Front-End Developer',
-    Date: 'April 2020 - Current',
-  },
-  {
-    Company: 'Double Slash Studios',
-    Position: 'Founder, Lead Engineer',
-    Date: 'September 2019 - Current',
-  },
+export const Software = [
+  'Safari',
+  'Visual Studio Code',
+  'Adobe Creative Suite',
+  'Figma',
+  'Apple Music',
 ]
 
-export const Sites = ['Bahama Breeze']
-
-export const Projects = ['Vue-Master']
+export const Hardware = [
+  '16-inch Macbook Pro (2019)',
+  'Dell UltraSharp 38-inch Curved Monitor (U3818DW)',
+  'Apple Magic Keyboard',
+  'Logitech MX Master 2S Wireless Mouse',
+  'Autonomous SmartDesk 2',
+  'Autonomous ErgoChair 2',
+  'Audioengine A5 Powered Speakers',
+  'Audioengine S8 Powered Subwoofer',
+  'Sony A6400 Mirrorless Camera',
+  '35mm Sigma Prime Lens',
+  '16mm Sigma Prime Lens',
+  'Elgato Cam Link 4K',
+  'Elgato Key Light',
+  'Elgato Stream Deck Mini',
+  'Apple iPhone 11 Pro',
+  'Apple Watch Series 4',
+]
