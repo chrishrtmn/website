@@ -2,7 +2,6 @@ export const Dev = [
   'HTML',
   'CSS',
   'Sass',
-  'PostCSS',
   'styled-components',
   'Tailwind CSS',
   'JavaScript',
@@ -43,7 +42,7 @@ export const Services = [
 export const Principles = [
   'Responsive Web Design',
   'DRY Patterns',
-  'Graceful Degradation',
+  'Progressive Enhancement',
   'Performance',
   'Modular Architectures',
   'Web Standards',
