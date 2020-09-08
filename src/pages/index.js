@@ -65,7 +65,9 @@ export default function Index() {
           </strong>{' '}
           focused on building beautiful user interfaces and experiences.
         </p>
+      </div>
 
+      <div className='w-full max-w-screen-lg px-4 mx-auto'>
         <section className='my-16 md:my-32'>
           <div className='flex items-center content-between mb-6'>
             <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
