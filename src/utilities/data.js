@@ -8,7 +8,6 @@ export const Dev = [
   'jQuery',
   'React.js',
   'Next.js',
-  'PHP',
   'Drupal',
   'Git',
   'Node.js',
