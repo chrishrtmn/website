@@ -8,10 +8,12 @@
 
 ### To-Do
 
+- Links to resume/companies PDFs
 - Framer Motion
 - Audio flux
 - Companies grid
-- Timeline
-- Photo mouse hover parallax
 - Optimize components
 - Optimize site performance
+- Timeline
+- Photo mouse hover parallax
+- Dark mode

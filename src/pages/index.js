@@ -8,7 +8,7 @@ import {
   Interests,
   Software,
   Hardware,
-} from '../utilities/data'
+} from '../data/data'
 
 export default function Index() {
   return (
