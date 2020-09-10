@@ -1,5 +1,5 @@
 import SVGIcon from '../svg-icon'
-import { SignKnowledge } from '../svg-signs'
+//import { SignKnowledge } from '../svg-signs'
 
 import { Dev, Design, Services, Principles } from '../../data/knowledge'
 
@@ -10,7 +10,7 @@ export default function SectionKnowledge() {
         <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
           Skills &amp; Knowledge
         </h2>
-        <SignKnowledge />
+        {/*<SignKnowledge />*/}
       </div>
 
       <h3 className='mb-1 text-gray-800 text-md'>

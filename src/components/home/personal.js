@@ -1,5 +1,5 @@
 import SVGIcon from '../svg-icon'
-import { SignPersonal } from '../svg-signs'
+//import { SignPersonal } from '../svg-signs'
 
 import { Interests, Software, Hardware } from '../../data/personal'
 
@@ -10,7 +10,7 @@ export default function Personal() {
         <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
           Up-Close &amp; Personal
         </h2>
-        <SignPersonal />
+        {/*<SignPersonal />*/}
       </div>
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
