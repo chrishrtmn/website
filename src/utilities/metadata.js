@@ -85,14 +85,6 @@ export default function MetaData() {
         content='/favicons/ms-icon-144x144.png'
       />
       <meta name='theme-color' content='#ffffff' />
-
-      {/* Fonts */}
-      {/*
-      <link
-        rel='stylesheet'
-        href='https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;700&display=swap'
-      />
-      */}
     </>
   )
 }
