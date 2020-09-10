@@ -12,7 +12,6 @@
 - GSAP animations
 - Audio flux
 - Companies grid
-- Optimize components
 - Optimize site performance
 - Timeline
 - Dark mode

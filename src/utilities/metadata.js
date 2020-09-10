@@ -88,8 +88,9 @@ export default function MetaData() {
 
       {/* Fonts */}
       <link
+        rel='preload'
         href='https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;700&display=swap'
-        rel='stylesheet'
+        as='style'
       />
     </>
   )
