@@ -8,12 +8,12 @@
 
 ### To-Do
 
-- Links to resume/companies PDFs
-- Framer Motion
+- Menu + links to pdfs
+- GSAP animations
 - Audio flux
 - Companies grid
 - Optimize components
 - Optimize site performance
 - Timeline
-- Photo mouse hover parallax
 - Dark mode
+- Maybe: Photo mouse hover parallax
