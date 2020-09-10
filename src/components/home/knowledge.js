@@ -18,16 +18,13 @@ export default function SectionKnowledge() {
       </div>
 
       <h3 className='mb-1 text-gray-800 text-md'>
-        <SVGIcon name='dev' className='inline-block w-4 h-6 mb-1 mr-2' />
+        <SVGIcon name='code' className='inline-block w-4 h-6 mb-1 mr-2' />
         Development
       </h3>
       <div>
         {Dev.map((value, index) => {
           return (
-            <span
-              key={index}
-              className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded'
-            >
+            <span key={index} className='pill'>
               {value}
             </span>
           )
@@ -35,16 +32,13 @@ export default function SectionKnowledge() {
       </div>
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
-        <SVGIcon name='design' className='inline-block w-4 h-6 mb-1 mr-2' />
+        <SVGIcon name='photograph' className='inline-block w-4 h-6 mb-1 mr-2' />
         Design
       </h3>
       <div>
         {Design.map((value, index) => {
           return (
-            <span
-              key={index}
-              className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded'
-            >
+            <span key={index} className='pill'>
               {value}
             </span>
           )
@@ -52,16 +46,16 @@ export default function SectionKnowledge() {
       </div>
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
-        <SVGIcon name='services' className='inline-block w-4 h-6 mb-1 mr-2' />
+        <SVGIcon
+          name='clipboard-check'
+          className='inline-block w-4 h-6 mb-1 mr-2'
+        />
         Services
       </h3>
       <div>
         {Services.map((value, index) => {
           return (
-            <span
-              key={index}
-              className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded'
-            >
+            <span key={index} className='pill'>
               {value}
             </span>
           )
@@ -69,16 +63,13 @@ export default function SectionKnowledge() {
       </div>
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
-        <SVGIcon name='principles' className='inline-block w-4 h-6 mb-1 mr-2' />
+        <SVGIcon name='scale' className='inline-block w-4 h-6 mb-1 mr-2' />
         Principles
       </h3>
       <div>
         {Principles.map((value, index) => {
           return (
-            <span
-              key={index}
-              className='inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded'
-            >
+            <span key={index} className='pill'>
               {value}
             </span>
           )

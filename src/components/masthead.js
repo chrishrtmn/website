@@ -19,7 +19,7 @@ export default function Masthead() {
           <strong className='font-bold text-gray-800'>
             Front-End Developer
           </strong>{' '}
-          focused on building beautiful user interfaces and experiences.
+          focused on building beautiful web user interfaces and experiences.
         </p>
       </div>
     </>
