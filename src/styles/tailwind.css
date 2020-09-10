@@ -11,12 +11,13 @@
 
 @tailwind components;
 
-.pill {
-  @apply inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded;
-}
-
-.pill:hover {
-  @apply text-blue-600 border-blue-600;
+@layer components {
+  .pill {
+    @apply inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded;
+  }
+  .pill:hover {
+    @apply text-blue-600 border-blue-600;
+  }
 }
 
 @tailwind utilities;
