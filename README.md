@@ -15,4 +15,6 @@
 - Optimize site performance
 - Timeline
 - Dark mode
+- Update metatags
+- First blog post
 - Maybe: Photo mouse hover parallax

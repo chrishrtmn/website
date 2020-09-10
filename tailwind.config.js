@@ -11,10 +11,16 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter, Arial, sans-serif'],
-        signs: ['Gallaudet, Arial, sans-serif'],
+        //signs: ['Gallaudet, Arial, sans-serif'],
       },
       fontSize: {
         massive: '10rem',
+      },
+      inset: {
+        10: '10px',
+      },
+      opacity: {
+        10: '.1',
       },
     },
     gradientColorStops: (theme) => ({

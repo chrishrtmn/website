@@ -1,5 +1,6 @@
 @tailwind base;
 
+/*
 @font-face {
   font-family: 'Gallaudet';
   src: url('/fonts/gallaudet-regular.woff2') format('woff2'),
@@ -7,7 +8,7 @@
   font-weight: 100;
   font-style: normal;
   font-display: auto;
-}
+}*/
 
 @tailwind components;
 
@@ -15,7 +16,8 @@
   .pill {
     @apply inline-block px-2 py-1 my-1 mr-2 text-xs text-gray-600 uppercase border border-gray-300 rounded;
   }
-  .pill:hover {
+
+  a:hover .pill {
     @apply text-blue-600 border-blue-600;
   }
 }

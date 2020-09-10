@@ -1,4 +1,4 @@
-import SVGIcon from '../icon'
+import SVGIcon from '../svg-icon'
 
 export default function Statistics() {
   return (
