@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter, Arial, sans-serif'],
+        //sans: ['Inter, Arial, sans-serif'],
         //signs: ['Gallaudet, Arial, sans-serif'],
       },
       fontSize: {
