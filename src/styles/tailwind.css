@@ -6,7 +6,7 @@
     url('/fonts/gallaudet-regular.woff') format('woff');
   font-weight: 100;
   font-style: normal;
-  font-display: auto;
+  font-display: block;
 }
 
 @tailwind components;
