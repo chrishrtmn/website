@@ -9,12 +9,13 @@
 ### To-Do
 
 - Menu + links to pdfs
-- GSAP animations
+- More animations
 - Audio flux
 - Companies grid
 - Optimize site performance
 - Timeline
 - Dark mode
+- Intersection observer motions
 - Update metatags
 - First blog post
-- Maybe: Photo mouse hover parallax
+- Photo mouse hover parallax
