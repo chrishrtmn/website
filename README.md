@@ -1,4 +1,4 @@
-# Website (WIP)
+# Website
 
 ### Built With
 
@@ -8,6 +8,7 @@
 
 ### To-Do
 
+- Convert Tailwind CSS to styled-components
 - Menu + links to pdfs
 - Anime.js + react-transition-group
 - Audio flux
@@ -15,7 +16,6 @@
 - Optimize site performance
 - Timeline
 - Dark mode
-- Intersection observer motions
 - Update metatags
 - First blog post
 - Photo mouse hover parallax
