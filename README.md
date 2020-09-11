@@ -15,7 +15,6 @@
 - Optimize site performance
 - Timeline
 - Dark mode
-- Intersection observer motions
 - Update metatags
 - First blog post
 - Photo mouse hover parallax
