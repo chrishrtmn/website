@@ -1,19 +1,10 @@
-import { motion } from 'framer-motion'
-
 import SVGIcon from '../svg-icons'
-//import { SignPersonal } from '../svg-signs'
-
-import { stagger, fadeInUp } from '../../utilities/motions'
 
 import { Interests, Software, Hardware } from '../../data/personal'
 
 export default function Personal() {
   return (
-    <motion.section
-      initial='initial'
-      animate='animate'
-      className='mt-8 md:mt-16'
-    >
+    <section initial='initial' animate='animate' className='mt-8 md:mt-16'>
       <div className='flex items-center content-between mb-6'>
         <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
           Up-Close &amp; Personal
@@ -28,43 +19,43 @@ export default function Personal() {
         />
         Interests
       </h3>
-      <motion.div variants={stagger}>
+      <div>
         {Interests.map((value, index) => {
           return (
-            <motion.span key={index} className='pill' variants={fadeInUp}>
+            <span key={index} className='pill'>
               {value}
-            </motion.span>
+            </span>
           )
         })}
-      </motion.div>
+      </div>
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon name='chart-pie' className='inline-block w-4 h-6 mb-1 mr-2' />
         Software
       </h3>
-      <motion.div variants={stagger}>
+      <div>
         {Software.map((value, index) => {
           return (
-            <motion.span key={index} className='pill' variants={fadeInUp}>
+            <span key={index} className='pill'>
               {value}
-            </motion.span>
+            </span>
           )
         })}
-      </motion.div>
+      </div>
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon name='chip' className='inline-block w-4 h-6 mb-1 mr-2' />
         Hardware
       </h3>
-      <motion.div variants={stagger}>
+      <div>
         {Hardware.map((value, index) => {
           return (
-            <motion.span key={index} className='pill' variants={fadeInUp}>
+            <span key={index} className='pill'>
               {value}
-            </motion.span>
+            </span>
           )
         })}
-      </motion.div>
+      </div>
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon
@@ -73,40 +64,34 @@ export default function Personal() {
         />
         Profiles
       </h3>
-      <motion.div variants={stagger}>
+      <div>
         <a
           href='http://github.com/chrishrtmn'
           target='_blank'
           rel='noopener noreferrer'
         >
-          <motion.span className='pill' variants={fadeInUp}>
-            Github
-          </motion.span>
+          <span className='pill'>Github</span>
         </a>
         <a
           href='http://linkedin.com/in/chrishrtmn'
           target='_blank'
           rel='noopener noreferrer'
         >
-          <motion.span className='pill' variants={fadeInUp}>
-            LinkedIn
-          </motion.span>
+          <span className='pill'>LinkedIn</span>
         </a>
         <a
           href='http://twitter.com/chrishrtmn'
           target='_blank'
           rel='noopener noreferrer'
         >
-          <motion.span className='pill' variants={fadeInUp}>
-            Twitter
-          </motion.span>
+          <span className='pill'>Twitter</span>
         </a>
-      </motion.div>
+      </div>
 
       <div className='mt-16 text-xs italic text-center text-gray-500'>
         Site is a work in progress. Made using React with Next.js, styled with
         Tailwind CSS, and hosted on Vercel.
       </div>
-    </motion.section>
+    </section>
   )
 }

@@ -9,7 +9,7 @@
 ### To-Do
 
 - Menu + links to pdfs
-- More animations
+- Anime.js + react-transition-group
 - Audio flux
 - Companies grid
 - Optimize site performance
