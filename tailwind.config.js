@@ -1,5 +1,5 @@
 module.exports = {
-  experimental: 'all',
+  //experimental: 'all',
   future: {
     purgeLayersByDefault: true,
     removeDeprecatedGapUtilities: true,
