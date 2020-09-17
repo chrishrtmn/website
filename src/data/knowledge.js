@@ -1,25 +1,28 @@
 export const Dev = [
   'HTML',
   'CSS',
-  'Sass',
-  'styled-components',
+  'Sass / SCSS',
   'Tailwind CSS',
+  'styled-components',
   'JavaScript',
   'jQuery',
   'React.js',
   'Next.js',
-  'Drupal',
-  'Git',
+  'Drupal ~8',
+  'PHPTemplate',
+  'ASP.NET MVC Razor',
   'Node.js',
   'Webpack',
   'Grunt.js',
+  'Git',
   'Vercel',
+  //Webflow',
 ]
 
 export const Design = [
   'Adobe Photoshop',
   'Figma',
-  'UI Design',
+  'UI / UX Design',
   'Style Guides',
   'Design Systems',
 ]
@@ -40,7 +43,7 @@ export const Services = [
 export const Principles = [
   'Responsive Web Design',
   'DRY Patterns',
-  'Progressive Enhancement',
+  'Graceful Degradation',
   'Performance',
   'Modular Architectures',
   'Web Standards',
