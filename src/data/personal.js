@@ -1,10 +1,13 @@
 export const Interests = [
+  'Coffee',
   'Minimalism',
   'Technology',
   'Entrepreneurship',
-  'Coffee',
   'Onewheel',
   'Mountain Biking',
+  'Snowboarding',
+  'Photography',
+  'Visual Design',
   'Traveling',
 ]
 
@@ -13,11 +16,13 @@ export const Software = [
   'Apple Music',
   'Apple Notes',
   'Visual Studio Code',
+  'Terminal',
   'Adobe Photoshop',
   'Figma',
 ]
 
 export const Hardware = [
+  //'ReSound ENZO² Hearing Aids',
   '16-inch Macbook Pro (2019)',
   'Dell UltraSharp 38-inch Curved Monitor',
   'Apple Magic Keyboard',

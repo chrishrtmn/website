@@ -1,6 +1,12 @@
 import SVGIcon from '../svg-icons'
 
-import { Dev, Design, Services, Principles } from '../../data/knowledge'
+import {
+  DevPreferredStack,
+  DevNoLongerPracticed,
+  Design,
+  Services,
+  Principles,
+} from '../../data/knowledge'
 
 export default function SectionKnowledge() {
   return (
@@ -10,14 +16,35 @@ export default function SectionKnowledge() {
           Relevant Skills &amp; Knowledge
         </h2>
         {/*<SignKnowledge />*/}
+        {/*Index: Hot, Warm, Cold */}
       </div>
 
       <h3 className='mb-1 text-gray-800 text-md'>
         <SVGIcon name='code' className='inline-block w-4 h-6 mb-1 mr-2' />
-        Development
+        Development{' '}
+        <span className='text-sm italic text-gray-500 md:ml-2'>
+          (Preferred Stack)
+        </span>
       </h3>
       <div>
-        {Dev.map((value, index) => {
+        {DevPreferredStack.map((value, index) => {
+          return (
+            <span key={index} className='pill'>
+              {value}
+            </span>
+          )
+        })}
+      </div>
+
+      <h3 className='mt-8 mb-1 text-gray-800 text-md'>
+        <SVGIcon name='code' className='inline-block w-4 h-6 mb-1 mr-2' />
+        Development{' '}
+        <span className='text-sm italic text-gray-500 md:ml-2'>
+          (No Longer Practiced)
+        </span>
+      </h3>
+      <div>
+        {DevNoLongerPracticed.map((value, index) => {
           return (
             <span key={index} className='pill'>
               {value}

@@ -1,24 +1,31 @@
-export const Dev = [
+export const DevPreferredStack = [
   'HTML',
   'CSS',
   'Sass / SCSS',
   'Tailwind CSS',
   'styled-components',
-  'JavaScript',
-  'jQuery',
+  'JavaScript (ES6+)',
   'React',
-  'Next',
-  'Learning: Vue 3',
-  'Learning: Nuxt',
+  'Next.js',
+  'npm / Yarn',
+  'Webpack',
+  'Parcel',
+  'Git',
+  'Amazon Web Services',
+  'Vercel',
+  'Babel',
+  'Strapi',
+]
+
+export const DevNoLongerPracticed = [
+  'Vue',
+  'jQuery',
   'Drupal 4-8',
+  'Laravel',
   'PHPTemplate',
   'ASP.NET MVC Razor',
-  'Node.js',
-  'Webpack',
-  'Grunt.js',
-  'Git',
-  'Vercel',
-  //Webflow',
+  'Bower',
+  'Grunt',
 ]
 
 export const Design = [
@@ -32,6 +39,7 @@ export const Design = [
 export const Services = [
   'Accessibility Solutions',
   'Browser Testing',
+  'Content Management',
   'Design',
   'Development',
   'Documentations',
