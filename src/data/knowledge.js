@@ -2,6 +2,7 @@ export const DevPreferredStack = [
   'HTML',
   'CSS',
   'Sass / SCSS',
+  'PostCSS',
   'Tailwind CSS',
   'styled-components',
   'JavaScript (ES6+)',
@@ -31,8 +32,8 @@ export const DevNoLongerPracticed = [
 
 export const Design = [
   'Adobe Photoshop',
-  'Design Systems',
   'Figma',
+  'Design Systems',
   'Style Guides',
   'UI / UX Design',
 ]
@@ -53,6 +54,7 @@ export const Services = [
 
 export const Principles = [
   'DRY Patterns',
+  'Empathetic Design',
   'Modular Architectures',
   'Performance',
   'Progressive Enhancement',
