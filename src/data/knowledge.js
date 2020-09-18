@@ -6,9 +6,11 @@ export const Dev = [
   'styled-components',
   'JavaScript',
   'jQuery',
-  'React.js',
-  'Next.js',
-  'Drupal ~8',
+  'React',
+  'Next',
+  'Learning: Vue 3',
+  'Learning: Nuxt',
+  'Drupal 4-8',
   'PHPTemplate',
   'ASP.NET MVC Razor',
   'Node.js',
@@ -21,10 +23,10 @@ export const Dev = [
 
 export const Design = [
   'Adobe Photoshop',
-  'Figma',
-  'UI / UX Design',
-  'Style Guides',
   'Design Systems',
+  'Figma',
+  'Style Guides',
+  'UI / UX Design',
 ]
 
 export const Services = [
@@ -41,10 +43,10 @@ export const Services = [
 ]
 
 export const Principles = [
-  'Responsive Web Design',
   'DRY Patterns',
-  'Graceful Degradation',
-  'Performance',
   'Modular Architectures',
+  'Performance',
+  'Progressive Enhancement',
+  'Responsive Web Design',
   'Web Standards',
 ]
