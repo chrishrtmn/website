@@ -10,11 +10,12 @@ export const DevPreferredStack = [
   'npm / Yarn',
   'Webpack',
   'Parcel',
+  'Babel',
   'Git',
   'Amazon Web Services',
   'Vercel',
-  'Babel',
-  'Strapi',
+  //CMS: Sanity,
+  //'CMS: Strapi',
 ]
 
 export const DevNoLongerPracticed = [

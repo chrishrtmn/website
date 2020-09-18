@@ -1,5 +1,7 @@
 import Head from 'next/head'
 
+import Footer from '../components/footer'
+
 import Masthead from '../components/masthead'
 import Knowledge from '../components/home/knowledge'
 import Statistics from '../components/home/statistics'
@@ -25,6 +27,8 @@ export default function Index() {
       <div className='w-full max-w-screen-lg px-4 py-10 mx-auto'>
         <Personal />
       </div>
+
+      <Footer />
     </>
   )
 }
