@@ -28,7 +28,7 @@ export const DevNoLongerPracticed = [
   'PHPTemplate',
   'ASP.NET MVC Razor',
   'Bower',
-  'Grunt',
+  'Gulp / Grunt',
 ]
 
 export const Design = [
@@ -60,5 +60,6 @@ export const Principles = [
   'Performance',
   'Progressive Enhancement',
   'Responsive Web Design',
-  'Web Standards (WCAG)',
+  'WCAG 2.0 Standards',
+  '508 Compliance/Accessibility',
 ]
