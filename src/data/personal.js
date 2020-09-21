@@ -13,8 +13,6 @@ export const Interests = [
 
 export const Software = [
   'Safari',
-  'Apple Music',
-  'Apple Notes',
   'Visual Studio Code',
   'Terminal',
   'Adobe Photoshop',

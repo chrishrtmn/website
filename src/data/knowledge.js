@@ -13,16 +13,17 @@ export const DevPreferredStack = [
   'Parcel',
   'Babel',
   'Git',
-  'Amazon Web Services',
   'Vercel',
-  //CMS: Sanity,
-  //'CMS: Strapi',
+  'Learning: AWS',
+  'Learning: Strapi',
+  'Learning: TypeScript',
+  //'Learning: Sanity CMS',
 ]
 
 export const DevNoLongerPracticed = [
-  'Vue',
+  'Vue ~2',
   'jQuery',
-  'Drupal 4-8',
+  'Drupal ~8',
   'Laravel',
   'PHPTemplate',
   'ASP.NET MVC Razor',
