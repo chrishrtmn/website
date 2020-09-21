@@ -9,14 +9,14 @@ export const DevPreferredStack = [
   'React',
   'Next.js',
   'npm / Yarn',
-  'Webpack',
-  'Parcel',
+  'Webpack / Rollup / Parcel',
   'Babel',
   'Git',
   'Vercel',
   'Learning: AWS',
   'Learning: Strapi',
   'Learning: TypeScript',
+  'Learning: Jest',
   //'Learning: Sanity CMS',
 ]
 

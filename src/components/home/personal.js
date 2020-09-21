@@ -29,6 +29,7 @@ export default function Personal() {
         })}
       </div>
 
+      {/*
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon name='chart-pie' className='inline-block w-4 h-6 mb-1 mr-2' />
         Software
@@ -56,6 +57,7 @@ export default function Personal() {
           )
         })}
       </div>
+      */}
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon
