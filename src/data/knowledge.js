@@ -60,5 +60,5 @@ export const Principles = [
   'Performance',
   'Progressive Enhancement',
   'Responsive Web Design',
-  'Web Standards',
+  'Web Standards (WCAG)',
 ]
