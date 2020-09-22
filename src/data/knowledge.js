@@ -16,7 +16,7 @@ export const DevPreferredStack = [
   'Learning: AWS',
   'Learning: Strapi',
   'Learning: TypeScript',
-  'Learning: Jest',
+  //'Learning: Jest',
   //'Learning: Sanity CMS',
 ]
 
@@ -24,7 +24,7 @@ export const DevNoLongerPracticed = [
   'Vue ~2',
   'jQuery',
   'Drupal ~8',
-  'Laravel',
+  'Laravel Blade',
   'PHPTemplate',
   'ASP.NET MVC Razor',
   'Bower',
