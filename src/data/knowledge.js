@@ -13,7 +13,7 @@ export const DevPreferredStack = [
   'Babel',
   'Git',
   'Vercel',
-  'Learning: AWS',
+  'Heroku',
   'Learning: Strapi',
   'Learning: TypeScript',
   //'Learning: Jest',
