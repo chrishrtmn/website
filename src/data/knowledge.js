@@ -28,7 +28,7 @@ export const DevNoLongerPracticed = [
   'PHPTemplate',
   'ASP.NET MVC Razor',
   'Bower',
-  'Gulp / Grunt',
+  'Gulp / Grunt / Laravel Mix',
 ]
 
 export const Design = [
