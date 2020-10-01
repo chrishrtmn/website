@@ -1,5 +1,4 @@
 export const Interests = [
-  'Coffee',
   'Minimalism',
   'Technology',
   'Entrepreneurship',
@@ -9,6 +8,8 @@ export const Interests = [
   'Photography',
   'Visual Design',
   'Traveling',
+  'Coffee',
+  //'Puns & Malapropisms',
 ]
 
 export const Software = [

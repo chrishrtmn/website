@@ -2,7 +2,7 @@ import SVGIcon from '../svg-icons'
 
 import {
   DevPreferredStack,
-  DevNoLongerPracticed,
+  DevMisc,
   Design,
   Services,
   Principles,
@@ -22,9 +22,9 @@ export default function SectionKnowledge() {
       <h3 className='mb-1 text-gray-800 text-md'>
         <SVGIcon name='code' className='inline-block w-4 h-6 mb-1 mr-2' />
         Development{' '}
-        <span className='text-sm italic text-gray-500 md:ml-2'>
+        {/*<span className='text-sm italic text-gray-500 md:ml-2'>
           (Preferred Stack)
-        </span>
+        </span>*/}
       </h3>
       <div>
         {DevPreferredStack.map((value, index) => {
@@ -36,15 +36,16 @@ export default function SectionKnowledge() {
         })}
       </div>
 
+      {/*
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon name='code' className='inline-block w-4 h-6 mb-1 mr-2' />
         Development{' '}
         <span className='text-sm italic text-gray-500 md:ml-2'>
-          (No Longer Practiced)
+          (DevMisc)
         </span>
       </h3>
       <div>
-        {DevNoLongerPracticed.map((value, index) => {
+        {DevMisc.map((value, index) => {
           return (
             <span key={index} className='pill'>
               {value}
@@ -52,6 +53,7 @@ export default function SectionKnowledge() {
           )
         })}
       </div>
+      */}
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon name='photograph' className='inline-block w-4 h-6 mb-1 mr-2' />
