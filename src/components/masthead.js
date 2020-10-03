@@ -26,10 +26,6 @@ export default function Masthead() {
           focused on building modern web user interfaces and experiences.
         </p>
       </div>
-
-      <div className='w-full max-w-screen-lg px-4 mx-auto'>
-        <p>This is the intro</p>
-      </div>
     </>
   )
 }
