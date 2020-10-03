@@ -69,6 +69,7 @@ export default function SectionKnowledge() {
         })}
       </div>
 
+      {/*
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon
           name='clipboard-check'
@@ -85,6 +86,7 @@ export default function SectionKnowledge() {
           )
         })}
       </div>
+      */}
 
       <h3 className='mt-8 mb-1 text-gray-800 text-md'>
         <SVGIcon name='scale' className='inline-block w-4 h-6 mb-1 mr-2' />

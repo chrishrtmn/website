@@ -6,25 +6,27 @@ export const DevPreferredStack = [
   'Tailwind CSS',
   'styled-components',
   'JavaScript',
-  //'TypeScript',
-  'jQuery',
   'React',
   'Next.js',
-  'Vue',
+  'jQuery',
   'Drupal',
-  //'Strapi',
-  'Template Engines (3)',
-  'Build Tools & Bundlers (7)',
-  'Package Managers (3)',
+  'webpack',
   'Git',
-  //'Unit Tests (Jest)',
-  //'E2E Tests (Cypress)',
+  'Vercel',
+  //'Strapi',
+  //'FaunaDB',
+  //'GraphQL',
+  //'TypeScript',
 ]
 
 export const DevMisc = [
-  'PHPTemplate / Laravel Blade / ASP.NET MVC Razor',
-  'Webpack / Babel / Rollup / Parcel / Gulp / Grunt / Laravel Mix',
-  'npm / Yarn / Bower',
+  'Vue',
+  'Source Control - Git / Subversion / TFS',
+  'Templating Engines - PHPTemplate / Twig / Laravel Blade / ASP.NET MVC Razor',
+  'Build Tools & Bundlers - webpack / Babel / Rollup / Parcel / Gulp / Grunt / Laravel Mix',
+  'Package Managers - npm / Yarn / Composer / Bower',
+  'Marketing Platforms - HubSpot / Marketo',
+  'Atlassian Products (Jira, Confluence, Bitbucket)',
 ]
 
 export const Design = [
@@ -43,6 +45,7 @@ export const Services = [
   'Development',
   'Documentations',
   'HTML Newsletters',
+  'Marketing',
   'Site Building',
   'Search Engine Optimization',
   'Support',
@@ -50,12 +53,11 @@ export const Services = [
 ]
 
 export const Principles = [
+  'Accessibility',
   'DRY Patterns',
-  'Empathetic Design',
   'Modular Architectures',
   'Performance',
   'Progressive Enhancement',
-  'Responsive Web Design',
-  'WCAG 2.0 Standards',
-  '508 Compliance/Accessibility',
+  'Responsive Design',
+  'Usability',
 ]
