@@ -89,6 +89,19 @@ export default function Personal() {
           <span className='pill'>Twitter</span>
         </a>
       </div>
+
+      <h3 className='mt-8 mb-1 text-gray-800 text-md'>
+        <SVGIcon name='paper-clip' className='inline-block w-4 h-6 mb-1 mr-2' />
+        Resume
+      </h3>
+      <div>
+        <a href='/resume.pdf' target='_blank' rel='noopener noreferrer'>
+          <span className='pill'>Resume</span>
+        </a>
+        <a href='/companies.pdf' target='_blank' rel='noopener noreferrer'>
+          <span className='pill'>Companies</span>
+        </a>
+      </div>
     </section>
   )
 }

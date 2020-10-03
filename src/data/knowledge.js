@@ -25,7 +25,7 @@ export const DevMisc = [
   'Templating Engines - PHPTemplate / Twig / Laravel Blade / ASP.NET MVC Razor',
   'Build Tools & Bundlers - webpack / Babel / Rollup / Parcel / Gulp / Grunt / Laravel Mix',
   'Package Managers - npm / Yarn / Composer / Bower',
-  'Marketing Platforms - HubSpot / Marketo',
+  'Marketing Platforms - HubSpot / Marketo / Zurb Ink',
   'Atlassian Products (Jira, Confluence, Bitbucket)',
 ]
 

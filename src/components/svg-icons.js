@@ -88,6 +88,13 @@ const getPath = (name, props) => {
           d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
         />
       )
+    case 'paper-clip':
+      return (
+        <path
+          {...props}
+          d='M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13'
+        />
+      )
     default:
       return <path />
   }
