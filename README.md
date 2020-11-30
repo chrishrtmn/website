@@ -8,13 +8,9 @@
 
 ### To-Do
 
-- Menu + links to pdfs
-- Anime.js + react-transition-group
-- Audio flux
 - Companies grid
 - Optimize site performance
-- Timeline
 - Dark mode
 - Update metatags
-- First blog post
-- Photo mouse hover parallax
+- Audio flux
+- Anime.js + react-transition-group
