@@ -6,8 +6,9 @@ export const DevPreferredStack = [
   'Tailwind CSS',
   'styled-components',
   'JavaScript',
-  'React',
+  'React.js',
   'Next.js',
+  'Vue.js',
   'jQuery',
   'Drupal',
   'PHP Template Engines',
@@ -21,7 +22,6 @@ export const DevPreferredStack = [
 ]
 
 export const DevMisc = [
-  'Vue',
   'Source Control - Git / Subversion / TFS',
   'Templating Engines - PHPTemplate / Twig / Laravel Blade / ASP.NET MVC Razor',
   'Build Tools & Bundlers - webpack / Babel / Rollup / Parcel / Gulp / Grunt / Laravel Mix',
