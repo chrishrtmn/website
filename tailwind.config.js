@@ -1,15 +1,6 @@
 module.exports = {
-  //experimental: 'all',
-  future: {
-    //purgeLayersByDefault: true,
-    removeDeprecatedGapUtilities: true,
-  },
-  purge: {
-    content: [
-      './src/components/**/*.{js,ts,jsx,tsx}',
-      './src/pages/**/*.{js,ts,jsx,tsx}',
-    ],
-  },
+  darkMode: 'media',
+  purge: ['./src/components/**/*.js', './src/pages/**/*.js'],
   theme: {
     extend: {
       fontFamily: {
@@ -28,6 +19,4 @@ module.exports = {
       secondary: '#F9EDFE',
     }),
   },
-  variants: {},
-  plugins: [],
 }
