@@ -6,6 +6,7 @@ import Masthead from '../components/masthead'
 import Knowledge from '../components/home/knowledge'
 import Statistics from '../components/home/statistics'
 import Personal from '../components/home/personal'
+import Recent from '../components/home/recent'
 
 export default function Index() {
   return (
@@ -15,6 +16,10 @@ export default function Index() {
       </Head>
 
       <Masthead />
+
+      <div className='w-full max-w-screen-lg px-4 mx-auto'>
+        <Recent />
+      </div>
 
       <div className='w-full max-w-screen-lg px-4 mx-auto'>
         <Knowledge />

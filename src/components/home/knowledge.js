@@ -11,12 +11,16 @@ import {
 export default function SectionKnowledge() {
   return (
     <section className='my-16 md:my-32'>
-      <div className='flex items-center content-between mb-6'>
+      <div className='items-center content-between mb-6 sm:flex'>
         <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
           Relevant Skills &amp; Knowledge
         </h2>
-        {/*<SignKnowledge />*/}
-        {/*Index: Hot, Warm, Cold */}
+        {/* <SignKnowledge /> */}
+        <div className='block mt-2 sm:mt-0 sm:inline-block'>
+          <span className='border-blue-300 pill'>Entry-Level</span>
+          <span className='border-green-300 pill'>Mid-Level</span>
+          <span className='border-red-300 pill'>Senior-Level</span>
+        </div>
       </div>
 
       <h3 className='mb-1 text-gray-800 text-md'>
@@ -27,13 +31,27 @@ export default function SectionKnowledge() {
         </span>*/}
       </h3>
       <div>
-        {DevPreferredStack.map((value, index) => {
+        {/* {DevPreferredStack.map((value, index) => {
           return (
             <span key={index} className='pill'>
               {value}
             </span>
           )
-        })}
+        })} */}
+        <span className='border-red-300 pill'>HTML</span>
+        <span className='border-red-300 pill'>CSS</span>
+        <span className='border-red-300 pill'>Sass</span>
+        <span className='border-red-300 pill'>Tailwind CSS</span>
+        <span className='border-red-300 pill'>styled-components</span>
+        <span className='border-green-300 pill'>JavaScript</span>
+        <span className='border-green-300 pill'>React.js</span>
+        <span className='border-green-300 pill'>Next.js</span>
+        <span className='border-blue-300 pill'>jQuery</span>
+        <span className='border-red-300 pill'>Drupal</span>
+        <span className='border-blue-300 pill'>Firebase</span>
+        <span className='border-green-300 pill'>Webpack</span>
+        <span className='border-red-300 pill'>Git</span>
+        <span className='border-red-300 pill'>NPM</span>
       </div>
 
       {/*

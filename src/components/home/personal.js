@@ -96,10 +96,14 @@ export default function Personal() {
       </h3>
       <div>
         <a href='/resume.pdf' target='_blank' rel='noopener noreferrer'>
-          <span className='pill'>Resume</span>
+          <span className='text-blue-400 border-blue-100 bg-blue-50 pill'>
+            Resume
+          </span>
         </a>
         <a href='/companies.pdf' target='_blank' rel='noopener noreferrer'>
-          <span className='pill'>Companies</span>
+          <span className='text-blue-400 border-blue-100 bg-blue-50 pill'>
+            Companies
+          </span>
         </a>
       </div>
     </section>

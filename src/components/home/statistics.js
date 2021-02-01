@@ -10,7 +10,7 @@ export default function Statistics() {
       </div>
 
       <div className='py-6 text-center md:py-24'>
-        <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>12+</div>
+        <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>13+</div>
         <div>Years of Experience</div>
         <SVGIcon name='briefcase' className='h-8 mx-auto mt-2' />
       </div>
