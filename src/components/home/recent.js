@@ -12,7 +12,7 @@ const Recent = () => {
           href='https://remotejamstack.com'
           target='_blank'
           rel='noopener'
-          className='block p-3 pb-2 sm:max-w-sm sm:mr-10 bg-gradient-to-r from-secondary to-primary'
+          className='block max-w-sm p-3 pb-2 sm:mr-10 bg-gradient-to-r from-secondary to-primary'
         >
           <Image
             src='/images/home-featured-screenshot.png'
@@ -23,7 +23,7 @@ const Recent = () => {
             priority
           />
         </a>
-        <div className='pt-5 sm:pt-6 md:pt-16 lg:pt-20'>
+        <div className='pt-5 sm:pt-4 md:pt-12 lg:pt-16'>
           <a
             className='block mb-2 font-bold text-gray-800 transition sm:text-xl text-md hover:text-red-500'
             href='https://remotejamstack.com'
