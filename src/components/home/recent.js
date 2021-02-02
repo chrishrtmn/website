@@ -80,7 +80,7 @@ const Recent = () => {
             </a>
             <p className='text-gray-500'>
               Front-end development done by me. Project built with ASP.NET
-              Razor, CSS, Sass, JavaScript, jQuery.
+              Razor, Sass, JavaScript, jQuery.
             </p>
           </div>
           <a
@@ -132,7 +132,7 @@ const Recent = () => {
             </a>
             <p className='text-gray-500'>
               Front-end development done by me. Project built with ASP.NET
-              Razor, CSS, Sass, JavaScript, jQuery.
+              Razor, Sass, JavaScript, jQuery.
             </p>
           </div>
         </div>
