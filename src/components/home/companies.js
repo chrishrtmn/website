@@ -17,7 +17,7 @@ const Companies = () => {
           <strong className='font-bold text-gray-800'>
             Projects &amp; Companies
           </strong>{' '}
-          I've had the pleasure of working on.
+          I've had the pleasure of working with.
         </h2>
       </div>
       <div className='w-full bg-gradient-to-r from-secondary to-primary'>
