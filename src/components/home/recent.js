@@ -4,7 +4,7 @@ import SVGIcon from '../svg-icons'
 const Recent = () => {
   return (
     <div className='w-full max-w-screen-lg px-4 mx-auto'>
-      <section className='my-16 md:my-32'>
+      <section className='my-20 md:my-36'>
         <h2 className='flex-grow mb-6 text-xl font-bold text-gray-800 md:text-2xl'>
           Recent Projects
         </h2>
@@ -16,7 +16,7 @@ const Recent = () => {
             className='block max-w-sm p-3 pb-2 sm:mr-10 bg-gradient-to-r from-secondary to-primary'
           >
             <Image
-              src='/images/home-featured-screenshot.png'
+              src='/images/recent-projects/remotejamstack.jpg'
               alt='Remote Jamstack screenshot'
               width={640}
               height={395}
@@ -37,12 +37,102 @@ const Recent = () => {
                 className='inline-block w-4 h-6 mb-1 mr-2'
               />{' '}
               <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
-                Status: Ongoing
+                Status: In-Progress
               </span>
             </a>
             <p className='text-gray-500'>
-              Design and development all done by me. Project built with
-              React.js, Next.js, Tailwind CSS, Firebase, Vercel.
+              Design and development done by me. Project built with React.js,
+              Next.js, Tailwind CSS, Firebase, Vercel.
+            </p>
+          </div>
+        </div>
+        <div className='my-10 sm:flex sm:my-16'>
+          <a
+            href='https://jobs.olivegarden.com'
+            target='_blank'
+            rel='noopener'
+            className='block max-w-sm p-3 pb-2 sm:hidden sm:ml-10 bg-gradient-to-r from-secondary to-primary'
+          >
+            <Image
+              src='/images/recent-projects/olivegarden.jpg'
+              alt='Olive Garden screenshot'
+              width={640}
+              height={395}
+              quality='100'
+              priority
+            />
+          </a>
+          <div className='pt-5 sm:pt-4 md:pt-12 lg:pt-16'>
+            <a
+              className='block mb-2 font-bold text-gray-800 transition sm:text-xl text-md hover:text-red-500'
+              href='https://jobs.olivegarden.com'
+              target='_blank'
+              rel='noopener'
+            >
+              Olive Garden{' '}
+              <SVGIcon
+                name='external-link'
+                className='inline-block w-4 h-6 mb-1 mr-2'
+              />{' '}
+              <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
+                Status: Live
+              </span>
+            </a>
+            <p className='text-gray-500'>
+              Front-end development done by me. Project built with ASP.NET
+              Razor, CSS, Sass, JavaScript, jQuery.
+            </p>
+          </div>
+          <a
+            href='https://jobs.olivegarden.com'
+            target='_blank'
+            rel='noopener'
+            className='hidden max-w-sm p-3 pb-2 sm:block sm:ml-10 bg-gradient-to-r from-secondary to-primary'
+          >
+            <Image
+              src='/images/recent-projects/olivegarden.jpg'
+              alt='Olive Garden screenshot'
+              width={640}
+              height={395}
+              quality='100'
+              priority
+            />
+          </a>
+        </div>
+        <div className='sm:flex'>
+          <a
+            href='https://careers.oumedicine.com'
+            target='_blank'
+            rel='noopener'
+            className='block max-w-sm p-3 pb-2 sm:mr-10 bg-gradient-to-r from-secondary to-primary'
+          >
+            <Image
+              src='/images/recent-projects/oumedicine.jpg'
+              alt='OU Medicine screenshot'
+              width={640}
+              height={395}
+              quality='100'
+            />
+          </a>
+          <div className='pt-5 sm:pt-4 md:pt-12 lg:pt-16'>
+            <a
+              className='block mb-2 font-bold text-gray-800 transition sm:text-xl text-md hover:text-red-500'
+              href='https://careers.oumedicine.com'
+              target='_blank'
+              rel='noopener'
+            >
+              OU Medicine{' '}
+              <SVGIcon
+                name='external-link'
+                className='inline-block w-4 h-6 mb-1 mr-2'
+              />{' '}
+              <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
+                Status: Live
+              </span>
+            </a>
+            <p className='text-gray-500'>
+              Front-end development done by me. Project built with ASP.NET
+              Razor, CSS, Sass, JavaScript, jQuery.
             </p>
           </div>
         </div>
