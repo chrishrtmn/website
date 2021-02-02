@@ -1,12 +1,14 @@
 import Head from 'next/head'
 
-import Footer from '../components/footer'
-
-import Masthead from '../components/masthead'
+import Masthead from '../components/home/masthead'
+// import Intro from '../components/home/intro'
+import Companies from '../components/home/companies'
+import Recent from '../components/home/recent'
 import Knowledge from '../components/home/knowledge'
 import Statistics from '../components/home/statistics'
 import Personal from '../components/home/personal'
-import Recent from '../components/home/recent'
+import Outro from '../components/home/outro'
+import Footer from '../components/footer'
 
 export default function Index() {
   return (
@@ -16,23 +18,13 @@ export default function Index() {
       </Head>
 
       <Masthead />
-
-      <div className='w-full max-w-screen-lg px-4 mx-auto'>
-        <Recent />
-      </div>
-
-      <div className='w-full max-w-screen-lg px-4 mx-auto'>
-        <Knowledge />
-      </div>
-
-      <div className='w-full transform -skew-y-3 bg-gradient-to-r from-secondary to-primary'>
-        <Statistics />
-      </div>
-
-      <div className='w-full max-w-screen-lg px-4 py-10 mx-auto'>
-        <Personal />
-      </div>
-
+      {/* <Intro /> */}
+      <Recent />
+      <Companies />
+      <Knowledge />
+      <Statistics />
+      <Personal />
+      <Outro />
       <Footer />
     </>
   )

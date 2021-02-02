@@ -58,9 +58,10 @@ export const Services = [
 export const Principles = [
   'Accessibility',
   'DRY Patterns',
+  'Graceful Degradation',
   'Modular Architectures',
   'Performance',
-  'Progressive Enhancement',
-  'Responsive Design',
+  'Responsive Web Design',
   'Usability',
+  'Web Standards Compliance',
 ]

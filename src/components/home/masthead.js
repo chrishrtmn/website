@@ -1,4 +1,4 @@
-import Nav from './nav'
+import Nav from '../nav'
 
 //import { SignName } from './svg-signs'
 
@@ -12,19 +12,19 @@ export default function Masthead() {
           <h1 className='flex-grow px-4 py-6 my-2 mr-4 text-2xl font-bold leading-none uppercase md:text-5xl lg:text-6xl'>
             Chris Hartman
           </h1>
-
           <Nav />
         </div>
       </div>
 
       <div className='w-full max-w-screen-lg px-4 mx-auto'>
-        <p className='text-lg text-gray-600 transform -skew-y-3 md:text-2xl lg:text-3xl'>
-          A design-minded{' '}
+        <p className='text-xl text-gray-800 transform -skew-y-3 md:text-2xl'>
+          Hey there! I'm a design-minded{' '}
           <strong className='font-bold text-gray-800'>
             Front-End Developer
           </strong>{' '}
           focused on building modern web user interfaces and experiences.
         </p>
+        <p className='block'></p>
       </div>
     </>
   )

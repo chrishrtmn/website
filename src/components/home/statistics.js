@@ -2,24 +2,26 @@ import SVGIcon from '../svg-icons'
 
 export default function Statistics() {
   return (
-    <section className='max-w-screen-lg grid-cols-3 mx-auto transform skew-y-3 md:grid'>
-      <div className='py-6 text-center md:py-24 '>
-        <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>250+</div>
-        <div>Websites Developed</div>
-        <SVGIcon name='globe' className='h-8 mx-auto mt-2' />
-      </div>
+    <div className='w-full transform -skew-y-3 bg-gradient-to-r from-secondary to-primary'>
+      <section className='max-w-screen-lg grid-cols-3 mx-auto sm:grid'>
+        <div className='py-6 text-center sm:py-20'>
+          <div className='text-2xl font-bold sm:text-3xl md:text-5xl'>250+</div>
+          <div>Websites Developed</div>
+          <SVGIcon name='globe' className='h-8 mx-auto mt-2' />
+        </div>
 
-      <div className='py-6 text-center md:py-24'>
-        <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>13+</div>
-        <div>Years of Experience</div>
-        <SVGIcon name='briefcase' className='h-8 mx-auto mt-2' />
-      </div>
+        <div className='py-6 text-center sm:py-20'>
+          <div className='text-2xl font-bold sm:text-3xl md:text-5xl'>13+</div>
+          <div>Years of Experience</div>
+          <SVGIcon name='briefcase' className='h-8 mx-auto mt-2' />
+        </div>
 
-      <div className='py-6 text-center md:py-24'>
-        <div className='text-2xl font-bold md:text-3xl lg:text-5xl'>11</div>
-        <div>Volume Cranked</div>
-        <SVGIcon name='volume-up' className='h-8 mx-auto mt-2' />
-      </div>
-    </section>
+        <div className='py-6 text-center sm:py-20'>
+          <div className='text-2xl font-bold sm:text-3xl md:text-5xl'>11</div>
+          <div>Volume Cranked</div>
+          <SVGIcon name='volume-up' className='h-8 mx-auto mt-2' />
+        </div>
+      </section>
+    </div>
   )
 }
