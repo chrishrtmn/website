@@ -6,8 +6,7 @@ const Outro = () => {
           Availability
         </h2>
         <p className='leading-loose md:leading-normal'>
-          I'm currently freelancing and working on side-projects. However, I am
-          available for contract work and full-time roles. Get in touch with me
+          I'm currently not available for work, but am open to opportunities. Please get in touch with me
           at{' '}
           <a href='mailto:hello@chrishrtmn.com' className='inline-block'>
             <span className='mr-0 text-blue-400 border-blue-100 bg-blue-50 pill'>
