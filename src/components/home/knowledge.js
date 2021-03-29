@@ -48,7 +48,7 @@ export default function SectionKnowledge() {
           <span className='border-green-300 pill'>React.js</span>
           <span className='border-green-300 pill'>Next.js</span>
           <span className='border-blue-300 pill'>jQuery</span>
-          <span className='border-red-300 pill'>Drupal</span>
+          <span className='border-green-300 pill'>Drupal</span>
           <span className='border-blue-300 pill'>Firebase</span>
           <span className='border-green-300 pill'>Webpack</span>
           <span className='border-red-300 pill'>Git</span>
