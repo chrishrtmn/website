@@ -32,6 +32,12 @@ const Companies = () => {
                         key={index}
                         className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
                       >
+                        Estée Lauder Companies
+                      </span>
+                      <span
+                        key={index}
+                        className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
+                      >
                         Sony Music
                       </span>
                       <span

@@ -13,7 +13,7 @@ const Recent = () => {
             href='https://remotejamstack.com'
             target='_blank'
             rel='noopener'
-            className='block max-w-sm p-3 pb-2 sm:mr-10 bg-gradient-to-r from-secondary to-primary'
+            className='block max-w-sm p-3 pb-2 sm:mr-10 bg-gradient-to-r from-secondary to-primary hover:bg-gradient-to-l hover:from-primary hover:to-secondary'
           >
             <Image
               src='/images/recent-projects/remotejamstack.jpg'
@@ -87,7 +87,7 @@ const Recent = () => {
             href='https://jobs.olivegarden.com'
             target='_blank'
             rel='noopener'
-            className='hidden max-w-sm p-3 pb-2 sm:block sm:ml-10 bg-gradient-to-r from-secondary to-primary'
+            className='hidden max-w-sm p-3 pb-2 sm:block sm:ml-10 bg-gradient-to-r from-secondary to-primary hover:bg-gradient-to-l hover:from-primary hover:to-secondary'
           >
             <Image
               src='/images/recent-projects/olivegarden.jpg'
@@ -104,7 +104,7 @@ const Recent = () => {
             href='https://careers.oumedicine.com'
             target='_blank'
             rel='noopener'
-            className='block max-w-sm p-3 pb-2 sm:mr-10 bg-gradient-to-r from-secondary to-primary'
+            className='block max-w-sm p-3 pb-2 sm:mr-10 bg-gradient-to-r from-secondary to-primary hover:bg-gradient-to-l hover:from-primary hover:to-secondary'
           >
             <Image
               src='/images/recent-projects/oumedicine.jpg'
