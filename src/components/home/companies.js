@@ -13,11 +13,11 @@ const Companies = () => {
     <div className='my-20 transform -skew-y-3 md:my-36'>
       <div className='w-full max-w-screen-lg px-4 mx-auto'>
         <h2 className='mb-4 text-xl text-gray-800 md:text-2xl'>
-          Some{' '}
+          Several{' '}
           <strong className='font-bold text-gray-800'>
             Projects &amp; Companies
           </strong>{' '}
-          I've had the pleasure of working with.
+          I've had the pleasure of working with:
         </h2>
       </div>
       <div className='w-full bg-gradient-to-r from-secondary to-primary'>
