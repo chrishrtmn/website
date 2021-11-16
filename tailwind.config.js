@@ -3,9 +3,6 @@ module.exports = {
   purge: ['./src/components/**/*.js', './src/pages/**/*.js'],
   theme: {
     extend: {
-      fontFamily: {
-        //signs: ['Gallaudet, Arial, sans-serif'],
-      },
       inset: {
         10: '10px',
       },

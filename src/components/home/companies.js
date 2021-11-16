@@ -32,6 +32,18 @@ const Companies = () => {
                         key={index}
                         className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
                       >
+                        OU Medicine
+                      </span>
+                      <span
+                        key={index}
+                        className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
+                      >
+                        American Salon
+                      </span>
+                      <span
+                        key={index}
+                        className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
+                      >
                         Estée Lauder Companies
                       </span>
                       <span
@@ -74,12 +86,6 @@ const Companies = () => {
                         key={index}
                         className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
                       >
-                        American Salon
-                      </span>
-                      <span
-                        key={index}
-                        className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
-                      >
                         GNC
                       </span>
                       <span
@@ -87,12 +93,6 @@ const Companies = () => {
                         className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
                       >
                         Value City Furniture
-                      </span>
-                      <span
-                        key={index}
-                        className='mx-4 md:mx-6 lg:mx-8 whitespace-nowrap'
-                      >
-                        OU Medicine
                       </span>
                     </>
                   )}

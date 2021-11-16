@@ -2,14 +2,13 @@ export const Interests = [
   'Minimalism',
   'Technology',
   'Entrepreneurship',
-  'Onewheel',
   'Mountain Biking',
   'Snowboarding',
+  'Onewheel',
   'Photography',
   'Visual Design',
-  'Traveling',
-  'Coffee',
-  //'Puns & Malapropisms',
+  'Coffee & Tea',
+  'Puns & Malapropisms',
 ]
 
 export const Software = [

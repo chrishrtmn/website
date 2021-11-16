@@ -1,6 +1,6 @@
 import SVGIcon from '../svg-icons'
 
-import { Interests, Software, Hardware } from '../../data/personal'
+import { Interests } from '../../data/personal'
 
 export default function Personal() {
   return (
@@ -10,7 +10,6 @@ export default function Personal() {
           <h2 className='flex-grow text-xl font-bold text-gray-800 md:text-2xl'>
             Up-Close &amp; Personal
           </h2>
-          {/*<SignPersonal />*/}
         </div>
 
         <h3 className='mt-8 mb-1 text-gray-800 text-md'>
@@ -29,36 +28,6 @@ export default function Personal() {
             )
           })}
         </div>
-
-        {/*
-      <h3 className='mt-8 mb-1 text-gray-800 text-md'>
-        <SVGIcon name='chart-pie' className='inline-block w-4 h-6 mb-1 mr-2' />
-        Software
-      </h3>
-      <div>
-        {Software.map((value, index) => {
-          return (
-            <span key={index} className='pill'>
-              {value}
-            </span>
-          )
-        })}
-      </div>
-
-      <h3 className='mt-8 mb-1 text-gray-800 text-md'>
-        <SVGIcon name='chip' className='inline-block w-4 h-6 mb-1 mr-2' />
-        Hardware
-      </h3>
-      <div>
-        {Hardware.map((value, index) => {
-          return (
-            <span key={index} className='pill'>
-              {value}
-            </span>
-          )
-        })}
-      </div>
-      */}
 
         <h3 className='mt-8 mb-1 text-gray-800 text-md'>
           <SVGIcon
@@ -97,7 +66,7 @@ export default function Personal() {
           </a>
         </div>
 
-        <h3 className='mt-8 mb-1 text-gray-800 text-md'>
+        {/* <h3 className='mt-8 mb-1 text-gray-800 text-md'>
           <SVGIcon
             name='paper-clip'
             className='inline-block w-4 h-6 mb-1 mr-2'
@@ -115,7 +84,7 @@ export default function Personal() {
               Companies.pdf
             </span>
           </a>
-        </div>
+        </div> */}
       </section>
     </div>
   )

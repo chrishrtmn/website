@@ -18,9 +18,9 @@ export const DevPreferredStack = [
   // 'Webpack',
   // 'Git',
   // 'Vercel / Netlify',
-  //'Strapi',
-  //'FaunaDB',
-  //'GraphQL',
+  // 'Strapi',
+  // 'FaunaDB',
+  // 'GraphQL',
 ]
 
 export const DevMisc = [
@@ -33,10 +33,9 @@ export const DevMisc = [
 ]
 
 export const Design = [
-  'Adobe Photoshop',
+  'Affinity Designer',
   'Figma',
   'Design Systems',
-  'Style Guides',
   'UI / UX Design',
 ]
 

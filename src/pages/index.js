@@ -1,7 +1,6 @@
 import Head from 'next/head'
 
 import Masthead from '../components/home/masthead'
-// import Intro from '../components/home/intro'
 import Companies from '../components/home/companies'
 import Recent from '../components/home/recent'
 import Knowledge from '../components/home/knowledge'
@@ -18,7 +17,6 @@ export default function Index() {
       </Head>
 
       <Masthead />
-      {/* <Intro /> */}
       <Recent />
       <Companies />
       <Knowledge />

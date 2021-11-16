@@ -34,14 +34,15 @@ const Recent = () => {
               Remote Jamstack{' '}
               <SVGIcon
                 name='external-link'
-                className='inline-block w-4 h-6 mb-1 mr-2'
+                className='inline-block w-4 h-6 mr-2'
               />{' '}
-              <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
+              <p className='pill font-normal'>2020-2021</p>
+              {/* <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
                 Status: In-Progress
-              </span>
+              </span> */}
             </a>
             <p className='text-gray-500'>
-              Design and development done by me. Project built with React.js,
+              Full design and development. Project built with React.js,
               Next.js, Tailwind CSS, Firebase, Vercel.
             </p>
           </div>
@@ -72,15 +73,16 @@ const Recent = () => {
               Olive Garden{' '}
               <SVGIcon
                 name='external-link'
-                className='inline-block w-4 h-6 mb-1 mr-2'
+                className='inline-block w-4 h-6 mr-2'
               />{' '}
-              <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
+              <p className='pill font-normal'>2020</p>
+              {/* <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
                 Status: Live
-              </span>
+              </span> */}
             </a>
             <p className='text-gray-500'>
-              Front-end development done by me. Project built with ASP.NET
-              Razor, Sass, JavaScript, jQuery.
+              Front-end development. Project built with ASP.NET
+              Razor Templating, Sass, jQuery.
             </p>
           </div>
           <a
@@ -124,15 +126,16 @@ const Recent = () => {
               OU Medicine{' '}
               <SVGIcon
                 name='external-link'
-                className='inline-block w-4 h-6 mb-1 mr-2'
+                className='inline-block w-4 h-6 mr-2'
               />{' '}
-              <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
+              <p className='pill font-normal'>2020</p>
+              {/* <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
                 Status: Live
-              </span>
+              </span> */}
             </a>
             <p className='text-gray-500'>
-              Front-end development done by me. Project built with ASP.NET
-              Razor, Sass, JavaScript, jQuery.
+              Front-end development. Project built with ASP.NET
+              Razor Templating, Sass, jQuery.
             </p>
           </div>
         </div>
