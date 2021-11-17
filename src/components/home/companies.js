@@ -22,7 +22,7 @@ const Companies = () => {
           <SVGIcon
             name='corner-right-down'
             fill='text-gray-800'
-            className='inline-block mt-4 w-7 h-7'
+            className='inline-block w-4 h-4 mt-1 md:mt-4 md:h-7 md:w-7'
           />
         </h2>
       </div>
