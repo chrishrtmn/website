@@ -14,7 +14,6 @@
     "npm": "^7.20.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hotjar": "^4.0.0",
     "react-page-visibility": "^6.4.0",
     "react-ticker": "^1.2.2"
   },
