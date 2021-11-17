@@ -1,9 +1,6 @@
 export default function MetaData() {
   return (
     <>
-      {/* React DevTools */}
-      {/* <script src='http://localhost:8097'></script> */}
-
       {/* Primary Meta Tags */}
       <meta name='title' content='Chris Hartman' />
       <meta name='description' content='Portfolio and posts by Chris Hartman' />
