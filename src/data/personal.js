@@ -9,6 +9,7 @@ export const Interests = [
   'Visual Design',
   'Coffee & Tea',
   'Puns & Malapropisms',
+  'Pop Culture & Memes',
 ]
 
 export const Software = [

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Ticker from 'react-ticker'
 import PageVisibility from 'react-page-visibility'
+import SVGIcon from '../svg-icons'
 
 const Companies = () => {
   const [pageIsVisible, setPageIsVisible] = useState(true)
@@ -17,7 +18,12 @@ const Companies = () => {
           <strong className='font-bold text-gray-800'>
             Projects &amp; Companies
           </strong>{' '}
-          I've had the pleasure of working with:
+          I've had the pleasure of working with{' '}
+          <SVGIcon
+            name='corner-right-down'
+            fill='text-gray-800'
+            className='inline-block mt-4 w-7 h-7'
+          />
         </h2>
       </div>
       <div className='w-full bg-gradient-to-r from-secondary to-primary'>

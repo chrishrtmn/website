@@ -35,15 +35,14 @@ const Recent = () => {
               <SVGIcon
                 name='external-link'
                 className='inline-block w-4 h-6 mr-2'
-              />{' '}
-              <p className='pill font-normal'>2020-2021</p>
-              {/* <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
-                Status: In-Progress
-              </span> */}
+              />
             </a>
+            <div className='mb-2 font-normal text-red-400 border-red-300 pill'>
+              In-Progress
+            </div>
             <p className='text-gray-500'>
-              Full design and development. Project built with React.js,
-              Next.js, Tailwind CSS, Firebase, Vercel.
+              Full design and development. Project built with React.js, Next.js,
+              Tailwind CSS, Firebase, Vercel.
             </p>
           </div>
         </div>
@@ -74,15 +73,14 @@ const Recent = () => {
               <SVGIcon
                 name='external-link'
                 className='inline-block w-4 h-6 mr-2'
-              />{' '}
-              <p className='pill font-normal'>2020</p>
-              {/* <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
-                Status: Live
-              </span> */}
+              />
             </a>
+            <div className='mb-2 font-normal text-red-400 border-red-300 pill'>
+              2020
+            </div>
             <p className='text-gray-500'>
-              Front-end development. Project built with ASP.NET
-              Razor Templating, Sass, jQuery.
+              Front-end development. Project built with ASP.NET Razor
+              Templating, Sass, jQuery.
             </p>
           </div>
           <a
@@ -127,15 +125,14 @@ const Recent = () => {
               <SVGIcon
                 name='external-link'
                 className='inline-block w-4 h-6 mr-2'
-              />{' '}
-              <p className='pill font-normal'>2020</p>
-              {/* <span className='block mt-1 text-xs font-normal text-red-400 uppercase sm:text-sm md:inline-block md:ml-2 md:mt-0'>
-                Status: Live
-              </span> */}
+              />
             </a>
+            <div className='mb-2 font-normal text-red-400 border-red-300 pill'>
+              2020
+            </div>
             <p className='text-gray-500'>
-              Front-end development. Project built with ASP.NET
-              Razor Templating, Sass, jQuery.
+              Front-end development. Project built with ASP.NET Razor
+              Templating, Sass, jQuery.
             </p>
           </div>
         </div>
