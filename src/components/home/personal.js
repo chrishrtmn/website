@@ -47,7 +47,7 @@ export default function Personal() {
             </span>
           </a>
           <a
-            href='http://linkedin.com/in/chrishrtmn'
+            href='https://www.linkedin.com/in/chrishrtmn'
             target='_blank'
             rel='noopener noreferrer'
           >
