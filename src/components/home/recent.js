@@ -38,7 +38,7 @@ const Recent = () => {
               />
             </a>
             <div className='mb-2 font-normal text-red-400 border-red-300 pill'>
-              In-Progress
+              On Hold
             </div>
             <p className='text-gray-500'>
               Full design and development. Project built with React.js, Next.js,
@@ -46,7 +46,7 @@ const Recent = () => {
             </p>
           </div>
         </div>
-        <div className='my-10 sm:flex sm:my-16'>
+        {/* <div className='my-10 sm:flex sm:my-16'>
           <a
             href='https://jobs.olivegarden.com'
             target='_blank'
@@ -135,7 +135,7 @@ const Recent = () => {
               Templating, Sass, jQuery.
             </p>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   )

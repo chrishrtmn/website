@@ -47,15 +47,6 @@ export default function Personal() {
             </span>
           </a>
           <a
-            href='https://www.linkedin.com/in/chrishrtmn'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <span className='text-blue-400 border-blue-100 bg-blue-50 pill'>
-              LinkedIn
-            </span>
-          </a>
-          <a
             href='http://twitter.com/chrishrtmn'
             target='_blank'
             rel='noopener noreferrer'
@@ -65,26 +56,6 @@ export default function Personal() {
             </span>
           </a>
         </div>
-
-        {/* <h3 className='mt-8 mb-1 text-gray-800 text-md'>
-          <SVGIcon
-            name='paper-clip'
-            className='inline-block w-4 h-6 mb-1 mr-2'
-          />
-          Resume &amp; Examples
-        </h3>
-        <div>
-          <a href='/resume.pdf' target='_blank' rel='noopener noreferrer'>
-            <span className='text-blue-400 border-blue-100 bg-blue-50 pill'>
-              Resume.pdf
-            </span>
-          </a>
-          <a href='/companies.pdf' target='_blank' rel='noopener noreferrer'>
-            <span className='text-blue-400 border-blue-100 bg-blue-50 pill'>
-              Companies.pdf
-            </span>
-          </a>
-        </div> */}
       </section>
     </div>
   )

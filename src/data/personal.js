@@ -2,18 +2,14 @@ export const Interests = [
   'Minimalism',
   'Technology',
   'Entrepreneurship',
-  'Mountain Biking',
+  'Cats',
+  'Biking',
   'Snowboarding',
-  'Onewheel',
-  'Photography',
   'Visual Design',
-  'Coffee & Tea',
-  'Puns & Malapropisms',
-  'Pop Culture & Memes',
 ]
 
 export const Software = [
-  'Safari',
+  'Google Chrome',
   'Visual Studio Code',
   'Terminal',
   'Adobe Photoshop',
@@ -22,7 +18,7 @@ export const Software = [
 
 export const Hardware = [
   //'ReSound ENZO² Hearing Aids',
-  '16-inch Macbook Pro (2019)',
+  'Apple Macbook Pro 16-inch (2019)',
   'Dell UltraSharp 38-inch Curved Monitor',
   'Apple Magic Keyboard',
   'Logitech MX Master 2S Wireless Mouse',
@@ -34,4 +30,5 @@ export const Hardware = [
   '16mm & 30mm Sigma Prime Lens',
   'Apple iPhone 11 Pro',
   'Apple Watch Series 4',
+  'Apple iPad Air (2021)',
 ]

@@ -6,8 +6,6 @@ import Recent from '../components/home/recent'
 import Knowledge from '../components/home/knowledge'
 import Statistics from '../components/home/statistics'
 import Personal from '../components/home/personal'
-import Outro from '../components/home/outro'
-import Footer from '../components/footer'
 
 export default function Index() {
   return (
@@ -22,8 +20,6 @@ export default function Index() {
       <Knowledge />
       <Statistics />
       <Personal />
-      <Outro />
-      <Footer />
     </>
   )
 }

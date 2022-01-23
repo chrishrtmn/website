@@ -18,12 +18,7 @@ const Companies = () => {
           <strong className='font-bold text-gray-800'>
             Projects &amp; Companies
           </strong>{' '}
-          I've had the pleasure of working with{' '}
-          <SVGIcon
-            name='corner-right-down'
-            fill='text-gray-800'
-            className='inline-block w-4 h-4 mt-1 md:mt-4 md:h-7 md:w-7'
-          />
+          I've had the pleasure of working with
         </h2>
       </div>
       <div className='w-full bg-gradient-to-r from-secondary to-primary'>

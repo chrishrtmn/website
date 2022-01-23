@@ -5,7 +5,7 @@ export default function Statistics() {
     <div className='w-full transform -skew-y-3 bg-gradient-to-r from-secondary to-primary shake-container'>
       <section className='max-w-screen-lg grid-cols-3 mx-auto sm:grid'>
         <div className='py-6 text-center sm:py-20'>
-          <div className='text-2xl font-bold sm:text-3xl md:text-5xl'>250+</div>
+          <div className='text-2xl font-bold sm:text-3xl md:text-5xl'>260+</div>
           <div>Websites Developed</div>
           <SVGIcon name='globe' className='h-8 mx-auto mt-2' />
         </div>
