@@ -12,15 +12,6 @@ const Companies = () => {
 
   return (
     <div className='my-20 transform -skew-y-3 md:my-36'>
-      <div className='w-full max-w-screen-lg px-4 mx-auto'>
-        <h2 className='mb-4 text-xl text-gray-800 md:text-2xl'>
-          Several{' '}
-          <strong className='font-bold text-gray-800'>
-            Projects &amp; Companies
-          </strong>{' '}
-          I've had the pleasure of working with
-        </h2>
-      </div>
       <div className='w-full bg-gradient-to-r from-secondary to-primary'>
         <div className='pt-8 pb-6 mx-auto text-2xl lg:py-20 lg:text-3xl'>
           <PageVisibility onChange={handleVisibilityChange}>

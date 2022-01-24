@@ -14,7 +14,7 @@ export default function SectionKnowledge() {
       <section className='my-16 md:my-32'>
         <div className='mb-6'>
           <h2 className='text-xl font-bold text-gray-800 md:text-2xl'>
-            Relevant Skills &amp; Knowledge
+            Skills &amp; Knowledge
           </h2>
         </div>
 
