@@ -12,8 +12,8 @@ export default function Page() {
       <p>
         Specialized in web development. My passion lies in crafting innovative
         solutions that blend technology and design with a focus on social
-        impact, aiming to make a meaningful difference in people's lives. I'm
-        dedicated to utilizing the most recent and advanced frontend
+        impact, aiming to make a meaningful difference in people&apos;s lives.
+        I&apos;m dedicated to utilizing the most recent and advanced frontend
         technologies to improve user accessibility and maximize web application
         performance. My goal is to provide a smooth and effective user
         experience.
@@ -45,7 +45,7 @@ export default function Page() {
       </div>
       <h1>Education</h1>
       <p>Western Governers University</p>
-      <p>Bachelor's Degree in Computer Science</p>
+      <p>Bachelor&apos;s Degree in Computer Science</p>
       <h1>Skills</h1>
       <i>JavaScript</i> <i>JavaScript</i> <i>JavaScript</i> <i>JavaScript</i>{" "}
       <i>JavaScript</i>
