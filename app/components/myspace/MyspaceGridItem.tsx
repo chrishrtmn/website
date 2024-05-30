@@ -27,7 +27,12 @@ export default function MyspaceGridItem({
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       {items?.[0]?.imagePath && (
-        <Image src={items[0].imagePath} alt={id} width={100} height={100} />
+        <Image
+          src={items[0].imagePath}
+          alt={`Image of ${id}`}
+          width={100}
+          height={100}
+        />
       )}
       {id}
     </div>

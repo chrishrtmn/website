@@ -5,9 +5,9 @@ const MyspaceContainer = () => {
   return (
     <>
       <section className="max-w-prose">
-        <h4 className="bg-orange-300 font-semibold text-orange-600">
+        <div className="bg-orange-200 font-semibold text-orange-900">
           Chris&apos;s Friend Space
-        </h4>
+        </div>
         <div>
           Chris has <span className="font-semibold text-red-600">123</span>{" "}
           Friends.

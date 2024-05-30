@@ -7,7 +7,10 @@ export default function Home() {
     <div className="mx-auto max-w-[1280px] px-4 lg:px-10">
       <Header />
       <Hero />
-      <MyspaceContainer />
+      <main>
+        <MyspaceContainer />
+      </main>
+      <footer>Footer</footer>
     </div>
   );
 }
