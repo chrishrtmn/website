@@ -1,6 +1,8 @@
+"use client";
+
 import { useState } from "react";
 
-function Chat() {
+export default function MyspaceTextarea() {
   const [inputValue, setInputValue] = useState("");
   const [conversation, setConversation] = useState(["Add Comment"]);
 
@@ -35,5 +37,3 @@ function Chat() {
     </div>
   );
 }
-
-export default Chat;

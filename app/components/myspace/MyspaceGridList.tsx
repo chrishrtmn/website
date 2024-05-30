@@ -1,15 +1,15 @@
+"use client";
+
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
+import { useState } from "react";
 import handleDragEnd from "../../helpers/handleDragEnd";
 import useDragAndDrop from "../../helpers/useDragAndDrop";
-import MyspaceItem from "./MyspaceItem";
+import { MyspaceFriends } from "../../utilities/constants";
+import MyspaceGridItem from "./MyspaceGridItem";
 
-interface MyspaceListProps {
-  items: any[];
-  setItems: (items: any[]) => void;
-}
-
-const MyspaceList: React.FC<MyspaceListProps> = ({ items, setItems }) => {
+const MyspaceGridList = () => {
+  const [items, setItems] = useState(MyspaceFriends);
   const { sensors, id } = useDragAndDrop();
 
   const handleDragEndFunction = (event: DragEndEvent) => {
@@ -30,7 +30,7 @@ const MyspaceList: React.FC<MyspaceListProps> = ({ items, setItems }) => {
       >
         <div className="myspace-grid-nested grid grid-cols-2 gap-4 md:grid-cols-4 md:grid-rows-2">
           {items.map((item) => (
-            <MyspaceItem key={item.name} id={item.name} items={[item]} />
+            <MyspaceGridItem key={item.name} id={item.name} items={[item]} />
           ))}
         </div>
       </SortableContext>
@@ -38,4 +38,4 @@ const MyspaceList: React.FC<MyspaceListProps> = ({ items, setItems }) => {
   );
 };
 
-export default MyspaceList;
+export default MyspaceGridList;

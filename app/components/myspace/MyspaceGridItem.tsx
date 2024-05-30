@@ -2,8 +2,9 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
 
-export default function MyspaceItem({
+export default function MyspaceGridItem({
   id,
+  items,
 }: {
   id: string;
   items: { name: string; imagePath: string }[];
@@ -23,18 +24,11 @@ export default function MyspaceItem({
     zIndex: isDragging ? 2 : 1,
   };
 
-  const myspaceImages: { [key: string]: string } = {
-    Tom: "tom.webp",
-  };
-
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Image
-        src={`/images/myspace/${myspaceImages[id] || "default.webp"}`}
-        alt={id}
-        width={100}
-        height={100}
-      />
+      {items?.[0]?.imagePath && (
+        <Image src={items[0].imagePath} alt={id} width={100} height={100} />
+      )}
       {id}
     </div>
   );
