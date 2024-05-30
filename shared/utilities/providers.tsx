@@ -4,13 +4,22 @@ import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
 
 if (typeof window !== "undefined") {
-  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-    capture_pageview: false,
-    capture_pageleave: true,
-  });
+  const postHogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  const postHogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+
+  if (postHogKey && postHogHost) {
+    posthog.init(postHogKey, {
+      api_host: postHogHost,
+    });
+  } else {
+    console.error("PostHog environment variables are not set.");
+  }
 }
 
-export function PHProvider({ children }: { children: React.ReactNode }) {
+interface CSPostHogProviderProps {
+  children: React.ReactNode;
+}
+
+export function CSPostHogProvider({ children }: CSPostHogProviderProps) {
   return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
 }

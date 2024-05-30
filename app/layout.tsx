@@ -1,8 +1,8 @@
 import { VercelToolbar } from "@vercel/toolbar/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import PostHogPageView from "../shared/components/PostHogPageView";
-import { PHProvider } from "../shared/utilities/providers";
+// import PostHogPageView from "../shared/components/PostHogPageView";
+import { CSPostHogProvider } from "../shared/utilities/providers";
 import "./styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -48,13 +48,13 @@ export default function RootLayout({
   const shouldInjectToolbar = process.env.NODE_ENV === "development";
   return (
     <html lang="en">
-      <PHProvider>
+      <CSPostHogProvider>
         <body className={inter.className}>
-          <PostHogPageView />
+          {/* <PostHogPageView /> */}
           {children}
           {shouldInjectToolbar && <VercelToolbar />}
         </body>
-      </PHProvider>
+      </CSPostHogProvider>
     </html>
   );
 }
