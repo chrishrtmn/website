@@ -2,10 +2,10 @@ export default function robots() {
   return {
     rules: [
       {
-        userAgent: '*',
+        userAgent: "*",
       },
     ],
-    sitemap: 'https://chrishrtmn.com/sitemap.xml',
-    host: 'https://chrishrtmn.com',
+    // sitemap: 'https://chrishrtmn.com/sitemap.xml',
+    host: "https://chrishrtmn.com",
   };
 }
