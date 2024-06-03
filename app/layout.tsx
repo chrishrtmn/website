@@ -1,7 +1,6 @@
 import { VercelToolbar } from "@vercel/toolbar/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-// import PostHogPageView from "../shared/components/PostHogPageView";
 import { CSPostHogProvider } from "../shared/utilities/providers";
 import "./styles/globals.css";
 
@@ -50,7 +49,6 @@ export default function RootLayout({
     <html lang="en">
       <CSPostHogProvider>
         <body className={inter.className}>
-          {/* <PostHogPageView /> */}
           {children}
           {shouldInjectToolbar && <VercelToolbar />}
         </body>
