@@ -1,4 +1,5 @@
 import Header from "../shared/components/Header";
+import AnimatedLogoCloud from "./(home)/AnimatedLogoCloud";
 import Hero from "./(home)/Hero";
 import MyspaceContainer from "./components/myspace/MyspaceContainer";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <AnimatedLogoCloud />
         <MyspaceContainer />
       </main>
       <footer>Footer</footer>

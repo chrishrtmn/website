@@ -19,6 +19,9 @@ export default function MyspaceTextarea() {
         onSubmit={handleSubmit}
         className="flex w-full max-w-prose rounded-md border-0 p-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       >
+        <label htmlFor="input" className="sr-only">
+          Add comment
+        </label>
         <input
           name="prompt"
           value={input}
@@ -26,7 +29,7 @@ export default function MyspaceTextarea() {
           id="input"
           className="flex-grow"
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Add Comment</button>
       </form>
     </>
   );
