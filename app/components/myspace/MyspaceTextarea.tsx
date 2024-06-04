@@ -4,7 +4,7 @@ import { useChat } from "ai/react";
 
 export default function MyspaceTextarea() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "api/chat",
+    api: "api/comments",
   });
 
   return (
