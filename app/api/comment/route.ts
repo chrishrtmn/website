@@ -1,19 +1,17 @@
 import { openai } from "@ai-sdk/openai";
 import { streamText, type CoreMessage } from "ai";
 
-const MAX_REQUESTS_PER_MINUTE = 5;
+const MAX_REQUESTS_PER_MINUTE = 2;
 const RESET_INTERVAL = 60 * 1000; // 1 minute in milliseconds
 
 const userUsage = new Map<string, number>();
 
-// const myspaceUsernames = [
-//   "xXxlilpunkxXx",
-//   "Sk8erGurl88",
-//   "Emo_Eddie_2006",
-//   "PunkRockPrincess",
-//   "BrownEyedGirly89",
-//   "iHeartFallOutBoy",
-// ];
+// function generateMyspaceUsername() {
+//   const randomIndex = Math.floor(Math.random() * MyspaceFriends.length);
+//   const baseUsername = MyspaceFriends[randomIndex];
+//   const suffix = Math.floor(Math.random() * 100).toString();
+//   return `${baseUsername}${suffix}`;
+// }
 
 export async function POST(req: Request) {
   const { messages }: { messages: CoreMessage[] } = await req.json();
@@ -39,7 +37,7 @@ export async function POST(req: Request) {
 
   userUsage.set(userId, (userUsage.get(userId) || 0) + 1);
 
-  // const myspaceUsernames = generateMyspaceUsername();
+  // const username = generateMyspaceUsername();
 
   const result = await streamText({
     model: openai("gpt-3.5-turbo"),
@@ -48,20 +46,9 @@ export async function POST(req: Request) {
     messages,
   });
 
-  // result.forEach((message: CoreMessage) => {
-  //   message.content = `${myspaceUsernames}: ${message.content}`;
-  // });
-
   setTimeout(() => {
     userUsage.delete(userId);
   }, RESET_INTERVAL);
 
   return result.toAIStreamResponse();
 }
-
-// function generateMyspaceUsername() {
-//   const randomIndex = Math.floor(Math.random() * myspaceUsernames.length);
-//   const baseUsername = myspaceUsernames[randomIndex];
-//   const suffix = Math.floor(Math.random() * 100).toString();
-//   return `${baseUsername}${suffix}`;
-// }

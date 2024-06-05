@@ -7,7 +7,7 @@ export default function MyspaceGridItem({
   items,
 }: {
   id: string;
-  items: { name: string; imagePath: string }[];
+  items: { name: string; url: string }[];
 }) {
   const {
     attributes,
@@ -26,9 +26,9 @@ export default function MyspaceGridItem({
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {items?.[0]?.imagePath && (
+      {items?.[0]?.url && (
         <Image
-          src={items[0].imagePath}
+          src={items[0].url}
           alt={`Image of ${id}`}
           width={100}
           height={100}

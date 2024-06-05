@@ -5,7 +5,6 @@ export default function robots() {
         userAgent: "*",
       },
     ],
-    // sitemap: 'https://chrishrtmn.com/sitemap.xml',
     host: "https://chrishrtmn.com",
   };
 }

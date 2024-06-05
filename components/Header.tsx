@@ -1,4 +1,4 @@
-import UtilityNav from "./UtilityNav";
+import UtilityNav from "@/components/UtilityNav";
 
 export default function Header() {
   return (

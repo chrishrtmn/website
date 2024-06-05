@@ -1,5 +1,5 @@
-import MyspaceGridList from "./MyspaceGridList";
-import MyspaceTextarea from "./MyspaceTextarea";
+import MyspaceGridList from "@/components/myspace/MyspaceGridList";
+import MyspaceTextarea from "@/components/myspace/MyspaceTextarea";
 
 const MyspaceContainer = () => {
   return (

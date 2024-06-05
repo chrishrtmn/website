@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,6 +21,17 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/utilities/*": [
+        "utilities/*"
+      ]
+    },
     "plugins": [
       {
         "name": "next"
@@ -33,11 +45,11 @@
     "target": "es5"
   },
   "exclude": [
-    "node_modules",
-    "sst.config.ts"
+    "node_modules"
   ],
   "include": [
     "next-env.d.ts",
+    "next.config.js",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"

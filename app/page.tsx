@@ -1,7 +1,7 @@
-import Header from "../shared/components/Header";
-import AnimatedLogoCloud from "./(home)/AnimatedLogoCloud";
-import Hero from "./(home)/Hero";
-import MyspaceContainer from "./components/myspace/MyspaceContainer";
+import Header from "@/components/Header";
+import AnimatedLogoCloud from "@/components/home/AnimatedLogoCloud";
+import Hero from "@/components/home/Hero";
+import MyspaceContainer from "@/components/myspace/MyspaceContainer";
 
 export default function Home() {
   return (

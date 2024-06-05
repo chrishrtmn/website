@@ -1,6 +1,4 @@
-import Image from "next/image";
-
-const logos = [
+export const BrandLogos = [
   {
     name: "Vercel",
     url: "https://res.cloudinary.com/dfhp33ufc/image/upload/v1715881430/vercel_wordmark_dark_mhv8u8.svg",
@@ -39,40 +37,25 @@ const logos = [
   },
 ];
 
-const AnimatedLogoCloud = () => {
-  return (
-    <div className="w-full py-12">
-      <div className="mx-auto w-full px-4 md:px-8">
-        <div
-          className="group relative mt-6 flex gap-6 overflow-hidden p-2"
-          style={{
-            maskImage:
-              "linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 95%)",
-          }}
-        >
-          {Array(5)
-            .fill(null)
-            .map((_, outerIndex) => (
-              <div
-                key={`logo-group-${outerIndex}`}
-                className="animate-logo-cloud flex shrink-0 flex-row justify-around gap-6"
-              >
-                {logos.map((logo) => (
-                  <Image
-                    key={`${outerIndex}-${logo.name}`}
-                    src={logo.url}
-                    width={0}
-                    height={0}
-                    className="h-10 w-28 px-2 brightness-0 dark:invert"
-                    alt={logo.name}
-                  />
-                ))}
-              </div>
-            ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default AnimatedLogoCloud;
+export const MyspaceFriends = [
+  { name: "Tom Anderson", url: "/images/myspace/tom-resized.webp" },
+  { name: "Teela Teq33la", url: "/images/myspace/default-resized.webp" },
+  { name: "Emo_Eddie_2006", url: "/images/myspace/default-resized.webp" },
+  { name: "Sk8erGurl88", url: "/images/myspace/default-resized.webp" },
+  {
+    name: "PunkRockPrincess",
+    url: "/images/myspace/default-resized.webp",
+  },
+  {
+    name: "BrownEyedGirly89",
+    url: "/images/myspace/default-resized.webp",
+  },
+  {
+    name: "1HeartFallOutBoy",
+    url: "/images/myspace/default-resized.webp",
+  },
+  {
+    name: "You (Take Photo)",
+    url: "/images/myspace/upload-resized.webp",
+  },
+];

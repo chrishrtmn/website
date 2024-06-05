@@ -1,12 +1,12 @@
 "use client";
 
+import MyspaceGridItem from "@/components/myspace/MyspaceGridItem";
+import { MyspaceFriends } from "@/utilities/constants/constants";
+import handleDragEnd from "@/utilities/handleDragEnd";
+import useDragAndDrop from "@/utilities/useDragAndDrop";
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import { useState } from "react";
-import handleDragEnd from "../../helpers/handleDragEnd";
-import useDragAndDrop from "../../helpers/useDragAndDrop";
-import { MyspaceFriends } from "../../utilities/constants";
-import MyspaceGridItem from "./MyspaceGridItem";
 
 const MyspaceGridList = () => {
   const [items, setItems] = useState(MyspaceFriends);
