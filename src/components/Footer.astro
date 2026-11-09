@@ -47,13 +47,13 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     <span class="footer__serve">Serving hot plates of Midwestern hospitality</span>
     <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
       {
-        ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'].map((d) => (
-          <svg class={`footer__key footer__key--${d}`} viewBox="0 0 10 10" width="10" height="10" aria-hidden="true">
+        ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'].map((d, i) => (
+          <svg class={`footer__key footer__key--${d}`} style={`--i: ${i}`} viewBox="0 0 10 10" width="10" height="10" aria-hidden="true">
             <path d="M2 6.5 5 3.5l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         ))
       }
-      <span>BA</span>
+      <span style="--i: 8">BA</span>
     </button>
   </div>
 </footer>
@@ -123,6 +123,37 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     cheat.addEventListener('click', () => {
       document.dispatchEvent(new CustomEvent(unlocked() ? UNLOCK_EVENT : 'command-menu:nope'));
     });
+
+    // while locked: light the keys up in play order every so often, once the footer is on screen
+    const motionOn = () => document.documentElement.dataset.motion !== 'off';
+    let timer = 0;
+    const nudge = () => {
+      if (unlocked() || !motionOn() || cheat.matches(':hover, :focus-visible') || document.hidden) return;
+      cheat.classList.remove('is-nudge');
+      void cheat.offsetWidth;
+      cheat.classList.add('is-nudge');
+    };
+    const stop = () => {
+      clearInterval(timer);
+      timer = 0;
+      cheat.classList.remove('is-nudge');
+    };
+    const start = () => {
+      if (timer || unlocked()) return;
+      timer = window.setTimeout(() => {
+        nudge();
+        timer = window.setInterval(nudge, 12000);
+      }, 4000);
+    };
+    document.addEventListener(UNLOCK_EVENT, stop);
+    cheat.addEventListener('animationend', (e) => {
+      if ((e.target as HTMLElement).style.getPropertyValue('--i') === '8') cheat.classList.remove('is-nudge');
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.5 }).observe(cheat);
+    } else {
+      start();
+    }
   }
 
 </script>
@@ -410,5 +441,22 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   .footer__cheat:hover {
     color: var(--neon);
     border-color: var(--neon);
+  }
+
+  /* locked hint: each key lights up in play order, then settles back */
+  :global(html[data-motion='on']) .footer__cheat.is-nudge > * {
+    animation: key-hint var(--dur-3) var(--ease-out) calc(var(--i) * 60ms) both;
+  }
+
+  @keyframes key-hint {
+    0% {
+      color: var(--g2);
+    }
+    15% {
+      color: var(--neon);
+    }
+    100% {
+      color: var(--g2);
+    }
   }
 </style>
