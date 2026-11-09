@@ -42,11 +42,18 @@ import { top8 } from '~/content/top8';
 
   const el = document.querySelector<HTMLElement>('[data-top8]');
   if (el) {
+    const scrollTo = () => {
+      const behavior = document.documentElement.dataset.motion === 'off' ? 'auto' : 'smooth';
+      el.scrollIntoView({ behavior, block: 'start' });
+    };
     const reveal = (scroll: boolean) => {
-      if (!el.hidden) return;
+      const wasHidden = el.hidden;
       el.hidden = false;
-      requestAnimationFrame(() => el.classList.add('is-in'));
-      if (scroll) el.scrollIntoView({ behavior: document.documentElement.dataset.motion === 'off' ? 'auto' : 'smooth', block: 'start' });
+      if (wasHidden) requestAnimationFrame(() => el.classList.add('is-in'));
+      if (scroll) {
+        requestAnimationFrame(() => requestAnimationFrame(scrollTo));
+        setTimeout(scrollTo, 350);
+      }
     };
     try {
       if (sessionStorage.getItem(UNLOCK_KEY) === '1') reveal(false);
