@@ -1,0 +1,152 @@
+---
+import { getCollection } from 'astro:content';
+import Section from './Section.astro';
+
+const projects = (await getCollection('projects'))
+  .map((p) => p.data)
+  .filter((p) => p.featured)
+  .sort((a, b) => a.order - b.order);
+---
+
+<Section id="work" label="work" title="Selected work">
+  <ol class="work">
+    {
+      projects.map((p, i) => {
+        const href = p.url ?? p.repo;
+        const Tag = href ? 'a' : 'div';
+        return (
+          <li class="work__item">
+            <Tag class="work__row" href={href} target={href ? '_blank' : undefined} rel={href ? 'noopener' : undefined}>
+              <span class="work__index mono">{String(i + 1).padStart(2, '0')}</span>
+              <span class="work__name">{p.name}</span>
+              <span class="work__line">{p.line}</span>
+              <span class="work__stack mono">{p.stack.join(' · ')}</span>
+              <span class:list={['work__status', 'mono', `work__status--${p.status}`]}>{p.status}</span>
+              <span class="work__year mono">{p.year}</span>
+              <span class="work__arrow" aria-hidden="true">{href ? '↗' : ''}</span>
+            </Tag>
+          </li>
+        );
+      })
+    }
+  </ol>
+</Section>
+
+<style>
+  .work {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .work__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .work__row {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(10rem, 0.8fr) minmax(0, 2fr) minmax(0, 1fr) 5.5rem 3.5rem 1.5rem;
+    gap: var(--s-4);
+    align-items: baseline;
+    padding: var(--s-4) var(--s-2);
+    margin-inline: calc(var(--s-2) * -1);
+    color: inherit;
+    text-decoration: none;
+    transition: background var(--dur-1) var(--ease-out);
+  }
+
+  a.work__row:hover,
+  a.work__row:focus-visible {
+    background: var(--k2);
+    outline-offset: -2px;
+  }
+
+  .work__index,
+  .work__year,
+  .work__stack {
+    color: var(--g);
+  }
+
+  .work__name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .work__line {
+    color: var(--w);
+    max-width: 52ch;
+  }
+
+  .work__status {
+    justify-self: start;
+    padding: 0.1em 0.5em;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    line-height: 1.6;
+  }
+
+  .work__status--shipping {
+    color: var(--neon);
+  }
+
+  .work__status--paused {
+    color: var(--g);
+  }
+
+  .work__status--concept {
+    color: var(--g);
+    border-style: dashed;
+  }
+
+  .work__status--archived {
+    color: var(--g2);
+  }
+
+  .work__arrow {
+    color: var(--g);
+    transition: transform var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+  }
+
+  a.work__row:hover .work__arrow {
+    color: var(--neon);
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 900px) {
+    .work__row {
+      grid-template-columns: 2.5rem 1fr auto;
+      grid-template-areas:
+        'index name status'
+        'index line line'
+        'index stack year';
+      row-gap: var(--s-2);
+    }
+    .work__index {
+      grid-area: index;
+    }
+    .work__name {
+      grid-area: name;
+    }
+    .work__line {
+      grid-area: line;
+    }
+    .work__stack {
+      grid-area: stack;
+    }
+    .work__status {
+      grid-area: status;
+    }
+    .work__year {
+      grid-area: year;
+      justify-self: end;
+    }
+    .work__arrow {
+      display: none;
+    }
+  }
+</style>

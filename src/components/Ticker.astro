@@ -1,0 +1,337 @@
+---
+type Item = string | { name: string; via?: string };
+
+interface Line {
+  name: string;
+  items: readonly Item[];
+  duration?: number;
+  reverse?: boolean;
+  outline?: boolean;
+}
+
+interface Props {
+  lines: Line[];
+  label: string;
+}
+
+const { lines, label } = Astro.props;
+const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } : i);
+---
+
+<section class="ticker" aria-label={label} data-view="scroll">
+  <fieldset class="ticker__view mono">
+    <legend class="visually-hidden">Layout</legend>
+    <label><input type="radio" name="ticker-view" value="scroll" checked /> <span>scroll</span></label>
+    <label><input type="radio" name="ticker-view" value="grid" /> <span>grid</span></label>
+  </fieldset>
+
+  <div class="ticker__body">
+    {
+      lines.map((line) => (
+        <div
+          class:list={['ticker__line', { 'ticker__line--outline': line.outline, 'ticker__line--reverse': line.reverse }]}
+          style={`--duration: ${line.duration ?? 40}s`}
+        >
+          <p class="ticker__name label">{line.name}</p>
+          <ul class="ticker__track">
+            {[0, 1].map((copy) => (
+              <li class="ticker__group" aria-hidden={copy === 1 ? 'true' : undefined}>
+                {line.items.map(norm).map((item) => (
+                  <>
+                    <span class="ticker__item">
+                      <span class="ticker__label">{item.name}</span>
+                      {item.via && <span class="ticker__via mono">via {item.via}</span>}
+                    </span>
+                    <span class="ticker__sep" aria-hidden="true">
+                      ✦
+                    </span>
+                  </>
+                ))}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    try {
+      if (localStorage.getItem('ticker-view') !== 'grid') return;
+      var t = document.querySelector('.ticker');
+      if (!t) return;
+      t.dataset.view = 'grid';
+      var r = t.querySelector('input[value="grid"]');
+      if (r) r.checked = true;
+    } catch (e) {}
+  })();
+</script>
+
+<script>
+  const ticker = document.querySelector<HTMLElement>('.ticker');
+  const body = ticker?.querySelector<HTMLElement>('.ticker__body');
+
+  ticker?.addEventListener('change', (e) => {
+    const input = e.target as HTMLInputElement;
+    if (input.name !== 'ticker-view' || !body) return;
+    const next = input.value;
+    const motionOn = document.documentElement.dataset.motion !== 'off';
+
+    const swap = () => {
+      ticker.dataset.view = next;
+      for (const track of body.querySelectorAll<HTMLElement>('.ticker__track')) {
+        track.style.animation = 'none';
+        void track.offsetWidth;
+        track.style.animation = '';
+      }
+    };
+
+    if (!motionOn) {
+      swap();
+    } else {
+      const from = ticker.offsetHeight;
+      ticker.style.height = `${from}px`;
+      body.classList.add('is-fading');
+      body.addEventListener(
+        'transitionend',
+        (ev) => {
+          if (ev.target !== body) return;
+          swap();
+          ticker.style.height = 'auto';
+          const to = ticker.offsetHeight;
+          ticker.style.height = `${from}px`;
+          ticker.classList.add('is-resizing');
+          void ticker.offsetHeight;
+          requestAnimationFrame(() => {
+            ticker.style.height = `${to}px`;
+            const done = (ev: TransitionEvent) => {
+              if (ev.target !== ticker || ev.propertyName !== 'height') return;
+              ticker.removeEventListener('transitionend', done);
+              ticker.classList.remove('is-resizing');
+              ticker.style.height = '';
+              body.classList.remove('is-fading');
+            };
+            ticker.addEventListener('transitionend', done);
+          });
+        },
+        { once: true },
+      );
+    }
+
+    try {
+      localStorage.setItem('ticker-view', next);
+    } catch {}
+  });
+</script>
+
+<style>
+  .ticker {
+    position: relative;
+    background: var(--neon);
+    color: var(--neon-ink);
+    overflow: hidden;
+    container-type: inline-size;
+  }
+
+  .ticker__body {
+    padding-block: var(--s-8);
+    transition: opacity var(--dur-2) var(--ease-out);
+  }
+
+  .ticker__body.is-fading {
+    opacity: 0;
+  }
+
+  .ticker.is-resizing {
+    transition: height var(--dur-3) var(--ease-in-out);
+  }
+
+  /* view switch */
+  .ticker__view {
+    position: absolute;
+    top: var(--s-4);
+    right: var(--gutter);
+    z-index: 1;
+    display: flex;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: var(--text-xs);
+  }
+
+  .ticker__view label {
+    position: relative;
+    padding: 0.2em 0.7em;
+    border: 1px solid var(--neon-dim);
+    border-radius: 999px;
+    color: var(--neon-dim);
+    cursor: pointer;
+    transition: color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
+  }
+
+  .ticker__view input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .ticker__view label:has(:checked) {
+    background: var(--neon-ink);
+    border-color: var(--neon-ink);
+    color: var(--neon);
+  }
+
+  .ticker__view label:has(:focus-visible) {
+    outline: 2px solid var(--neon-ink);
+    outline-offset: 2px;
+  }
+
+  :global(html[data-motion='off']) .ticker__view {
+    display: none;
+  }
+
+  /* shared */
+  .ticker__line {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+  }
+
+  .ticker__name {
+    display: none;
+    color: var(--neon-dim);
+  }
+
+  .ticker__track {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ticker__group {
+    display: flex;
+    align-items: center;
+  }
+
+  .ticker__item {
+    white-space: nowrap;
+  }
+
+  .ticker__via {
+    display: none;
+  }
+
+  .ticker__sep {
+    margin-inline: 0.5em;
+    font-size: 0.4em;
+    line-height: 1;
+    transform: translateY(-0.1em);
+    color: var(--neon-ink);
+    -webkit-text-stroke: 0;
+  }
+
+  /* scroll view, motion on */
+  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__line {
+    font-size: clamp(3rem, 9cqw, 8.5rem);
+    line-height: 1;
+    padding-block: 0.14em 0.06em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__line--outline {
+    color: transparent;
+    -webkit-text-stroke: 0.02em var(--neon-ink);
+  }
+
+  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__track {
+    width: max-content;
+    animation: slide var(--duration) linear infinite;
+  }
+
+  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__line--reverse .ticker__track {
+    animation-direction: reverse;
+  }
+
+  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__body:hover .ticker__track,
+  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__body:focus-within .ticker__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* grid view: chosen, or forced when motion is off */
+  .ticker[data-view='grid'] .ticker__body,
+  :global(html[data-motion='off']) .ticker .ticker__body {
+    display: grid;
+    gap: var(--s-8);
+    padding: var(--s-16) var(--gutter) var(--s-12);
+  }
+
+  .ticker[data-view='grid'] .ticker__name,
+  :global(html[data-motion='off']) .ticker .ticker__name {
+    display: block;
+    margin-bottom: var(--s-3);
+  }
+
+  .ticker[data-view='grid'] .ticker__line,
+  :global(html[data-motion='off']) .ticker .ticker__line {
+    font-size: clamp(1.1rem, 1.6cqw, 1.5rem);
+    line-height: 1.1;
+  }
+
+  .ticker[data-view='grid'] .ticker__track,
+  :global(html[data-motion='off']) .ticker .ticker__track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: var(--s-2);
+  }
+
+  .ticker[data-view='grid'] .ticker__group,
+  :global(html[data-motion='off']) .ticker .ticker__group {
+    display: contents;
+  }
+
+  .ticker[data-view='grid'] .ticker__group[aria-hidden='true'],
+  .ticker[data-view='grid'] .ticker__sep,
+  :global(html[data-motion='off']) .ticker .ticker__group[aria-hidden='true'],
+  :global(html[data-motion='off']) .ticker .ticker__sep {
+    display: none;
+  }
+
+  .ticker[data-view='grid'] .ticker__item,
+  :global(html[data-motion='off']) .ticker .ticker__item {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    white-space: normal;
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--neon-ink);
+  }
+
+  .ticker[data-view='grid'] .ticker__via,
+  :global(html[data-motion='off']) .ticker .ticker__via {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: var(--tracking-mono);
+    text-transform: none;
+    color: var(--neon-dim);
+  }
+
+  .ticker[data-view='grid'] .ticker__line--outline .ticker__item,
+  :global(html[data-motion='off']) .ticker .ticker__line--outline .ticker__item {
+    border-style: dashed;
+  }
+</style>

@@ -16,6 +16,7 @@ const projects = defineCollection({
     repo: z.string().url().optional(),
     metric: z.object({ value: z.string(), label: z.string() }).optional(),
     order: z.number().int(),
+    featured: z.boolean().default(false),
   }),
 });
 

@@ -14,7 +14,8 @@
     "status": "shipping",
     "year": 2026,
     "url": "https://linuxstatistics.com",
-    "repo": "https://github.com/linuxstatistics/linuxstatistics"
+    "repo": "https://github.com/linuxstatistics/linuxstatistics",
+    "featured": true
   },
   {
     "id": "degreefast",
@@ -29,7 +30,8 @@
     ],
     "status": "shipping",
     "year": 2026,
-    "url": "https://degreefa.st"
+    "url": "https://degreefa.st",
+    "featured": true
   },
   {
     "id": "templates-sh",
@@ -43,7 +45,8 @@
     ],
     "status": "concept",
     "year": 2026,
-    "url": "https://templates.sh"
+    "url": "https://templates.sh",
+    "featured": true
   },
   {
     "id": "contribs",
@@ -56,61 +59,24 @@
       "TypeScript"
     ],
     "status": "paused",
-    "year": 2026
-  },
-  {
-    "id": "stature",
-    "order": 5,
-    "name": "Stature",
-    "line": "Turns issue-tracker history into an impact report you can hand to a manager or a recruiter.",
-    "stack": [
-      "TypeScript",
-      "Node",
-      "launchd"
-    ],
-    "status": "paused",
-    "year": 2026
+    "year": 2026,
+    "featured": true
   },
   {
     "id": "pace",
-    "order": 6,
+    "order": 5,
     "name": "Pace",
     "line": "Local-first meeting recorder: on-device transcription, diarization, and summaries.",
     "stack": [
       "Rust"
     ],
     "status": "concept",
-    "year": 2026
-  },
-  {
-    "id": "finale",
-    "order": 7,
-    "name": "Finale",
-    "line": "Zero-based budgeting with a bit of game design, as an alternative to the usual envelope apps.",
-    "stack": [
-      "Next.js",
-      "Turborepo",
-      "Postgres"
-    ],
-    "status": "paused",
-    "year": 2026
-  },
-  {
-    "id": "workspacious",
-    "order": 8,
-    "name": "Workspacious",
-    "line": "Workspace and desk setup directory.",
-    "stack": [
-      "Next.js",
-      "TypeScript"
-    ],
-    "status": "paused",
-    "year": 2023,
-    "url": "https://workspacious.com"
+    "year": 2026,
+    "featured": true
   },
   {
     "id": "remotejamstack",
-    "order": 9,
+    "order": 6,
     "name": "Remote Jamstack",
     "line": "Job board for the Jamstack community.",
     "stack": [
@@ -120,11 +86,67 @@
     ],
     "status": "archived",
     "year": 2020,
-    "repo": "https://github.com/chrishrtmn/remotejamstack"
+    "featured": true
+  },
+  {
+    "id": "splash",
+    "order": 7,
+    "name": "Splash",
+    "line": "Universal personal media player with VR support.",
+    "stack": [
+      "React",
+      "Vite",
+      "WebXR"
+    ],
+    "status": "concept",
+    "year": 2026,
+    "featured": true
+  },
+  {
+    "id": "finale",
+    "order": 8,
+    "name": "Finale",
+    "line": "Zero-based budgeting with a bit of game design, as an alternative to the usual envelope apps.",
+    "stack": [
+      "Next.js",
+      "Turborepo",
+      "Postgres"
+    ],
+    "status": "paused",
+    "year": 2026,
+    "featured": true
+  },
+  {
+    "id": "stature",
+    "order": 205,
+    "name": "Stature",
+    "line": "Turns issue-tracker history into an impact report you can hand to a manager or a recruiter.",
+    "stack": [
+      "TypeScript",
+      "Node",
+      "launchd"
+    ],
+    "status": "paused",
+    "year": 2026,
+    "featured": false
+  },
+  {
+    "id": "workspacious",
+    "order": 208,
+    "name": "Workspacious",
+    "line": "Workspace and desk setup directory.",
+    "stack": [
+      "Next.js",
+      "TypeScript"
+    ],
+    "status": "paused",
+    "year": 2023,
+    "url": "https://workspacious.com",
+    "featured": false
   },
   {
     "id": "recurringcredit",
-    "order": 10,
+    "order": 210,
     "name": "RecurringCredit",
     "line": "Subscription tracking with Stripe billing (2020).",
     "stack": [
@@ -132,6 +154,7 @@
       "Stripe"
     ],
     "status": "archived",
-    "year": 2020
+    "year": 2020,
+    "featured": false
   }
 ]
