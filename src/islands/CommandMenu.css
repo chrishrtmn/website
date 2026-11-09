@@ -123,7 +123,9 @@
 }
 
 .cmd__hint {
+  flex: none;
   color: var(--g);
+  white-space: nowrap;
 }
 
 .cmd__item.is-active .cmd__hint {

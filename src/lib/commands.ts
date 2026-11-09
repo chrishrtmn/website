@@ -62,9 +62,10 @@ export async function buildCommands(): Promise<Command[]> {
   }));
 
   const hidden: Command[] = [
-    { id: 'talent-1', group: 'hidden', label: 'Tears on cue', hint: 'hidden talent' },
-    { id: 'talent-2', group: 'hidden', label: 'Double-jointed thumbs', hint: 'hidden talent' },
-    { id: 'talent-3', group: 'hidden', label: 'Reads lips with uncanny accuracy', hint: 'hidden talent' },
+    { id: 'talent-1', group: 'hidden', label: 'Tears on cue', keywords: 'hidden talent' },
+    { id: 'talent-2', group: 'hidden', label: 'Double-jointed thumbs', keywords: 'hidden talent' },
+    { id: 'talent-3', group: 'hidden', label: 'Reads lips with uncanny accuracy', keywords: 'hidden talent' },
+    { id: 'talent-4', group: 'hidden', label: 'JCVD splits', hint: 'in training', keywords: 'hidden talent van damme' },
   ];
 
   return [...go, ...work, ...postCmds, ...act, ...top8, ...hidden];
