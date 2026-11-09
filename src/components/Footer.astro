@@ -51,6 +51,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 </footer>
 
 <script>
+  import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
+
   const talk = document.querySelector<HTMLButtonElement>('[data-talk]');
   if (talk) {
     const root = document.documentElement;
@@ -93,9 +95,26 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       else if (seen) set(true);
     }).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
   }
-  document.querySelector('[data-cheat]')?.addEventListener('click', () => {
-    document.dispatchEvent(new CustomEvent('command-menu:nope'));
-  });
+  const cheat = document.querySelector<HTMLButtonElement>('[data-cheat]');
+  if (cheat) {
+    const unlocked = () => {
+      try {
+        return sessionStorage.getItem(UNLOCK_KEY) === '1';
+      } catch {
+        return false;
+      }
+    };
+    const label = () => {
+      const on = unlocked();
+      cheat.title = on ? 'Back to the Top 8' : 'cheat code';
+      cheat.setAttribute('aria-label', on ? 'Back to the Top 8' : 'Cheat code hint');
+    };
+    label();
+    document.addEventListener(UNLOCK_EVENT, label);
+    cheat.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent(unlocked() ? UNLOCK_EVENT : 'command-menu:nope'));
+    });
+  }
 
 </script>
 
