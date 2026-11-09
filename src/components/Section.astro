@@ -1,0 +1,45 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  title?: string;
+  tight?: boolean;
+}
+
+const { id, label, title, tight = false } = Astro.props;
+---
+
+<section id={id} class:list={['section', 'wrap', { 'section--tight': tight }]} aria-labelledby={`${id}-label`}>
+  <header class="section__head">
+    <p id={`${id}-label`} class="label">{label}</p>
+    {title && <h2 class="section__title">{title}</h2>}
+  </header>
+  <slot />
+</section>
+
+<style>
+  .section {
+    padding-block: var(--s-24);
+  }
+
+  .section--tight {
+    padding-block: var(--s-8) var(--s-16);
+  }
+
+  .section__head {
+    display: grid;
+    gap: var(--s-3);
+    margin-bottom: var(--s-8);
+  }
+
+  .section__title {
+    font-size: var(--text-2xl);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  @media (max-width: 900px) {
+    .section {
+      padding-block: var(--s-16);
+    }
+  }
+</style>

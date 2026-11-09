@@ -1,0 +1,69 @@
+---
+import { site } from '~/lib/site';
+
+interface Props {
+  href?: string;
+}
+const { href = '/' } = Astro.props;
+---
+
+<a class="wm mono" href={href} aria-label={`${site.name}, home`} title="Right-click for the paparazzi kit" data-logo>
+  <span aria-hidden="true">chrish</span><span class="wm__slash" style="--phase: 0s" aria-hidden="true"></span><span aria-hidden="true">rtm</span><span class="wm__slash" style="--phase: 4.2s" aria-hidden="true"></span><span aria-hidden="true">n</span>
+</a>
+
+<style>
+  .wm {
+    color: var(--w);
+    text-decoration: none;
+  }
+
+  .wm__slash {
+    display: inline-block;
+    width: 1ch;
+    text-align: center;
+    color: var(--neon);
+  }
+
+  .wm__slash::before {
+    content: '/';
+  }
+
+  /* idle glitch: each slash flickers through cursor-ish glyphs for ~600ms every 9s, offset by --phase */
+  :global(html[data-motion='on']) .wm__slash::before {
+    animation: glyphs 9s steps(1, end) var(--phase) infinite;
+  }
+
+  :global(html[data-motion='on']) .wm:hover .wm__slash::before,
+  :global(html[data-motion='on']) .wm:focus-visible .wm__slash::before {
+    animation-play-state: paused;
+  }
+
+  @keyframes glyphs {
+    0%,
+    93% {
+      content: '/';
+    }
+    93.5% {
+      content: '_';
+    }
+    94.5% {
+      content: '▌';
+    }
+    95.5% {
+      content: 'a';
+    }
+    96.5% {
+      content: '|';
+    }
+    97.5% {
+      content: '>';
+    }
+    98.5% {
+      content: '_';
+    }
+    99.3%,
+    100% {
+      content: '/';
+    }
+  }
+</style>
