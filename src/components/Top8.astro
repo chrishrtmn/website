@@ -34,7 +34,7 @@ const details = [
 ];
 ---
 
-<dialog class="sheet tray top8" id="top8-tray" aria-labelledby="top8-title" data-top8>
+<dialog class="sheet tray top8" id="top8-tray" aria-labelledby="top8-title" data-top8 data-friends={friends}>
   <div class="tray__panel">
     <div class="sheet__grab" data-sheet-grab>
       <span class="sheet__handle" aria-hidden="true"></span>
@@ -196,7 +196,7 @@ const details = [
                 ))
               }
             </ol>
-            <p class="ms__viewall"><button type="button" data-ms-action="menu">View All of Chris's Friends</button></p>
+            <p class="ms__viewall"><button type="button" data-ms-action="all">View All of Chris's Friends</button></p>
           </section>
 
           <section class="ms__module" aria-labelledby="ms-comments">
@@ -247,10 +247,14 @@ const details = [
 
   const el = document.getElementById('top8-tray') as HTMLDialogElement | null;
   if (el) {
-    const top8 = sheet(el, { focus: '.tray__close' });
+    const top8 = sheet(el, {
+      focus: '.tray__close',
+      onClose: () => el.querySelector('.top8__grid')?.classList.remove('is-flash'),
+    });
     document.addEventListener(UNLOCK_EVENT, () => setTimeout(top8.open, 50));
 
     const toast = (text: string) => document.dispatchEvent(new CustomEvent('toast', { detail: text }));
+    const friends = Number(el.dataset.friends ?? 0);
 
     el.addEventListener('click', async (e) => {
       const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-ms-action]');
@@ -264,6 +268,16 @@ const details = [
         } catch {
           toast(location.host);
         }
+      }
+      if (action === 'all') {
+        const grid = el.querySelector<HTMLElement>('.top8__grid');
+        if (grid) {
+          grid.scrollIntoView({ block: 'center', behavior: document.documentElement.dataset.motion === 'off' ? 'instant' : 'smooth' });
+          grid.classList.remove('is-flash');
+          void grid.offsetWidth;
+          grid.classList.add('is-flash');
+        }
+        toast(friends === 1 ? "that's all of them. for now." : "that's all of them.");
       }
       if (action === 'menu') {
         top8.close();
@@ -878,6 +892,19 @@ const details = [
   .ms__add-form button:focus-visible {
     background: var(--neon);
     color: var(--neon-ink);
+  }
+
+  :global(html[data-motion='on']) .tray.is-in .top8__grid.is-flash .top8__cell {
+    animation: cell-flash var(--dur-3) var(--ease-out) calc(var(--i) * 40ms) both;
+  }
+
+  @keyframes cell-flash {
+    0% {
+      background: var(--neon);
+    }
+    100% {
+      background: var(--k);
+    }
   }
 
   /* motion on: cells stagger in after the sheet lands */
