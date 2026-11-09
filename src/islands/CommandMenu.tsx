@@ -101,7 +101,7 @@ export default function CommandMenu({ commands, email }: Props) {
           } catch {}
           document.dispatchEvent(new CustomEvent(UNLOCK_EVENT));
           if (open) hide();
-          flash('top 8 unlocked ↓', 2400);
+          flash('top 8 unlocked', 2000);
         }
       } else {
         progress = key === KONAMI[0] ? 1 : 0;

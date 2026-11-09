@@ -3,6 +3,7 @@ import '~/styles/global.css';
 import { site } from '~/lib/site';
 import Header from '~/components/Header.astro';
 import KitTray from '~/components/KitTray.astro';
+import Top8 from '~/components/Top8.astro';
 
 interface Props {
   title?: string;
@@ -80,6 +81,7 @@ const person = {
     </main>
     <slot name="footer" />
     <KitTray />
+    <Top8 />
   </body>
 </html>
 

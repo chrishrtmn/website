@@ -36,7 +36,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   <div class="footer__fine small">
     <span>© {year} Chris Hartman</span>
-    <span class="footer__song" title="profile song">♪ profile song: tbd</span>
     <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
       <svg viewBox="0 0 24 14" width="24" height="14" aria-hidden="true">
         <rect x="0.5" y="0.5" width="23" height="13" rx="2" fill="none" stroke="currentColor" />
@@ -106,8 +105,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     };
     const label = () => {
       const on = unlocked();
-      cheat.title = on ? 'Back to the Top 8' : 'cheat code';
-      cheat.setAttribute('aria-label', on ? 'Back to the Top 8' : 'Cheat code hint');
+      cheat.title = on ? 'Open the Top 8' : 'cheat code';
+      cheat.setAttribute('aria-label', on ? 'Open the Top 8' : 'Cheat code hint');
     };
     label();
     document.addEventListener(UNLOCK_EVENT, label);
@@ -248,12 +247,9 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     color: var(--g2);
   }
 
-  .footer__song {
-    margin-inline-start: auto;
-  }
-
   .footer__cheat {
     display: inline-flex;
+    margin-inline-start: auto;
     align-items: center;
     gap: var(--s-2);
     padding: 0.2em 0.6em;
@@ -268,11 +264,5 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   .footer__cheat:hover {
     color: var(--neon);
     border-color: var(--neon);
-  }
-
-  @media (max-width: 600px) {
-    .footer__song {
-      margin-inline-start: 0;
-    }
   }
 </style>
