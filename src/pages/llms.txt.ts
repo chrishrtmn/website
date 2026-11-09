@@ -22,6 +22,7 @@ export const GET: APIRoute = async () => {
     `- [Home](${site.url}/)`,
     `- [Résumé (JSON Resume)](${site.url}/resume.json)`,
     `- [Stack](${site.url}/stack/)`,
+    `- [Places](${site.url}/places/)`,
     `- [Press kit](${site.url}/paparazzi/)`,
     `- [GitHub](${site.links.github})`,
     `- [LinkedIn](${site.links.linkedin})`,

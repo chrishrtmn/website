@@ -22,6 +22,7 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'experience', group: 'go', label: 'Experience', href: '/#experience', keywords: 'résumé resume timeline career' },
     { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
     { id: 'stack', group: 'go', label: 'Stack', href: '/stack' },
+    { id: 'places', group: 'go', label: 'Places', href: '/places', keywords: 'map travel states' },
     { id: 'contact', group: 'go', label: 'Contact', href: '/#contact' },
     { id: 'paparazzi', group: 'go', label: 'Paparazzi kit', href: '/paparazzi/' },
   ];
