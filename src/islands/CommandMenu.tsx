@@ -121,8 +121,12 @@ export default function CommandMenu({ commands, email }: Props) {
     };
     document.addEventListener('keydown', onKey);
     const onOpen = () => show();
+    const nopes = ['nope. not that easy.', "it's not a button. it's a code.", 'up up down down left right left right b a. on your keyboard.'];
+    let nope = 0;
     const onNope = () => {
-      flash(matchMedia('(pointer: coarse)').matches ? 'nope. needs a keyboard.' : 'nope. not that easy.', 2400);
+      if (matchMedia('(pointer: coarse)').matches) return flash('nope. needs a keyboard.', 2400);
+      flash(nopes[nope % nopes.length], 2800);
+      nope++;
     };
     document.addEventListener('command-menu:open', onOpen);
     document.addEventListener('command-menu:nope', onNope);
