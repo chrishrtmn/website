@@ -100,6 +100,7 @@ const kinds: [Kind, string][] = [
       ))
     }
   </dl>
+  <p class="xp__empty mono small" hidden data-xp-empty>ope. nothing checked. pick a filter above.</p>
 </Section>
 
 <script>
@@ -110,10 +111,12 @@ const kinds: [Kind, string][] = [
   if (wanted) for (const b of boxes) b.checked = b.value === wanted;
 
   const list = section?.querySelector<HTMLElement>('.xp');
+  const empty = section?.querySelector<HTMLElement>('[data-xp-empty]');
   const apply = () => {
     const on = new Set(boxes.filter((b) => b.checked).map((b) => b.value));
     for (const row of rows) row.hidden = !on.has(row.dataset.kind ?? '');
     list?.classList.toggle('is-mixed', on.size > 1);
+    if (empty) empty.hidden = on.size > 0;
   };
   boxes.forEach((b) => b.addEventListener('change', apply));
   apply();
@@ -176,6 +179,17 @@ const kinds: [Kind, string][] = [
   }
 
   .xp__row[hidden] {
+    display: none;
+  }
+
+  .xp__empty {
+    margin: 0;
+    padding-block: var(--s-6);
+    border-bottom: 1px solid var(--line);
+    color: var(--g);
+  }
+
+  .xp__empty[hidden] {
     display: none;
   }
 
