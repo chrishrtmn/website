@@ -34,6 +34,9 @@ const projects = (await getCollection('projects'))
 
 <style>
   .work {
+    display: grid;
+    grid-template-columns: 2.5rem max-content minmax(0, 2fr) minmax(0, 1fr) 5.5rem 3.5rem 1.5rem;
+    column-gap: var(--s-4);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -41,13 +44,16 @@ const projects = (await getCollection('projects'))
   }
 
   .work__item {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     border-bottom: 1px solid var(--line);
   }
 
   .work__row {
     display: grid;
-    grid-template-columns: 2.5rem max-content minmax(0, 2fr) minmax(0, 1fr) 5.5rem 3.5rem 1.5rem;
-    gap: var(--s-4);
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     align-items: baseline;
     padding: var(--s-4) var(--s-2);
     margin-inline: calc(var(--s-2) * -1);
@@ -126,13 +132,17 @@ const projects = (await getCollection('projects'))
   }
 
   @media (max-width: 1024px) {
+    .work,
+    .work__item {
+      display: block;
+    }
     .work__row {
       grid-template-columns: 2.5rem 1fr auto;
       grid-template-areas:
         'index name status'
         'index line line'
         'index stack year';
-      row-gap: var(--s-2);
+      gap: var(--s-2) var(--s-4);
     }
     .work__index {
       grid-area: index;
