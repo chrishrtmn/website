@@ -1,0 +1,76 @@
+---
+import { nav, site } from '~/lib/site';
+import MotionToggle from '~/islands/MotionToggle';
+
+const path = Astro.url.pathname;
+---
+
+<header class="header wrap">
+  <a class="home mono" href="/" aria-label={`${site.name}, home`}>{site.handle}</a>
+  <nav aria-label="Primary">
+    <ul class="mono">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <MotionToggle client:load />
+</header>
+
+<style>
+  .header {
+    position: absolute;
+    inset: 0 36% auto 0;
+    z-index: var(--z-sticky);
+    display: flex;
+    align-items: center;
+    gap: var(--s-6);
+    padding-block: var(--s-4);
+    color: var(--g);
+  }
+
+  .home {
+    color: var(--w);
+    text-decoration: none;
+  }
+
+  nav {
+    margin-inline-start: auto;
+  }
+
+  ul {
+    display: flex;
+    gap: var(--s-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    text-decoration: none;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  nav a:hover,
+  nav a[aria-current='page'] {
+    color: var(--w);
+  }
+
+  @media (max-width: 900px) {
+    .header {
+      inset-inline-end: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    ul {
+      gap: var(--s-3);
+    }
+  }
+</style>

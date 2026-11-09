@@ -1,0 +1,41 @@
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--g);
+}
+
+.motion-toggle[aria-checked='true'] {
+  color: var(--w);
+}
+
+.motion-toggle__track {
+  position: relative;
+  width: 1.75rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: var(--line);
+  transition: background var(--dur-1) var(--ease-out);
+}
+
+.motion-toggle[aria-checked='true'] .motion-toggle__track {
+  background: var(--neon);
+}
+
+.motion-toggle__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--k);
+  transition: transform var(--dur-1) var(--ease-out);
+}
+
+.motion-toggle[aria-checked='true'] .motion-toggle__knob {
+  transform: translateX(0.75rem);
+}
