@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import Section from './Section.astro';
+
+const rows = (await getCollection('experience')).map((e) => e.data).sort((a, b) => b.start - a.start);
+const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
+---
+
+<Section id="experience" label="experience" title="Nineteen years, six desks">
+  <dl class="xp">
+    {
+      rows.map((r) => (
+        <div class="xp__row">
+          <dt class="xp__years mono">{span(r.start, r.end)}</dt>
+          <dd class="xp__body">
+            <span class="xp__employer">
+              {r.url ? (
+                <a href={r.url} target="_blank" rel="noopener">
+                  {r.employer}
+                </a>
+              ) : (
+                r.employer
+              )}
+            </span>
+            <span class="xp__titles mono">{r.titles.join(' · ')}</span>
+            <span class="xp__scope">{r.scope}</span>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>
+
+<style>
+  .xp {
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .xp__row:last-child {
+    border-bottom: 0;
+  }
+
+  .xp__row {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: var(--s-6);
+    padding-block: var(--s-6);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .xp__years {
+    color: var(--g);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .xp__body {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+  }
+
+  .xp__employer {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .xp__employer a {
+    text-decoration: none;
+  }
+
+  .xp__employer a:hover {
+    color: var(--neon);
+  }
+
+  .xp__titles {
+    color: var(--g);
+  }
+
+  .xp__scope {
+    max-width: var(--measure);
+    color: var(--w);
+  }
+
+  @media (max-width: 600px) {
+    .xp__row {
+      grid-template-columns: 1fr;
+      gap: var(--s-2);
+    }
+  }
+</style>
