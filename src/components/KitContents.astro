@@ -210,8 +210,9 @@ const { compact = false } = Astro.props;
 
   .kit__row {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--s-12);
+    grid-template-columns: auto auto;
+    justify-content: start;
+    gap: var(--s-16);
     align-items: start;
   }
 
@@ -225,7 +226,7 @@ const { compact = false } = Astro.props;
 
   .kit__swatch {
     display: grid;
-    grid-template-columns: 2.25rem 7rem 5.5rem 1fr;
+    grid-template-columns: 2.25rem 7rem 5.5rem 8rem;
     gap: var(--s-4);
     align-items: center;
     width: 100%;
