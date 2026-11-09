@@ -9,7 +9,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 ---
 
 <footer class="footer wrap" id="contact">
-  <p class="footer__talk" aria-label="Let's talk">
+  <button type="button" class="footer__talk" aria-label="Let's talk. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
     {
       talk.map((ch, i) =>
         ch === ' ' ? (
@@ -22,7 +22,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
         ),
       )
     }
-  </p>
+  </button>
 
   <ul class="footer__links small">
     <li><a href={`mailto:${site.email}`}>Email</a></li>
@@ -57,20 +57,40 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 </footer>
 
 <script>
-  const talk = document.querySelector<HTMLElement>('.footer__talk');
-  if (talk && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            setTimeout(() => talk.classList.add('is-signed'), 600);
-            io.disconnect();
+  const talk = document.querySelector<HTMLButtonElement>('[data-talk]');
+  if (talk) {
+    const root = document.documentElement;
+    const motionOn = () => root.dataset.motion !== 'off';
+    const set = (signed: boolean) => {
+      talk.classList.toggle('is-signed', signed);
+      talk.setAttribute('aria-pressed', String(signed));
+    };
+    let seen = false;
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              seen = true;
+              if (motionOn()) setTimeout(() => motionOn() && set(true), 600);
+              io.disconnect();
+            }
           }
-        }
-      },
-      { threshold: 0.6 },
-    );
-    io.observe(talk);
+        },
+        { threshold: 0.6 },
+      );
+      io.observe(talk);
+    } else {
+      seen = true;
+      if (motionOn()) set(true);
+    }
+    talk.addEventListener('click', () => {
+      if (motionOn()) set(!talk.classList.contains('is-signed'));
+    });
+    new MutationObserver(() => {
+      if (!motionOn()) set(false);
+      else if (seen) set(true);
+    }).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
   }
   document.querySelector('[data-cheat]')?.addEventListener('click', () => {
     document.dispatchEvent(new CustomEvent('command-menu:nope'));
@@ -92,10 +112,24 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     display: flex;
     flex-wrap: wrap;
     max-width: none;
+    margin: 0;
+    text-align: left;
     font-size: clamp(3rem, 12vw, 11rem);
     line-height: 1;
     letter-spacing: var(--tracking-display);
     text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform var(--dur-1) var(--ease-out);
+  }
+
+  .footer__talk:active {
+    transform: scale(0.985);
+    transform-origin: left center;
+  }
+
+  .footer__talk:focus-visible {
+    outline: 2px solid var(--neon);
+    outline-offset: 0.08em;
   }
 
   .footer__space {
@@ -149,6 +183,14 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   :global(html[data-motion='off']) .footer__latin,
   :global(html[data-motion='off']) .footer__sign {
     transition: none;
+  }
+
+  :global(html[data-motion='off']) .footer__talk {
+    cursor: default;
+  }
+
+  :global(html[data-motion='off']) .footer__talk:active {
+    transform: none;
   }
 
   .footer__links {
