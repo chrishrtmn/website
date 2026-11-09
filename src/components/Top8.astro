@@ -229,6 +229,9 @@ const details = [
               <label class="visually-hidden" for="ms-comment-text">Add a comment</label>
               <textarea id="ms-comment-text" name="body" rows="3" placeholder="thanks for the add!!" class="mono small"></textarea>
               <input type="hidden" name="subject" value="Recommendation for Chris's Space" />
+              <p class="ms__hint mono small">
+                comments go to my inbox. want it on the record? <a href={site.links.linkedin} target="_blank" rel="noopener">add me on LinkedIn</a> and leave one there too.
+              </p>
               <button type="submit" class="mono small">Add Comment</button>
             </form>
           </section>
@@ -269,6 +272,7 @@ const details = [
     });
 
     const form = el.querySelector<HTMLFormElement>('[data-ms-form]');
+    const linkedin = form?.querySelector<HTMLAnchorElement>('.ms__hint a')?.href ?? '';
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = (form.querySelector<HTMLTextAreaElement>('textarea')?.value ?? '').trim();
@@ -283,6 +287,9 @@ const details = [
         'Name as it should appear (first name + last initial):',
         'How we worked together (company, years):',
         'LinkedIn (optional):',
+        '',
+        "PS: if you'd rather make it official, add me on LinkedIn and write it there too:",
+        linkedin,
       ].join('\n');
       location.href = `${form.action}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
@@ -838,6 +845,22 @@ const details = [
     background: var(--k);
     color: var(--w);
     resize: vertical;
+  }
+
+  .ms__hint {
+    justify-self: start;
+    margin: 0;
+    color: var(--g);
+  }
+
+  .ms__hint a {
+    color: var(--neon);
+    text-decoration: none;
+  }
+
+  .ms__hint a:hover,
+  .ms__hint a:focus-visible {
+    text-decoration: underline;
   }
 
   .ms__add-form textarea:focus-visible {
