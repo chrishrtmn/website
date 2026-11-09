@@ -17,8 +17,22 @@
     "featured": true
   },
   {
-    "id": "degreefast",
+    "id": "templates-sh",
     "order": 2,
+    "name": "templates.sh",
+    "line": "A registry of Next.js and shadcn templates that get built, typechecked, and tested every night.",
+    "stack": [
+      "Node",
+      "TypeScript",
+      "shadcn registry"
+    ],
+    "status": "building",
+    "year": 2026,
+    "featured": true
+  },
+  {
+    "id": "degreefast",
+    "order": 3,
     "name": "DegreeFast",
     "line": "Pre-enrollment course planner and transfer-rule change watcher for accelerated degree programs.",
     "stack": [
@@ -26,20 +40,6 @@
       "Drizzle",
       "Postgres",
       "Docker"
-    ],
-    "status": "building",
-    "year": 2026,
-    "featured": true
-  },
-  {
-    "id": "templates-sh",
-    "order": 3,
-    "name": "templates.sh",
-    "line": "A registry of Next.js and shadcn templates that get built, typechecked, and tested every night.",
-    "stack": [
-      "Node",
-      "TypeScript",
-      "shadcn registry"
     ],
     "status": "building",
     "year": 2026,
@@ -60,28 +60,28 @@
     "featured": true
   },
   {
-    "id": "stature",
-    "order": 5,
-    "name": "Stature",
-    "line": "Turns issue-tracker history into an impact report you can hand to a manager or a recruiter.",
-    "stack": [
-      "TypeScript",
-      "Node",
-      "launchd"
-    ],
-    "status": "internal",
-    "year": 2026,
-    "featured": true
-  },
-  {
     "id": "splash",
-    "order": 6,
+    "order": 5,
     "name": "Splash",
     "line": "Universal personal media player with VR support.",
     "stack": [
       "React",
       "Vite",
       "WebXR"
+    ],
+    "status": "building",
+    "year": 2026,
+    "featured": true
+  },
+  {
+    "id": "stature-sh",
+    "order": 6,
+    "name": "stature.sh",
+    "line": "Turns issue-tracker history into an impact report you can hand to a manager or a recruiter.",
+    "stack": [
+      "TypeScript",
+      "Node",
+      "launchd"
     ],
     "status": "concept",
     "year": 2026,
