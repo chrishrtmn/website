@@ -1,13 +1,7 @@
 ---
 import Section from './Section.astro';
 import { kitHeadshot } from '~/lib/kit';
-
-const facts = [
-  ['coffee', 'chai latte (hot)'],
-  ['music', 'metal, electronic'],
-  ['movies', 'horror, comedy'],
-  ['games', 'halo 2, legend of zelda: ocarina of time'],
-] as const;
+import { facts } from '~/content/facts';
 ---
 
 <Section id="about" label="about" title="Facts, no cap" flush>
