@@ -1,5 +1,6 @@
 ---
 import { site } from '~/lib/site';
+import { kitHeadshot } from '~/lib/kit';
 
 const year = new Date().getFullYear();
 const subject = encodeURIComponent('Résumé request');
@@ -9,6 +10,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 ---
 
 <footer class="footer wrap" id="contact">
+  <div class="footer__top">
   <button type="button" class="footer__talk" aria-label="Let's talk. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
     {
       talk.map((ch, i) =>
@@ -23,6 +25,13 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       )
     }
   </button>
+  <figure class="footer__stamp">
+    <picture>
+      <source type="image/webp" srcset={`${kitHeadshot.webp2} 400w, ${kitHeadshot.webp1} 200w`} sizes="(max-width: 600px) 5.5rem, 9rem" />
+      <img src={kitHeadshot.jpg} width="500" height="500" alt="Chris Hartman" loading="lazy" decoding="async" />
+    </picture>
+  </figure>
+  </div>
 
   <nav class="footer__nav" aria-label="Footer">
     <ul class="footer__prime">
@@ -120,6 +129,45 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     gap: var(--s-8);
     padding-block: var(--s-16) var(--s-8);
     border-top: 1px solid var(--line);
+  }
+
+  .footer__top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-8);
+  }
+
+  .footer__stamp {
+    flex: none;
+    width: 9rem;
+    aspect-ratio: 1;
+    margin: 0 0 0.12em;
+    border: 2px solid var(--neon);
+    outline: 1px solid var(--line);
+    outline-offset: 6px;
+    overflow: hidden;
+    background: var(--k2);
+    transform: rotate(2deg);
+    transition: transform var(--dur-2) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer__stamp:hover {
+      transform: none;
+    }
+  }
+
+  :global(html[data-motion='off']) .footer__stamp {
+    transform: none;
+    transition: none;
+  }
+
+  .footer__stamp img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .footer__talk {
@@ -312,6 +360,16 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   }
 
   @media (max-width: 600px) {
+    .footer__top {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      gap: var(--s-6);
+    }
+    .footer__stamp {
+      width: 5.5rem;
+      outline-offset: 4px;
+      margin: 0;
+    }
     .footer__prime {
       gap: var(--s-3) var(--s-6);
     }
