@@ -2,19 +2,16 @@
 import { kitHeadshot } from '~/lib/kit';
 
 const facts = [
-  ['movies', 'horror'],
-  ['coffee', 'chai latte, hot'],
-  ['music', 'house / dance'],
-  ['game', 'Ocarina of Time'],
+  ['coffee', 'chai latte (hot)'],
+  ['music', 'metal, electronic'],
+  ['movies', 'horror, comedies'],
+  ['game', 'legend of zelda: ocarina of time'],
 ] as const;
 ---
 
 <section id="about" class="about wrap" aria-labelledby="about-label">
   <div class="about__grid">
-    <header class="about__head">
-      <p id="about-label" class="label">about</p>
-      <h2 class="about__title"><em>Ope,</em> hi.</h2>
-    </header>
+    <p id="about-label" class="about__head label">about</p>
 
     <div class="about__left">
       <figure class="about__stamp">
@@ -47,8 +44,9 @@ const facts = [
       <p class="about__body">
         Most of my spare hours go to designing and building products; the ones on the homepage, plus whatever I'm
         taking apart in the homelab that week. I've been working in VR and XR environments a lot lately, enough that
-        <strong>spatial computing is the next thing I want to build for</strong>. The rest goes to gaming and hiking
-        Hocking Hills whenever I can get there. I also say "ope" more than is strictly necessary.
+        <strong>spatial computing is the next thing I want to build for</strong>. Away from a screen you'll find me at
+        a music festival or a Guardians game, hosting a game night, or hiking Hocking Hills. I also say "ope" more than
+        is strictly necessary.
       </p>
     </div>
   </div>
@@ -71,20 +69,6 @@ const facts = [
 
   .about__head {
     grid-column: 1 / -1;
-    display: grid;
-    gap: var(--s-3);
-    margin-bottom: var(--s-4);
-  }
-
-  .about__title {
-    font-size: clamp(3rem, 8cqw, 6rem);
-    line-height: 0.9;
-    letter-spacing: var(--tracking-display);
-  }
-
-  .about__title em {
-    font-style: normal;
-    color: var(--neon);
   }
 
   .about__left {
