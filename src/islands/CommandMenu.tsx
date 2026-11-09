@@ -185,7 +185,7 @@ export default function CommandMenu({ commands, email }: Props) {
             autocomplete="off"
             spellcheck={false}
           />
-          <ul class="cmd__list mono" role="listbox" aria-label="Commands">
+          <ul class="cmd__list" role="listbox" aria-label="Commands">
             {visible.length === 0 && <li class="cmd__empty">ope. nothing here.</li>}
             {visible.map((c, i) => {
               const header = c.group !== lastGroup;
@@ -219,7 +219,7 @@ export default function CommandMenu({ commands, email }: Props) {
       </dialog>
 
       {toast && (
-        <div class="cmd-toast mono" role="status">
+        <div class="cmd-toast small" role="status">
           {toast}
         </div>
       )}

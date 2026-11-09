@@ -23,7 +23,7 @@ const label = (d: string) => {
     <p class="label">timeline</p>
     <h1 class="page__title">Random access memories</h1>
 
-    <fieldset class="filters mono">
+    <fieldset class="filters small">
       <legend class="visually-hidden">Show</legend>
       {
         kinds.map(([k, l]) => (
@@ -45,7 +45,7 @@ const label = (d: string) => {
                 .map((e) => (
                   <li class="tl__item" data-kind={e.kind}>
                     <span class="tl__when mono">{label(e.date)}</span>
-                    <span class="tl__kind mono">{e.kind}</span>
+                    <span class="tl__kind small">{e.kind}</span>
                     <span class="tl__title">
                       {e.url ? (
                         <a href={e.url} target="_blank" rel="noopener">

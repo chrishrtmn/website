@@ -18,8 +18,8 @@ const { compact = false } = Astro.props;
             <img src={a.svg} alt={`${a.name}, ${a.note}`} loading="lazy" decoding="async" />
             <div class="kit__meta">
               <span class="kit__name">{a.name}</span>
-              <span class="kit__note mono">{a.note}</span>
-              <span class="kit__actions mono">
+              <span class="kit__note small">{a.note}</span>
+              <span class="kit__actions small">
                 <a href={a.svg} download>SVG</a>
                 <a href={a.png} download>PNG</a>
                 <button type="button" data-copy-svg={a.svg}>Copy SVG</button>
@@ -42,7 +42,7 @@ const { compact = false } = Astro.props;
                 <span class="kit__chip" style={`background:${c.hex}`} aria-hidden="true" />
                 <span class="kit__cname">{c.name}</span>
                 <span class="kit__hex mono">{c.hex}</span>
-                <span class="kit__use mono">{c.use}</span>
+                <span class="kit__use small">{c.use}</span>
               </button>
             </li>
           ))
@@ -57,7 +57,7 @@ const { compact = false } = Astro.props;
           <source srcset={`${kitHeadshot.webp1} 1x, ${kitHeadshot.webp2} 2x`} type="image/webp" />
           <img src={kitHeadshot.jpg} alt="Chris Hartman" width="200" height="200" loading="lazy" decoding="async" />
         </picture>
-        <span class="mono">Chris Hartman ↓</span>
+        <span class="small">Chris Hartman ↓</span>
       </a>
     </section>
   </div>
@@ -66,7 +66,7 @@ const { compact = false } = Astro.props;
     <h3 id="kit-bio" class="label">boilerplate</h3>
     <p class="kit__bio">{kitBoilerplate.long}</p>
     <p class="kit__bio kit__bio--short">{kitBoilerplate.short}</p>
-    <p class="kit__actions mono">
+    <p class="kit__actions small">
       <button type="button" data-copy={kitBoilerplate.long}>Copy long</button>
       <button type="button" data-copy={kitBoilerplate.short}>Copy short</button>
     </p>
@@ -74,7 +74,7 @@ const { compact = false } = Astro.props;
 
   <section class="kit__section kit__foot" aria-labelledby="kit-dl">
     <h3 id="kit-dl" class="label">everything</h3>
-    <p class="kit__actions mono">
+    <p class="kit__actions small">
       <a class="kit__zip" href={kitZip} download>Download PaparazziKit.zip</a>
       <a href={`mailto:${site.email}?subject=${encodeURIComponent('Press')}`}>Press contact</a>
     </p>

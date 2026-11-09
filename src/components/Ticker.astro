@@ -19,7 +19,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
 ---
 
 <section class="ticker" aria-label={label} data-view="scroll">
-  <fieldset class="ticker__view mono">
+  <fieldset class="ticker__view small">
     <legend class="visually-hidden">Layout</legend>
     <label><input type="radio" name="ticker-view" value="scroll" checked /> <span>scroll</span></label>
     <label><input type="radio" name="ticker-view" value="grid" /> <span>grid</span></label>
@@ -40,7 +40,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
                   <>
                     <span class="ticker__item">
                       <span class="ticker__label">{item.name}</span>
-                      {item.via && <span class="ticker__via mono">via {item.via}</span>}
+                      {item.via && <span class="ticker__via small">via {item.via}</span>}
                     </span>
                     <span class="ticker__sep" aria-hidden="true">
                       ✦
@@ -201,6 +201,12 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
     font-weight: 700;
     letter-spacing: var(--tracking-display);
     text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .ticker[data-view='scroll'] .ticker__line--outline {
+      display: none;
+    }
   }
 
   .ticker__name {
