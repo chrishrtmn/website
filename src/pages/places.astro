@@ -1,0 +1,366 @@
+---
+import { getCollection } from 'astro:content';
+import { geoAlbers } from 'd3-geo';
+import Base from '~/layouts/Base.astro';
+import Section from '~/components/Section.astro';
+import Footer from '~/components/Footer.astro';
+import map from '~/assets/map-us-bc.svg?raw';
+import proj from '~/assets/map-us-bc.json';
+import visited from '~/content/visited-states.json';
+
+type Kind = 'lived' | 'conference' | 'trip' | 'favourite' | 'planned';
+
+const projection = geoAlbers()
+  .rotate(proj.rotate as [number, number, number])
+  .center(proj.center as [number, number])
+  .parallels(proj.parallels as [number, number])
+  .scale(proj.scale)
+  .translate(proj.translate as [number, number]);
+
+const places = (await getCollection('places')).map((p) => p.data);
+const pins = places
+  .filter((p) => p.lat !== undefined && p.lng !== undefined)
+  .map((p) => {
+    const [x, y] = projection([p.lng!, p.lat!]) ?? [0, 0];
+    return { ...p, x: +x.toFixed(1), y: +y.toFixed(1) };
+  });
+
+const kinds: [Kind, string][] = [
+  ['lived', 'lived'],
+  ['conference', 'conferences'],
+  ['trip', 'trips'],
+  ['favourite', 'favourites'],
+  ['planned', 'planned'],
+];
+const groups = kinds.map(([k, l]) => ({ kind: k, label: l, items: places.filter((p) => p.kind === k) })).filter((g) => g.items.length);
+
+const visitedSet = new Set(visited);
+const stateCount = visitedSet.size;
+const pending = ['AK', 'HI'].filter((s) => !visitedSet.has(s));
+const caption = `${stateCount} of 50 states${pending.length ? ` · ${pending.join(' and ')} pending` : ''}`;
+const mapSvg = map.replace(/<path id="(US|CA)-([A-Z]{2})"/g, (m, c, code) =>
+  (c === 'US' && visitedSet.has(code)) || (c === 'CA' && code === 'BC') ? `${m} class="is-visited"` : m,
+);
+
+const pinOrder = [...pins].sort((a, b) => a.x - b.x).map((p) => p.id);
+---
+
+<Base title="Places" description="Where I have been and where I am going. The lower 48, British Columbia, and a few further out.">
+  <Section id="places" label="places" title="Been there">
+    <fieldset class="pl__filters small" slot="head">
+      <legend class="visually-hidden">Show</legend>
+      {
+        groups.map((g) => (
+          <label>
+            <input type="checkbox" name="pl-kind" value={g.kind} checked /> <span>{g.label}</span>
+          </label>
+        ))
+      }
+    </fieldset>
+
+    <figure class="pl__map">
+      <div class="pl__canvas" set:html={mapSvg} />
+      <svg class="pl__pins" viewBox={`0 0 ${proj.width} ${proj.height}`} aria-hidden="true">
+        {
+          pins.map((p) => (
+            <g class="pl__pin" data-kind={p.kind} data-id={p.id} style={`--i: ${pinOrder.indexOf(p.id)}`} transform={`translate(${p.x} ${p.y})`}>
+              <circle r="4.5" />
+              <text x="8" y="3.5">{p.name}</text>
+            </g>
+          ))
+        }
+      </svg>
+      <figcaption class="pl__caption mono">{caption}</figcaption>
+    </figure>
+
+    <div class="pl__groups">
+      {
+        groups.map((g) => (
+          <section class="pl__group" data-kind={g.kind} aria-labelledby={`pl-${g.kind}`}>
+            <h3 id={`pl-${g.kind}`} class="label">{g.label}</h3>
+            <ul class="pl__stamps">
+              {g.items.map((p) => (
+                <li class="pl__stamp mono" data-kind={p.kind} data-id={p.id}>
+                  <span class="pl__name">{p.name}</span>
+                  <span class="pl__meta">{[p.region, p.note].filter(Boolean).join(' · ')}</span>
+                  {p.year && <span class="pl__year">{p.year}</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </Section>
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  :global(#places.section) {
+    padding-block: var(--s-24) var(--s-16);
+  }
+
+  .pl__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .pl__filters label {
+    position: relative;
+    padding: 0.25em 0.8em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g);
+    cursor: pointer;
+  }
+
+  .pl__filters input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .pl__filters label:has(:checked) {
+    border-color: var(--neon);
+    color: var(--w);
+  }
+
+  .pl__filters label:has(:focus-visible) {
+    outline: 2px solid var(--neon);
+    outline-offset: 2px;
+  }
+
+  .pl__map {
+    position: relative;
+    margin: 0 0 var(--s-12);
+    max-width: 72rem;
+  }
+
+  .pl__canvas :global(svg),
+  .pl__pins {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pl__pins {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .pl__canvas :global(path) {
+    fill: var(--k2);
+    stroke: var(--line);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .pl__canvas :global(path.is-visited) {
+    fill: var(--neon);
+    fill-opacity: 0.22;
+    stroke: var(--k);
+  }
+
+  .pl__pin {
+    pointer-events: auto;
+    cursor: default;
+  }
+
+  .pl__pin circle {
+    fill: var(--w);
+    stroke: var(--k);
+    stroke-width: 2;
+    transition: fill var(--dur-1) var(--ease-out), r var(--dur-1) var(--ease-out);
+  }
+
+  .pl__pin[data-kind='planned'] circle {
+    fill: var(--k);
+    stroke: var(--w);
+    stroke-width: 1.5;
+  }
+
+  .pl__pin text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--w);
+    paint-order: stroke;
+    stroke: var(--k);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity var(--dur-1) var(--ease-out);
+  }
+
+  .pl__pin[data-kind='lived'] text,
+  .pl__pin[data-kind='conference'] text {
+    opacity: 1;
+  }
+
+  .pl__pin.is-hidden {
+    display: none;
+  }
+
+  .pl__pin.is-active circle {
+    fill: var(--neon);
+  }
+
+  .pl__pin.is-active text {
+    opacity: 1;
+  }
+
+  .pl__caption {
+    margin-top: var(--s-4);
+    color: var(--g);
+  }
+
+  .pl__groups {
+    display: grid;
+    gap: var(--s-8);
+  }
+
+  .pl__group[hidden] {
+    display: none;
+  }
+
+  .pl__group h3 {
+    margin-bottom: var(--s-3);
+  }
+
+  .pl__stamps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pl__stamp {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0 var(--s-4);
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    transition: border-color var(--dur-1) var(--ease-out);
+  }
+
+  .pl__stamp[hidden] {
+    display: none;
+  }
+
+  .pl__stamp.is-active {
+    border-color: var(--neon);
+  }
+
+  .pl__stamp[data-kind='planned'] {
+    border-style: dashed;
+    color: var(--g2);
+  }
+
+  .pl__name {
+    color: var(--w);
+  }
+
+  .pl__stamp[data-kind='planned'] .pl__name {
+    color: var(--g);
+  }
+
+  .pl__meta {
+    grid-column: 1;
+    font-size: var(--text-xs);
+    color: var(--g);
+  }
+
+  .pl__meta:empty {
+    display: none;
+  }
+
+  .pl__year {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    font-size: var(--text-xs);
+    color: var(--g2);
+  }
+
+  /* intro: states fill west to east, pins follow */
+  :global(html[data-motion='on']) .pl__canvas :global(path) {
+    animation: pl-fill 500ms var(--ease-out) calc(var(--i) * 25ms) both;
+  }
+
+  :global(html[data-motion='on']) .pl__pin {
+    animation: pl-pin 300ms var(--ease-out) calc(900ms + var(--i) * 40ms) both;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  @keyframes pl-fill {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pl-pin {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pl__pin text {
+      display: none;
+    }
+    .pl__pin circle {
+      r: 6;
+    }
+  }
+</style>
+
+<script>
+  const root = document.getElementById('places');
+  const boxes = [...document.querySelectorAll<HTMLInputElement>('input[name="pl-kind"]')];
+  const targets = [...document.querySelectorAll<HTMLElement>('.pl__pin, .pl__stamp')];
+  const groups = [...document.querySelectorAll<HTMLElement>('.pl__group')];
+
+  const apply = () => {
+    const on = new Set(boxes.filter((b) => b.checked).map((b) => b.value));
+    for (const el of targets) {
+      const off = !on.has(el.dataset.kind ?? '');
+      el.hidden = off;
+      el.classList.toggle('is-hidden', off);
+    }
+    for (const g of groups) g.hidden = !on.has(g.dataset.kind ?? '');
+  };
+  boxes.forEach((b) => b.addEventListener('change', apply));
+  apply();
+
+  if (matchMedia('(hover: hover)').matches) {
+    let active: string | null = null;
+    const set = (id: string | null) => {
+      if (id === active) return;
+      active = id;
+      for (const el of targets) el.classList.toggle('is-active', !!id && el.dataset.id === id);
+      const pin = id && document.querySelector<SVGGElement>(`.pl__pin[data-id="${id}"]`);
+      if (pin) pin.parentElement?.append(pin);
+    };
+    root?.addEventListener('pointerover', (e) => {
+      const hit = (e.target as Element).closest<HTMLElement>('[data-id]');
+      set(hit?.dataset.id ?? null);
+    });
+    root?.addEventListener('pointerleave', () => set(null));
+  }
+</script>
