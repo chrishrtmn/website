@@ -1,37 +1,23 @@
 ---
 title: Rebuilding chrishrtmn.com
 date: 2026-11-08
-summary: Why the site got rebuilt, where "OPE!" came from, why Astro won over Next.js, and the three-second rule.
-tags: [site, astro, design]
+summary: Why the site got rebuilt, where "OPE!" came from, and what got me designing again.
+tags: [site, design, ai]
 draft: false
 ---
 
-The last version of this site shipped in 2020 on Next.js 12. It had skewed gradient bands, a ticker of company names, and a stat that read "11, volume cranked." It was fine. It was also four years old, said "front-end developer" in a way that undersold the work, and loaded a React runtime to render a page that never changed.
-
-This one is different in three ways.
+The last version of this site shipped in 2020 on Next.js 12. It had skewed gradient bands, a ticker of company names, and a stat that read "11, volume cranked." It was fine. It was also four years old, said "front-end developer" in a way that undersold the work, and I had stopped looking at it.
 
 ## The word
 
 Every version of this site I sketched over the last two years had the same word on it: OPE. It's what you say in Ohio when you bump into someone, almost drop something, or need to squeeze past. It's an apology and a greeting at once. For a personal site it does a lot of work in three letters: it tells you where I'm from, it tells you I don't take the exercise too seriously, and it is impossible to confuse with anyone else's portfolio.
 
-The first attempts animated it. Glitch effects, letters falling, a clip of someone bumping into the camera. All of it read as a bit. The version that stuck is the quietest: a single word set so large it's cropped by the viewport, a neon column with a plain-text ledger of facts, and one line underneath. The motion is a clip-path reveal and a column slide that play once per session. After that the page loads in its final state.
+The first attempts animated it. Glitch effects, letters falling, a clip of someone bumping into the camera. All of it read as a bit. The version that stuck is the quietest: a single word set so large it's cropped by the viewport, a neon column with a plain-text ledger of facts, and one line underneath.
 
-## Astro over Next.js
+## Getting the itch back
 
-The site has about eight routes, a handful of MDX posts, and two tiny endpoints (local weather, latest commit). Nothing needs server components or per-request rendering. Next.js 15 would ship roughly 85 KB of framework JavaScript to a page that needs maybe 10.
+For a few years the side projects were mostly plumbing, data pipelines and dashboards for my own products, things that worked and never needed a visual opinion. The design muscle from the agency years went quiet. A personal site is the one project nobody is waiting on, so it kept not happening.
 
-Astro ships none by default. The hero, the tickers, the work rows, the experience ledger: all HTML and CSS. JavaScript hydrates four things, and only when they're on screen: the command menu, the motion toggle, a clock, and the weather line. Those run on Preact, so the whole page is around 11 KB of JS compressed. The fonts weigh more than the code.
+The tooling changed that. I've had models in the loop every working day for a couple of years, long enough to watch them go from autocomplete with better manners to something I can hand a rough sketch and a tokens file and get a working section back in minutes, then tear apart and try the opposite. A bad idea now costs about ten minutes. I can write CSS quickly. What I'd never had was the patience to try a dozen hero layouts in an afternoon and see which one held up, and now that takes no patience at all.
 
-LinuxStatistics already runs on Astro, so the stack was familiar and the tooling carried over.
-
-## Three seconds
-
-The one hard constraint I set before any design work: a cold load should settle in under three seconds on a mediocre connection, and the largest paint should be text, not an image or a video. That rule killed a few ideas (a hero video, a live data wall) and shaped the rest. Fonts are subset to Latin and preloaded. There are no hero images. The intro animation starts from CSS before any script runs, so there's no flash of the final layout before the first frame.
-
-Lighthouse runs on every preview deploy and fails the build if the budget slips.
-
-## Motion policy
-
-Everything that moves on this site keys off one attribute on the `html` element: `data-motion`. It's set before paint from your OS preference or the switch in the header. Off means the hero renders its last frame, the tickers become a grid, the tickets don't deal in, and nothing transitions. On means the opposite, with one rule: nothing triggered from the keyboard animates. The command menu opens instantly.
-
-That's the whole system. More posts as the site grows; the next one is about the hearing tech that has shaped how I work remotely for the last decade.
+So the split was simple. I did the design: sketches, the type scale, the colours, the copy, and every call about what stays. The agents did the typing: scaffolding, content collections, the variants I asked for, the parts I'd normally stall on. I read everything they produced and rewrote most of it. It's the deal I'd make with any fast junior engineer, except this one never gets tired of hearing my third opinion.
