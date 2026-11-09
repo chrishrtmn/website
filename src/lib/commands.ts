@@ -55,7 +55,7 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'linkedin', group: 'do', label: 'LinkedIn', href: site.links.linkedin },
   ];
 
-  const top8: Command[] = top8Entries.map((e, i) => ({
+  const top8: Command[] = top8Entries.filter((e) => !e.placeholder).map((e, i) => ({
     id: `top8-${i}`,
     group: 'top8' as const,
     label: `${i + 1}. ${e.name}`,

@@ -11,8 +11,16 @@ import { top8 } from '~/content/top8';
   <ol class="top8__grid">
     {
       top8.map((e, i) => (
-        <li class="top8__cell" style={`--i: ${i}`}>
-          {e.url ? (
+        <li class:list={['top8__cell', { 'top8__cell--tbd': e.placeholder }]} style={`--i: ${i}`}>
+          {e.placeholder ? (
+            <span class="top8__ghost" aria-label="To be decided">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle cx="32" cy="22" r="12" />
+                <path d="M8 60c0-14 10.7-22 24-22s24 8 24 22" />
+              </svg>
+              <span class="top8__note">tbd</span>
+            </span>
+          ) : e.url ? (
             <a href={e.url} target="_blank" rel="noopener">
               <span class="top8__name">{e.name}</span>
               <span class="top8__note">{e.note}</span>
@@ -143,6 +151,32 @@ import { top8 } from '~/content/top8';
   .top8__cell a:hover .top8__note,
   .top8__cell a:focus-visible .top8__note {
     color: var(--neon-ink);
+  }
+
+  .top8__cell--tbd {
+    border-style: dashed;
+    border-color: var(--neon-dim);
+  }
+
+  .top8__ghost {
+    align-content: space-between;
+    justify-items: center;
+  }
+
+  .top8__ghost::before {
+    justify-self: start;
+    color: var(--neon-dim);
+  }
+
+  .top8__ghost svg {
+    width: 40%;
+    max-width: 4rem;
+    fill: var(--neon-dim);
+    opacity: 0.6;
+  }
+
+  .top8__ghost .top8__note {
+    color: var(--g2);
   }
 
   :global(html[data-motion='off']) .top8__cell {

@@ -2,6 +2,7 @@ export const disciplines = [
   'Product engineering',
   'AI-assisted workflows',
   'LLM tooling',
+  'Spatial computing',
   'E-commerce',
   'Design systems',
   'Front-end architecture',
