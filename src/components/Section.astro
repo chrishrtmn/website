@@ -70,7 +70,21 @@ const { id, label, title, tight = false, flush = false } = Astro.props;
     }
   }
 
+  /* flush drops the top padding; put it back as scroll margin so #anchors land like the others */
   .section--flush {
     padding-block-start: 0;
+    scroll-margin-top: var(--s-24);
+  }
+
+  @media (max-width: 900px) {
+    .section--flush {
+      scroll-margin-top: var(--s-16);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .section--flush {
+      scroll-margin-top: var(--s-12);
+    }
   }
 </style>
