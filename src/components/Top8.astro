@@ -1,5 +1,37 @@
 ---
-import { profileSong, top8 } from '~/content/top8';
+import { existsSync } from 'node:fs';
+import { comments, profile, profileSong, top8 } from '~/content/top8';
+import { facts } from '~/content/facts';
+import { kitHeadshot } from '~/lib/kit';
+import { site } from '~/lib/site';
+
+const lastLogin = new Date().toLocaleDateString('en-US', { timeZone: 'UTC', month: 'numeric', day: 'numeric', year: 'numeric' });
+const friends = top8.filter((e) => !e.placeholder).length;
+const hasPhoto = (p?: string) => !!p && existsSync(`public${p}`);
+const mailto = `mailto:${site.email}`;
+const iso = (d: string) => {
+  const [m, day, y] = d.split('/');
+  return `${y}-${m.padStart(2, '0')}-${day.padStart(2, '0')}`;
+};
+
+const contact = [
+  { label: 'Send Message', href: mailto },
+  { label: 'Forward to Friend', action: 'copy' },
+  { label: 'Add to Friends', action: 'menu' },
+  { label: 'Add to Favorites', action: 'nope' },
+  { label: 'Instant Message', href: site.links.linkedin, external: true },
+  { label: 'Block User', action: 'nope' },
+  { label: 'Add to Group', action: 'nope' },
+  { label: 'Rank User', action: 'nope' },
+];
+
+const details = [
+  ['Status', profile.mood],
+  ['Here for', profile.hereFor],
+  ['Hometown', profile.hometown],
+  ['Occupation', profile.occupation],
+  ['Member since', profile.memberSince],
+];
 ---
 
 <dialog class="sheet tray top8" id="top8-tray" aria-labelledby="top8-title" data-top8>
@@ -9,59 +41,199 @@ import { profileSong, top8 } from '~/content/top8';
       <button type="button" class="visually-hidden" data-sheet-close>Close</button>
     </div>
     <header class="tray__head">
-      <p class="label">top 8</p>
-      <h2 id="top8-title" class="tray__title">Chris's Top 8</h2>
+      <p class="label">a place for friends</p>
+      <h2 id="top8-title" class="tray__title">Chris's Space</h2>
       <div class="tray__tools small">
         <button type="button" class="tray__close" data-sheet-close aria-label="Close">esc</button>
       </div>
     </header>
     <div class="tray__body">
-      <div class="top8__song" aria-label="Profile song">
-        <span class="top8__song-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <span class="top8__song-label label">profile song</span>
-        <span class="top8__song-title">
-          {
-            profileSong ? (
-              profileSong.url ? (
-                <a href={profileSong.url} target="_blank" rel="noopener">
-                  {profileSong.title} · {profileSong.artist}
-                </a>
-              ) : (
-                `${profileSong.title} · ${profileSong.artist}`
-              )
-            ) : (
-              'tbd'
-            )
-          }
-        </span>
+      <div class="ms">
+        <aside class="ms__side">
+          <section class="ms__card" aria-label="Profile">
+            <h3 class="ms__name">Chris</h3>
+            <p class="ms__headline">"{profile.headline}"</p>
+            <div class="ms__card-row">
+              <picture class="ms__photo">
+                <source type="image/webp" srcset={`${kitHeadshot.webp2} 400w, ${kitHeadshot.webp1} 200w`} sizes="9rem" />
+                <img src={kitHeadshot.jpg} width="500" height="500" alt="Chris Hartman" loading="lazy" decoding="async" />
+              </picture>
+              <dl class="ms__meta mono small">
+                <div><dd>{site.location.city}, {site.location.region.toUpperCase()}</dd></div>
+                <div><dd>United States</dd></div>
+                <div><dt>Last Login</dt><dd>{lastLogin}</dd></div>
+                <div><dd class="ms__online"><i aria-hidden="true"></i>Online Now!</dd></div>
+              </dl>
+            </div>
+          </section>
+
+          <section class="ms__player" aria-label="Profile song">
+            <span class="ms__play" aria-hidden="true">
+              <svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" /></svg>
+            </span>
+            <span class="top8__song-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="ms__track mono small">
+              {
+                profileSong ? (
+                  profileSong.url ? (
+                    <a href={profileSong.url} target="_blank" rel="noopener">
+                      {profileSong.title} · {profileSong.artist}
+                    </a>
+                  ) : (
+                    `${profileSong.title} · ${profileSong.artist}`
+                  )
+                ) : (
+                  'profile song: tbd'
+                )
+              }
+            </span>
+            <button type="button" class="ms__add mono small" data-ms-action="nope">Add</button>
+          </section>
+
+          <section class="ms__module" aria-labelledby="ms-contact">
+            <h3 class="ms__bar" id="ms-contact">Contacting Chris</h3>
+            <ul class="ms__contact mono small">
+              {
+                contact.map((c) =>
+                  c.href ? (
+                    <li>
+                      <a href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined}>
+                        {c.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li>
+                      <button type="button" data-ms-action={c.action}>{c.label}</button>
+                    </li>
+                  ),
+                )
+              }
+            </ul>
+          </section>
+
+          <section class="ms__counter mono small" aria-label="Hit counter">
+            <span>You are visitor</span>
+            <span class="ms__digits" data-ms-counter data-base={profile.counterBase}>
+              {
+                String(profile.counterBase)
+                  .padStart(6, '0')
+                  .split('')
+                  .map((d) => <b>{d}</b>)
+              }
+            </span>
+          </section>
+        </aside>
+
+        <div class="ms__main">
+          <p class="ms__network mono small">Chris is in your extended network</p>
+
+          <section class="ms__module" aria-labelledby="ms-details">
+            <h3 class="ms__bar" id="ms-details">Chris's Details</h3>
+            <table class="ms__table mono small">
+              <tbody>
+                {
+                  details.map(([k, v]) => (
+                    <tr>
+                      <th scope="row">{k}:</th>
+                      <td>{v}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </section>
+
+          <section class="ms__module" aria-labelledby="ms-interests">
+            <h3 class="ms__bar" id="ms-interests">Chris's Interests</h3>
+            <table class="ms__table mono small">
+              <tbody>
+                {
+                  facts.map(([k, v]) => (
+                    <tr>
+                      <th scope="row">{k}:</th>
+                      <td>{v}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </section>
+
+          <section class="ms__module" aria-labelledby="ms-friends">
+            <h3 class="ms__bar" id="ms-friends">Chris's Friend Space</h3>
+            <p class="ms__count">Chris has <b>{friends}</b> {friends === 1 ? 'Friend' : 'Friends'}.</p>
+            <ol class="top8__grid">
+              {
+                top8.map((e, i) => (
+                  <li class:list={['top8__cell', { 'top8__cell--tbd': e.placeholder }]} style={`--i: ${i}`}>
+                    {e.placeholder ? (
+                      <span class="top8__ghost" aria-label="To be decided">
+                        <span class="top8__thumb">
+                          <svg viewBox="0 0 64 64" aria-hidden="true">
+                            <circle cx="32" cy="22" r="12" />
+                            <path d="M8 60c0-14 10.7-22 24-22s24 8 24 22" />
+                          </svg>
+                        </span>
+                        <span class="top8__name">tbd</span>
+                      </span>
+                    ) : (
+                      <a href={e.url ?? undefined} target={e.url ? '_blank' : undefined} rel={e.url ? 'noopener' : undefined}>
+                        <span class="top8__thumb">
+                          {hasPhoto(e.photo) ? (
+                            <img src={e.photo} alt="" width="200" height="200" loading="lazy" decoding="async" />
+                          ) : (
+                            <svg viewBox="0 0 64 64" aria-hidden="true">
+                              <circle cx="32" cy="22" r="12" />
+                              <path d="M8 60c0-14 10.7-22 24-22s24 8 24 22" />
+                            </svg>
+                          )}
+                        </span>
+                        <span class="top8__name">{e.name}</span>
+                        {e.note && <span class="top8__note">{e.note}</span>}
+                      </a>
+                    )}
+                  </li>
+                ))
+              }
+            </ol>
+            <p class="ms__viewall"><button type="button" data-ms-action="menu">View All of Chris's Friends</button></p>
+          </section>
+
+          <section class="ms__module" aria-labelledby="ms-comments">
+            <h3 class="ms__bar" id="ms-comments">Chris's Friends Comments</h3>
+            <p class="ms__displaying mono small">
+              Displaying <b>{comments.length}</b> of <b>{comments.length}</b> comments (<a href="#ms-comments">View All</a> | <a href="#ms-add">Add Comment</a>)
+            </p>
+            <ol class="ms__comments">
+              {
+                comments.map((c) => (
+                  <li class="ms__comment">
+                    <div class="ms__who">
+                      <span class="ms__who-thumb" aria-hidden="true">
+                        <svg viewBox="0 0 64 64">
+                          <circle cx="32" cy="22" r="12" />
+                          <path d="M8 60c0-14 10.7-22 24-22s24 8 24 22" />
+                        </svg>
+                      </span>
+                      <b>{c.name}</b>
+                    </div>
+                    <div class="ms__said">
+                      <time class="mono small" datetime={iso(c.date)}>{c.date}</time>
+                      <p>{c.text}</p>
+                    </div>
+                  </li>
+                ))
+              }
+            </ol>
+            <form class="ms__add-form" id="ms-add" data-ms-form action={mailto} method="get">
+              <label class="visually-hidden" for="ms-comment-text">Add a comment</label>
+              <textarea id="ms-comment-text" name="body" rows="3" placeholder="thanks for the add!!" class="mono small"></textarea>
+              <input type="hidden" name="subject" value="comment on chrishrtmn.com" />
+              <button type="submit" class="mono small">Add Comment</button>
+            </form>
+          </section>
+        </div>
       </div>
-      <ol class="top8__grid">
-        {
-          top8.map((e, i) => (
-            <li class:list={['top8__cell', { 'top8__cell--tbd': e.placeholder }]} style={`--i: ${i}`}>
-              {e.placeholder ? (
-                <span class="top8__ghost" aria-label="To be decided">
-                  <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <circle cx="32" cy="22" r="12" />
-                    <path d="M8 60c0-14 10.7-22 24-22s24 8 24 22" />
-                  </svg>
-                  <span class="top8__note">tbd</span>
-                </span>
-              ) : e.url ? (
-                <a href={e.url} target="_blank" rel="noopener">
-                  <span class="top8__name">{e.name}</span>
-                  <span class="top8__note">{e.note}</span>
-                </a>
-              ) : (
-                <span>
-                  <span class="top8__name">{e.name}</span>
-                  <span class="top8__note">{e.note}</span>
-                </span>
-              )}
-            </li>
-          ))
-        }
-      </ol>
     </div>
   </div>
 </dialog>
@@ -74,6 +246,39 @@ import { profileSong, top8 } from '~/content/top8';
   if (el) {
     const top8 = sheet(el, { focus: '.tray__close' });
     document.addEventListener(UNLOCK_EVENT, () => setTimeout(top8.open, 50));
+
+    const toast = (text: string) => document.dispatchEvent(new CustomEvent('toast', { detail: text }));
+
+    el.addEventListener('click', async (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-ms-action]');
+      if (!btn) return;
+      const action = btn.dataset.msAction;
+      if (action === 'nope') toast('nice try.');
+      if (action === 'copy') {
+        try {
+          await navigator.clipboard.writeText(location.origin + '/');
+          toast('copied');
+        } catch {
+          toast(location.host);
+        }
+      }
+      if (action === 'menu') {
+        top8.close();
+        setTimeout(() => document.dispatchEvent(new CustomEvent('command-menu:open')), 250);
+      }
+    });
+
+    const counter = el.querySelector<HTMLElement>('[data-ms-counter]');
+    if (counter) {
+      const base = Number(counter.dataset.base ?? 0);
+      let hits = 0;
+      try {
+        hits = Number(localStorage.getItem('top8:hits') ?? 0) + 1;
+        localStorage.setItem('top8:hits', String(hits));
+      } catch {}
+      const digits = String(base + hits).padStart(6, '0');
+      counter.querySelectorAll('b').forEach((b, i) => (b.textContent = digits[i] ?? '0'));
+    }
   }
 </script>
 
@@ -128,16 +333,153 @@ import { profileSong, top8 } from '~/content/top8';
     overscroll-behavior: contain;
   }
 
-  .top8__song {
+  .ms {
+    display: grid;
+    grid-template-columns: 20rem minmax(0, 1fr);
+    gap: var(--s-6);
+    max-width: 72rem;
+  }
+
+  .ms__side,
+  .ms__main {
+    display: grid;
+    gap: var(--s-4);
+    align-content: start;
+  }
+
+  .ms__side {
+    position: sticky;
+    top: 0;
+    min-width: 0;
+  }
+
+  .ms__main p {
+    max-width: none;
+  }
+
+  /* module chrome: the peach header bar, in Volt */
+  .ms__module {
+    border: 1px solid var(--line);
+    background: var(--k2);
+  }
+
+  .ms__bar {
+    margin: 0;
+    padding: var(--s-1) var(--s-3);
+    background: color-mix(in oklch, var(--neon-dim) 40%, var(--k2));
+    color: var(--neon);
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .ms__card {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .ms__name {
+    margin: 0;
+    font-size: var(--text-xl);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .ms__headline {
+    margin: 0;
+    color: var(--g);
+    font-size: var(--text-sm);
+  }
+
+  .ms__card-row {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: var(--s-3);
+    align-items: start;
+  }
+
+  .ms__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--neon);
+  }
+
+  .ms__meta {
+    display: grid;
+    gap: 0.15em;
+    margin: 0;
+    color: var(--w);
+  }
+
+  .ms__meta div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5ch;
+  }
+
+  .ms__meta dt {
+    white-space: nowrap;
+  }
+
+  .ms__meta dt {
+    color: var(--g);
+  }
+
+  .ms__meta dt::after {
+    content: ':';
+  }
+
+  .ms__meta dd {
+    margin: 0;
+  }
+
+  .ms__online {
     display: inline-flex;
     align-items: center;
+    gap: 0.5ch;
+    color: var(--neon);
+  }
+
+  .ms__online i {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: var(--neon);
+  }
+
+  :global(html[data-motion='on']) .tray[open] .ms__online i {
+    animation: blink 1.2s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+  /* profile song: the little flash player */
+  .ms__player {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
     gap: var(--s-3);
-    margin-bottom: var(--s-8);
-    padding: var(--s-2) var(--s-4) var(--s-2) var(--s-3);
+    padding: var(--s-2) var(--s-3);
     border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--k2);
-    font-size: var(--text-sm);
+    background: var(--k);
+  }
+
+  .ms__play {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--neon-dim);
+  }
+
+  .ms__play svg {
+    width: 0.6rem;
+    fill: var(--neon);
   }
 
   .top8__song-bars {
@@ -166,7 +508,6 @@ import { profileSong, top8 } from '~/content/top8';
 
   :global(html[data-motion='on']) .tray[open] .top8__song-bars i {
     animation: bars 1.1s var(--ease-in-out) infinite alternate;
-    animation-delay: calc(var(--i, 0) * 0s);
   }
   :global(html[data-motion='on']) .tray[open] .top8__song-bars i:nth-child(2) {
     animation-delay: -0.3s;
@@ -187,17 +528,138 @@ import { profileSong, top8 } from '~/content/top8';
     }
   }
 
-  .top8__song-title {
+  .ms__track {
+    overflow: hidden;
     color: var(--w);
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
-  .top8__song-title a {
+  .ms__track a {
     color: inherit;
     text-decoration: none;
   }
 
-  .top8__song-title a:hover,
-  .top8__song-title a:focus-visible {
+  .ms__track a:hover,
+  .ms__track a:focus-visible {
+    color: var(--neon);
+  }
+
+  .ms__add,
+  .ms__contact button,
+  .ms__viewall button,
+  .ms__add-form button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .ms__add {
+    padding: 0.15em 0.6em;
+    border: 1px solid var(--line);
+    color: var(--g);
+  }
+
+  .ms__add:hover,
+  .ms__add:focus-visible {
+    border-color: var(--neon);
+    color: var(--neon);
+  }
+
+  .ms__contact {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    gap: var(--s-1) var(--s-4);
+    margin: 0;
+    padding: var(--s-3);
+    list-style: none;
+  }
+
+  .ms__contact a,
+  .ms__contact button,
+  .ms__viewall button,
+  .ms__displaying a {
+    color: var(--neon);
+    text-decoration: none;
+  }
+
+  .ms__contact a:hover,
+  .ms__contact a:focus-visible,
+  .ms__contact button:hover,
+  .ms__contact button:focus-visible,
+  .ms__viewall button:hover,
+  .ms__viewall button:focus-visible,
+  .ms__displaying a:hover,
+  .ms__displaying a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .ms__counter {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--g);
+  }
+
+  .ms__digits {
+    display: inline-flex;
+    gap: 1px;
+  }
+
+  .ms__digits b {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.4ch;
+    padding: 0.1em 0.2em;
+    background: var(--k);
+    border: 1px solid var(--line);
+    color: var(--neon);
+    font-weight: 600;
+  }
+
+  .ms__network {
+    margin: 0;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line);
+    background: var(--k2);
+    color: var(--w);
+  }
+
+  .ms__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .ms__table th,
+  .ms__table td {
+    padding: var(--s-2) var(--s-3);
+    border-top: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .ms__table th {
+    width: 9rem;
+    color: var(--g);
+    font-weight: 400;
+  }
+
+  .ms__table td {
+    color: var(--w);
+  }
+
+  .ms__count {
+    margin: 0;
+    padding: var(--s-3) var(--s-3) 0;
+    color: var(--w);
+  }
+
+  .ms__count b {
     color: var(--neon);
   }
 
@@ -205,62 +667,61 @@ import { profileSong, top8 } from '~/content/top8';
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--s-3);
-    max-width: 64rem;
     margin: 0;
-    padding: 0;
+    padding: var(--s-3);
     list-style: none;
-    counter-reset: top8;
   }
 
   .top8__cell {
-    counter-increment: top8;
-    border: 1px solid var(--neon);
-    background: var(--k2);
+    border: 2px solid var(--neon);
+    background: var(--k);
   }
 
   .top8__cell > * {
     display: grid;
     gap: var(--s-1);
-    padding: var(--s-4);
-    aspect-ratio: 4 / 3;
-    min-height: 8rem;
-    align-content: end;
+    padding: var(--s-2);
     color: var(--w);
     text-decoration: none;
   }
 
-  .top8__cell > *::before {
-    content: counter(top8);
-    justify-self: start;
-    margin-bottom: auto;
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    color: var(--neon);
+  .top8__thumb {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    background: var(--k2);
+    overflow: hidden;
   }
 
-  .top8__cell a:hover,
-  .top8__cell a:focus-visible {
-    background: var(--neon);
-    color: var(--neon-ink);
+  .top8__thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .top8__cell a:hover::before,
-  .top8__cell a:focus-visible::before,
-  .top8__cell a:hover .top8__note,
-  .top8__cell a:focus-visible .top8__note {
-    color: var(--neon-ink);
+  .top8__thumb svg {
+    width: 45%;
+    fill: var(--neon-dim);
+    opacity: 0.7;
   }
 
   .top8__name {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     letter-spacing: var(--tracking-tight);
-    line-height: 1.1;
+    line-height: 1.2;
+    color: var(--neon);
   }
 
   .top8__note {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--g);
+  }
+
+  .top8__cell a[href]:hover .top8__name,
+  .top8__cell a[href]:focus-visible .top8__name {
+    text-decoration: underline;
   }
 
   .top8__cell--tbd {
@@ -268,25 +729,113 @@ import { profileSong, top8 } from '~/content/top8';
     border-color: var(--neon-dim);
   }
 
-  .top8__ghost {
-    align-content: space-between;
-    justify-items: center;
-  }
-
-  .top8__ghost::before {
-    justify-self: start;
-    color: var(--neon-dim);
-  }
-
-  .top8__ghost svg {
-    width: 40%;
-    max-width: 4rem;
-    fill: var(--neon-dim);
-    opacity: 0.6;
-  }
-
-  .top8__ghost .top8__note {
+  .top8__ghost .top8__name {
     color: var(--g2);
+  }
+
+  .ms__viewall {
+    margin: 0;
+    padding: 0 var(--s-3) var(--s-3);
+    font-weight: 700;
+  }
+
+  .ms__displaying {
+    margin: 0;
+    padding: var(--s-3);
+    color: var(--g);
+  }
+
+  .ms__displaying b {
+    color: var(--neon);
+  }
+
+  .ms__comments {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ms__comment {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    border-top: 1px solid var(--line);
+  }
+
+  .ms__who {
+    display: grid;
+    gap: var(--s-2);
+    justify-items: start;
+    align-content: start;
+    color: var(--neon);
+    font-size: var(--text-sm);
+  }
+
+  .ms__who-thumb {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    aspect-ratio: 1;
+    border: 2px solid var(--neon);
+    background: var(--k);
+  }
+
+  .ms__who-thumb svg {
+    width: 50%;
+    fill: var(--neon-dim);
+  }
+
+  .ms__said {
+    display: grid;
+    gap: var(--s-1);
+    min-width: 0;
+  }
+
+  .ms__said time {
+    color: var(--g);
+  }
+
+  .ms__said p {
+    margin: 0;
+    color: var(--w);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .ms__add-form {
+    display: grid;
+    gap: var(--s-2);
+    justify-items: end;
+    padding: var(--s-3);
+    border-top: 1px solid var(--line);
+  }
+
+  .ms__add-form textarea {
+    width: 100%;
+    padding: var(--s-2);
+    border: 1px solid var(--line);
+    background: var(--k);
+    color: var(--w);
+    resize: vertical;
+  }
+
+  .ms__add-form textarea:focus-visible {
+    outline: 2px solid var(--neon);
+    outline-offset: 0;
+  }
+
+  .ms__add-form button {
+    padding: 0.3em 0.9em;
+    border: 1px solid var(--neon);
+    color: var(--neon);
+  }
+
+  .ms__add-form button:hover,
+  .ms__add-form button:focus-visible {
+    background: var(--neon);
+    color: var(--neon-ink);
   }
 
   /* motion on: cells stagger in after the sheet lands */
@@ -306,11 +855,30 @@ import { profileSong, top8 } from '~/content/top8';
   }
 
   @media (max-width: 800px) {
+    .ms {
+      grid-template-columns: 1fr;
+    }
+    .ms__side {
+      position: static;
+    }
+    .ms__card-row {
+      grid-template-columns: 7rem 1fr;
+    }
     .top8__grid {
       grid-template-columns: repeat(2, 1fr);
     }
-    .top8__cell > * {
-      min-height: 6.5rem;
+    .ms__comment {
+      grid-template-columns: 1fr;
+    }
+    .ms__who {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+    }
+    .ms__who-thumb {
+      width: 2.5rem;
+    }
+    .ms__table th {
+      width: 7rem;
     }
   }
 </style>
