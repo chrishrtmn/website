@@ -24,7 +24,7 @@ export const builtFor = [
   { name: 'Too Faced', via: 'The Estée Lauder Companies' },
   { name: 'Tom Ford Beauty', via: 'The Estée Lauder Companies' },
   { name: 'Sony Music', via: 'Drupal Connect' },
-  { name: 'Warner Bros. Records', via: 'ImageX Media' },
+  { name: 'Warner Music Group', via: 'ImageX Media' },
   { name: 'Arizona State University', via: 'ImageX Media' },
   { name: 'UCSF', via: 'ImageX Media' },
   { name: 'Stanford', via: 'Drupal Connect' },
