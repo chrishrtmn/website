@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import Clock from '~/islands/Clock';
+import Live from '~/islands/Live';
+import { site } from '~/lib/site';
+import { fallbackCommit, fallbackNow, relativeTime, weatherText } from '~/lib/now';
+
+const building = (await getCollection('projects'))
+  .map((p) => p.data)
+  .filter((p) => p.status === 'shipping' && p.url)
+  .sort((a, b) => a.order - b.order)
+  .slice(0, 3);
+
+const weatherFallback = `${weatherText(fallbackNow.here)} here`;
+const commitFallback = `“${fallbackCommit.message}” · ${fallbackCommit.repo.replace(/^chrishrtmn\//, '')} · ${relativeTime(fallbackCommit.at)}`;
+---
+
+<section id="now" class="now" aria-labelledby="now-label">
+  <div class="wrap">
+    <p id="now-label" class="label">now</p>
+    <dl class="now__ledger mono">
+      <div class="now__row">
+        <dt>time</dt>
+        <dd><Clock client:visible tz={site.location.tz} seconds={false} /> {site.location.city}, OH</dd>
+      </div>
+      <div class="now__row">
+        <dt>weather</dt>
+        <dd><Live client:visible kind="weather" fallback={weatherFallback} /></dd>
+      </div>
+      <div class="now__row">
+        <dt>commit</dt>
+        <dd><Live client:visible kind="commit" fallback={commitFallback} /></dd>
+      </div>
+      <div class="now__row">
+        <dt>building</dt>
+        <dd>
+          {
+            building.map((p, i) => (
+              <>
+                {i > 0 && <span class="now__sep" aria-hidden="true"> · </span>}
+                <a href={p.url} target="_blank" rel="noopener">
+                  {p.url!.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                </a>
+              </>
+            ))
+          }
+        </dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .now {
+    background: var(--k2);
+    border-block: 1px solid var(--line);
+    padding-block: var(--s-12);
+  }
+
+  .now__ledger {
+    display: grid;
+    gap: var(--s-2);
+    margin: var(--s-6) 0 0;
+    font-size: var(--text-sm);
+  }
+
+  .now__row {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: var(--s-4);
+    min-height: 1.5em;
+  }
+
+  .now__row dt {
+    color: var(--g2);
+  }
+
+  .now__row dd {
+    margin: 0;
+    color: var(--g);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .now__row a {
+    color: var(--w);
+    text-decoration: none;
+  }
+
+  .now__row a:hover,
+  .now__row a:focus-visible {
+    color: var(--neon);
+  }
+
+  .now__sep {
+    color: var(--g2);
+  }
+
+  @media (max-width: 600px) {
+    .now__row {
+      grid-template-columns: 1fr;
+      gap: var(--s-1);
+    }
+  }
+</style>
