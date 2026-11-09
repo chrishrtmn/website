@@ -36,12 +36,24 @@ export default function CommandMenu({ commands, email }: Props) {
   const [active, setActive] = useState(0);
   const [unlocked, setUnlocked] = useState(false);
   const [toast, setToast] = useState('');
+  const [toastOut, setToastOut] = useState(false);
   const toastTimer = useRef<number>();
+  const toastExit = useRef<number>();
 
   function flash(text: string, ms = 2000) {
     window.clearTimeout(toastTimer.current);
+    window.clearTimeout(toastExit.current);
+    setToastOut(false);
     setToast(text);
-    toastTimer.current = window.setTimeout(() => setToast(''), ms);
+    toastTimer.current = window.setTimeout(() => {
+      const motion = document.documentElement.dataset.motion !== 'off';
+      if (!motion) return setToast('');
+      setToastOut(true);
+      toastExit.current = window.setTimeout(() => {
+        setToast('');
+        setToastOut(false);
+      }, 250);
+    }, ms);
   }
 
   useEffect(() => {
@@ -230,7 +242,7 @@ export default function CommandMenu({ commands, email }: Props) {
       </dialog>
 
       {toast && (
-        <div class="cmd-toast small" role="status">
+        <div class={`cmd-toast small${toastOut ? ' is-out' : ''}`} role="status">
           {toast}
         </div>
       )}
