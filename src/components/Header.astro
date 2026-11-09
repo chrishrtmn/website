@@ -77,8 +77,11 @@ const path = Astro.url.pathname;
     nav {
       display: none;
     }
-    .header > :global(.motion-toggle) {
+    .header :global(.motion-toggle) {
       margin-inline-start: auto;
+    }
+    .header :global(.cmd-trigger) {
+      margin-inline-start: calc(-1 * var(--s-1));
     }
   }
 </style>
