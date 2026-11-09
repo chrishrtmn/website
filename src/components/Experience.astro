@@ -75,7 +75,10 @@ const kinds: [Kind, string][] = [
     {
       rows.map((r) => (
         <div class="xp__row" data-kind={r.kind} data-current={r.current ? '' : undefined} hidden={r.kind !== 'career'}>
-          <dt class="xp__years mono">{r.when}</dt>
+          <dt class="xp__years mono">
+            {r.when}
+            <span class="xp__kind xp__kind--top mono">{r.kind}</span>
+          </dt>
           <dd class="xp__body">
             <span class="xp__employer">
               {r.url ? (
@@ -230,6 +233,11 @@ const kinds: [Kind, string][] = [
     display: inline-block;
   }
 
+  .xp__kind--top,
+  .xp.is-mixed .xp__kind--top {
+    display: none;
+  }
+
   .xp__row[data-kind='project'] .xp__kind {
     border-color: var(--neon-dim);
     color: var(--neon);
@@ -301,6 +309,20 @@ const kinds: [Kind, string][] = [
       grid-template-columns: 1fr;
       gap: var(--s-2);
       padding-block: var(--s-4);
+    }
+    .xp__years {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s-3);
+    }
+    .xp.is-mixed .xp__employer .xp__kind {
+      display: none;
+    }
+    .xp.is-mixed .xp__kind--top {
+      display: inline-block;
+      margin-inline-start: 0;
+      vertical-align: baseline;
     }
     .xp__more summary {
       display: inline-block;
