@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
 import './CommandMenu.css';
 
 export interface Command {
@@ -35,6 +36,12 @@ export default function CommandMenu({ commands, email }: Props) {
   const [active, setActive] = useState(0);
   const [unlocked, setUnlocked] = useState(false);
   const [toast, setToast] = useState('');
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem(UNLOCK_KEY) === '1') setUnlocked(true);
+    } catch {}
+  }, []);
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -76,9 +83,12 @@ export default function CommandMenu({ commands, email }: Props) {
           progress = 0;
           e.preventDefault();
           setUnlocked(true);
-          if (!open) show();
-          setQuery('');
-          setToast('hidden talents unlocked');
+          try {
+            sessionStorage.setItem(UNLOCK_KEY, '1');
+          } catch {}
+          document.dispatchEvent(new CustomEvent(UNLOCK_EVENT));
+          if (open) hide();
+          setToast('top 8 unlocked ↓');
           setTimeout(() => setToast(''), 2400);
         }
       } else {
@@ -87,10 +97,16 @@ export default function CommandMenu({ commands, email }: Props) {
     };
     document.addEventListener('keydown', onKey);
     const onOpen = () => show();
+    const onNope = () => {
+      setToast(matchMedia('(pointer: coarse)').matches ? 'nope. needs a keyboard.' : 'nope. not that easy.');
+      setTimeout(() => setToast(''), 2400);
+    };
     document.addEventListener('command-menu:open', onOpen);
+    document.addEventListener('command-menu:nope', onNope);
     return () => {
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('command-menu:open', onOpen);
+      document.removeEventListener('command-menu:nope', onNope);
     };
   }, [open]);
 
@@ -147,9 +163,12 @@ export default function CommandMenu({ commands, email }: Props) {
 
   return (
     <>
-      <button type="button" class="cmd-trigger mono" onClick={show} aria-haspopup="dialog" aria-expanded={open}>
-        <kbd>⌘</kbd>
-        <kbd>K</kbd>
+      <button type="button" class="cmd-trigger mono" onClick={show} aria-haspopup="dialog" aria-expanded={open} aria-label="Open menu">
+        <span class="cmd-trigger__keys" aria-hidden="true">
+          <kbd>⌘</kbd>
+          <kbd>K</kbd>
+        </span>
+        <span class="cmd-trigger__word" aria-hidden="true">menu</span>
       </button>
 
       <dialog ref={dialog} class="cmd" onClose={() => setOpen(false)} onClick={(e) => e.target === dialog.current && hide()}>

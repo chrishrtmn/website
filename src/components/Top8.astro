@@ -1,0 +1,157 @@
+---
+import { top8 } from '~/content/top8';
+---
+
+<section id="top8" class="top8 wrap" aria-labelledby="top8-label" hidden data-top8>
+  <header class="top8__head">
+    <p id="top8-label" class="label">top 8</p>
+    <h2 class="top8__title">Chris's Top 8</h2>
+    <p class="top8__sub">You found the cheat code. Here's the MySpace bit.</p>
+  </header>
+  <ol class="top8__grid">
+    {
+      top8.map((e, i) => (
+        <li class="top8__cell" style={`--i: ${i}`}>
+          {e.url ? (
+            <a href={e.url} target="_blank" rel="noopener">
+              <span class="top8__name">{e.name}</span>
+              <span class="top8__note">{e.note}</span>
+            </a>
+          ) : (
+            <span>
+              <span class="top8__name">{e.name}</span>
+              <span class="top8__note">{e.note}</span>
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<script>
+  import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
+
+  const el = document.querySelector<HTMLElement>('[data-top8]');
+  if (el) {
+    const reveal = (scroll: boolean) => {
+      if (!el.hidden) return;
+      el.hidden = false;
+      requestAnimationFrame(() => el.classList.add('is-in'));
+      if (scroll) el.scrollIntoView({ behavior: document.documentElement.dataset.motion === 'off' ? 'auto' : 'smooth', block: 'start' });
+    };
+    try {
+      if (sessionStorage.getItem(UNLOCK_KEY) === '1') reveal(false);
+    } catch {}
+    document.addEventListener(UNLOCK_EVENT, () => reveal(true));
+  }
+</script>
+
+<style>
+  .top8 {
+    padding-block: var(--s-16);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: var(--s-8);
+  }
+
+  .top8__head {
+    display: grid;
+    gap: var(--s-2);
+    margin-bottom: var(--s-8);
+  }
+
+  .top8__title {
+    font-size: var(--text-2xl);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .top8__sub {
+    color: var(--g);
+  }
+
+  .top8__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: top8;
+  }
+
+  .top8__cell {
+    counter-increment: top8;
+    border: 1px solid var(--neon);
+    background: var(--k2);
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .is-in .top8__cell {
+    transition:
+      opacity var(--dur-3) var(--ease-out),
+      transform var(--dur-3) var(--ease-out);
+    transition-delay: calc(var(--i) * 60ms);
+    opacity: 1;
+    transform: none;
+  }
+
+  .top8__cell > * {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-4);
+    aspect-ratio: 1;
+    align-content: end;
+    color: var(--w);
+    text-decoration: none;
+  }
+
+  .top8__cell > *::before {
+    content: counter(top8);
+    justify-self: start;
+    margin-bottom: auto;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--neon);
+  }
+
+  .top8__cell a:hover,
+  .top8__cell a:focus-visible {
+    background: var(--neon);
+    color: var(--neon-ink);
+  }
+
+  .top8__cell a:hover::before,
+  .top8__cell a:focus-visible::before {
+    color: var(--neon-ink);
+  }
+
+  .top8__name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.1;
+  }
+
+  .top8__note {
+    font-size: var(--text-sm);
+    color: var(--g);
+  }
+
+  .top8__cell a:hover .top8__note,
+  .top8__cell a:focus-visible .top8__note {
+    color: var(--neon-ink);
+  }
+
+  :global(html[data-motion='off']) .top8__cell {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  @media (max-width: 800px) {
+    .top8__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

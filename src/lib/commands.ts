@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import { site } from './site';
+import { top8 as top8Entries } from '~/content/top8';
 
 export interface Command {
   id: string;
@@ -21,7 +22,6 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'experience', group: 'go', label: 'Experience', href: '/#experience' },
     { id: 'events', group: 'go', label: 'Events', href: '/#events' },
     { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
-    { id: 'uses', group: 'go', label: 'Uses', href: '/uses' },
     { id: 'stack', group: 'go', label: 'Stack', href: '/stack' },
     { id: 'timeline', group: 'go', label: 'Timeline', href: '/timeline' },
     { id: 'contact', group: 'go', label: 'Contact', href: '/#contact' },
@@ -56,16 +56,13 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'linkedin', group: 'do', label: 'LinkedIn', href: site.links.linkedin },
   ];
 
-  const top8: Command[] = [
-    ['Tom', 'always #1'],
-    ['Astro', 'this site'],
-    ['Proxmox', 'the homelab'],
-    ['Onewheel', 'commute'],
-    ['Zed', 'editor'],
-    ['Kagi', 'search'],
-    ['Obsidian', 'notes'],
-    ['The Guardians', 'baseball'],
-  ].map(([label, hint], i) => ({ id: `top8-${i}`, group: 'top8' as const, label: `${i + 1}. ${label}`, hint }));
+  const top8: Command[] = top8Entries.map((e, i) => ({
+    id: `top8-${i}`,
+    group: 'top8' as const,
+    label: `${i + 1}. ${e.name}`,
+    hint: e.note,
+    href: e.url,
+  }));
 
   const hidden: Command[] = [
     { id: 'talent-1', group: 'hidden', label: 'Can cry on command', hint: 'hidden talent' },

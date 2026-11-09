@@ -17,6 +17,32 @@
   border-color: var(--g2);
 }
 
+.cmd-trigger__keys {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.cmd-trigger__word {
+  display: none;
+  padding: 0.1em 0.6em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: var(--text-xs);
+}
+
+@media (pointer: coarse) {
+  .cmd-trigger__keys {
+    display: none;
+  }
+  .cmd-trigger__word {
+    display: inline-block;
+  }
+  .cmd-trigger:hover .cmd-trigger__word {
+    color: var(--w);
+    border-color: var(--g2);
+  }
+}
+
 .cmd {
   width: min(40rem, calc(100vw - 2 * var(--gutter)));
   margin: 12vh auto 0;
