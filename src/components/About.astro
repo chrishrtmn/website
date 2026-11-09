@@ -1,0 +1,55 @@
+---
+import Section from './Section.astro';
+---
+
+<Section id="about" label="about" title="Ope, hi.">
+  <div class="about">
+    <div class="about__photo" aria-hidden="true"></div>
+    <div class="about__text">
+      <p>
+        I'm Chris. I taught myself HTML and CSS by breaking MySpace layouts in 2005 and never really stopped. Nineteen
+        years later I build front-ends for a living and whole products for fun, from northeast Ohio, remotely, with a
+        cat somewhere on the desk.
+      </p>
+      <p>
+        Outside of work it's mountain bikes, a Onewheel, snowboarding when the lake effect cooperates, and playthroughs
+        of games older than some of my coworkers. I like small tools that do one thing, quiet software, and saying
+        "ope" more than is strictly necessary.
+      </p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(12rem, 18rem) 1fr;
+    gap: var(--s-12);
+    align-items: start;
+  }
+
+  .about__photo {
+    aspect-ratio: 4 / 5;
+    background: var(--k2);
+    border: 1px solid var(--line);
+  }
+
+  .about__text {
+    display: grid;
+    gap: var(--s-4);
+    font-size: var(--text-lg);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 800px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+    .about__photo {
+      max-width: 14rem;
+    }
+    .about__text {
+      font-size: var(--text-base);
+    }
+  }
+</style>
