@@ -4,12 +4,12 @@ import { site } from '~/lib/site';
 const year = new Date().getFullYear();
 const subject = encodeURIComponent('Résumé request');
 const body = encodeURIComponent('Hi Chris, could you send over your résumé? Here is a bit about the role: ');
-const talk = "let's chat".split('');
+const talk = 'hey chat'.split('');
 const external = { target: '_blank', rel: 'noopener' } as const;
 ---
 
 <footer class="footer wrap" id="contact">
-  <button type="button" class="footer__talk" aria-label="Let's chat. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
+  <button type="button" class="footer__talk" aria-label="Hey chat. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
     <span class="footer__row footer__row--latin" aria-hidden="true">
       {
         talk.map((ch, i) =>
@@ -20,7 +20,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     <span class="footer__row footer__row--sign" aria-hidden="true">
       {
         talk.map((ch, i) =>
-          ch === ' ' ? <span class="footer__space"> </span> : ch === "'" ? null : <span class="footer__sign" style={`--i: ${i}`}>{ch}</span>,
+          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__sign" style={`--i: ${i}`}>{ch}</span>,
         )
       }
     </span>
@@ -196,12 +196,12 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   }
 
   .footer__row--sign {
-    gap: 0.14em;
-    margin-inline-start: -0.025em;
+    gap: 0.16em;
+    margin-inline-start: -0.06em;
   }
 
   .footer__row--sign .footer__space {
-    width: 0.22em;
+    width: 0.24em;
   }
 
   .footer__talk:active {
