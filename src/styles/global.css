@@ -73,6 +73,7 @@ html {
   -webkit-font-smoothing: antialiased;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 html[data-motion='off'] {
