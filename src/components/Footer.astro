@@ -72,7 +72,14 @@ const external = { target: '_blank', rel: 'noopener' } as const;
           for (const e of entries) {
             if (e.isIntersecting) {
               seen = true;
-              if (motionOn()) setTimeout(() => motionOn() && set(true), 600);
+              if (motionOn()) {
+                talk.classList.add('is-slow');
+                setTimeout(() => {
+                  if (motionOn()) set(true);
+                  const lastSign = [...talk.querySelectorAll<HTMLElement>('.footer__sign')].pop();
+                  lastSign?.addEventListener('transitionend', () => talk.classList.remove('is-slow'), { once: true });
+                }, 1600);
+              }
               io.disconnect();
             }
           }
@@ -146,6 +153,12 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     grid-area: 1 / 1;
     transition: opacity var(--dur-3) var(--ease-out);
     transition-delay: calc(var(--i) * 60ms);
+  }
+
+  .footer__talk.is-slow .footer__latin,
+  .footer__talk.is-slow .footer__sign {
+    transition-duration: var(--dur-4);
+    transition-delay: calc(var(--i) * 110ms);
   }
 
   .footer__latin {
