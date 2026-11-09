@@ -195,10 +195,10 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
     .ticker__view {
       position: static;
       justify-content: flex-end;
-      padding: var(--s-4) var(--gutter) 0;
+      padding: var(--s-3) var(--gutter) 0;
     }
     .ticker[data-view='scroll'] .ticker__body {
-      padding-block: var(--s-6) var(--s-8);
+      padding-block: var(--s-4) var(--s-6);
     }
   }
 
@@ -290,6 +290,14 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
     padding: var(--s-16) var(--gutter) var(--s-12);
   }
 
+  @media (max-width: 600px) {
+    .ticker[data-view='grid'] .ticker__body,
+    :global(html[data-motion='off']) .ticker .ticker__body {
+      gap: var(--s-6);
+      padding: var(--s-4) var(--gutter) var(--s-8);
+    }
+  }
+
   .ticker[data-view='grid'] .ticker__name,
   :global(html[data-motion='off']) .ticker .ticker__name {
     display: block;
@@ -347,10 +355,6 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
   }
 
   @media (max-width: 900px) {
-    .ticker[data-view='grid'],
-    :global(html[data-motion='off']) .ticker {
-      padding-block: var(--s-12) var(--s-8);
-    }
     .ticker[data-view='grid'] .ticker__line,
     :global(html[data-motion='off']) .ticker .ticker__line {
       font-size: var(--text-base);
