@@ -1,12 +1,17 @@
 ---
 import { nav, site } from '~/lib/site';
+import { buildCommands } from '~/lib/commands';
 import MotionToggle from '~/islands/MotionToggle';
+import CommandMenu from '~/islands/CommandMenu';
+import Wordmark from './Wordmark.astro';
+
+const commands = await buildCommands();
 
 const path = Astro.url.pathname;
 ---
 
 <header class="header wrap">
-  <a class="home mono" href="/" aria-label={`${site.name}, home`}>{site.handle}</a>
+  <Wordmark />
   <nav aria-label="Primary">
     <ul class="mono">
       {
@@ -21,23 +26,19 @@ const path = Astro.url.pathname;
     </ul>
   </nav>
   <MotionToggle client:load />
+  <CommandMenu client:idle commands={commands} email={site.email} />
 </header>
 
 <style>
   .header {
     position: absolute;
     inset: 0 36% auto 0;
-    z-index: var(--z-sticky);
+    z-index: var(--z-menu);
     display: flex;
     align-items: center;
     gap: var(--s-6);
     padding-block: var(--s-4);
     color: var(--g);
-  }
-
-  .home {
-    color: var(--w);
-    text-decoration: none;
   }
 
   nav {
