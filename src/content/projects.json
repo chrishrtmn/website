@@ -11,9 +11,8 @@
       "Drizzle",
       "Postgres"
     ],
-    "status": "shipping",
+    "status": "building",
     "year": 2026,
-    "url": "https://linuxstatistics.com",
     "repo": "https://github.com/linuxstatistics/linuxstatistics",
     "featured": true
   },
@@ -28,9 +27,8 @@
       "Postgres",
       "Docker"
     ],
-    "status": "shipping",
+    "status": "building",
     "year": 2026,
-    "url": "https://degreefa.st",
     "featured": true
   },
   {
@@ -45,7 +43,6 @@
     ],
     "status": "building",
     "year": 2026,
-    "url": "https://templates.sh",
     "featured": true
   },
   {
