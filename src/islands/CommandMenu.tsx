@@ -174,12 +174,12 @@ export default function CommandMenu({ commands, email }: Props) {
 
   return (
     <>
-      <button type="button" class="cmd-trigger mono" onClick={show} aria-haspopup="dialog" aria-expanded={open} aria-label="Open menu">
+      <button type="button" class="cmd-trigger" onClick={show} aria-haspopup="dialog" aria-expanded={open} aria-label="Open menu">
+        <span class="cmd-trigger__word">menu</span>
         <span class="cmd-trigger__keys" aria-hidden="true">
           <kbd>⌘</kbd>
           <kbd>K</kbd>
         </span>
-        <span class="cmd-trigger__word" aria-hidden="true">menu</span>
       </button>
 
       <dialog ref={dialog} class="cmd" onClose={() => setOpen(false)} onClick={(e) => e.target === dialog.current && hide()}>
