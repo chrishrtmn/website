@@ -75,22 +75,25 @@ const facts = [
 
   .about__text {
     display: grid;
-    gap: var(--s-6);
-    max-width: var(--measure);
+    gap: var(--s-8);
+  }
+
+  .about__text p {
+    max-width: none;
   }
 
   .about__lede {
-    font-size: var(--text-xl);
+    font-size: clamp(var(--text-xl), 3.2vw, var(--text-3xl));
     font-weight: 500;
     letter-spacing: var(--tracking-tight);
-    line-height: 1.3;
+    line-height: 1.2;
     color: var(--w);
     text-wrap: pretty;
   }
 
   .about__body {
-    font-size: var(--text-lg);
-    line-height: 1.5;
+    font-size: clamp(var(--text-lg), 2.1vw, var(--text-2xl));
+    line-height: 1.4;
     color: var(--g);
     text-wrap: pretty;
   }
@@ -104,7 +107,6 @@ const facts = [
     display: grid;
     gap: var(--s-2);
     margin: 0;
-    width: min(100%, 26rem);
   }
 
   .about__row {
