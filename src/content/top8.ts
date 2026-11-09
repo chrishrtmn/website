@@ -16,9 +16,14 @@ const tbd: Top8Entry = { name: 'tbd', note: '', placeholder: true };
 
 export const top8: Top8Entry[] = [{ name: 'Tom', note: 'always #1', photo: '/top8/tom.jpg' }, tbd, tbd, tbd, tbd, tbd, tbd, tbd];
 
-export const profileSong: { title: string; artist: string; url?: string } | null = null;
+export const profileSong: { title: string; artist: string; url?: string } | null = {
+  title: 'Ohio Is for Lovers',
+  artist: 'Hawthorne Heights',
+  url: 'https://www.youtube.com/watch?v=hUO-sRLotOI',
+};
 
 export const profile = {
+  handle: 'chrisXapplesauce',
   mood: 'shipping',
   headline: 'Product engineer. Breaking layouts since 2005.',
   hereFor: 'Networking, Friends',

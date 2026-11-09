@@ -51,7 +51,7 @@ const details = [
       <div class="ms">
         <aside class="ms__side">
           <section class="ms__card" aria-label="Profile">
-            <h3 class="ms__name">Chris</h3>
+            <h3 class="ms__name">{profile.handle}</h3>
             <p class="ms__headline">"{profile.headline}"</p>
             <div class="ms__card-row">
               <picture class="ms__photo">
@@ -77,10 +77,14 @@ const details = [
                 profileSong ? (
                   profileSong.url ? (
                     <a href={profileSong.url} target="_blank" rel="noopener">
-                      {profileSong.title} · {profileSong.artist}
+                      <b>{profileSong.title}</b>
+                      <span>{profileSong.artist}</span>
                     </a>
                   ) : (
-                    `${profileSong.title} · ${profileSong.artist}`
+                    <>
+                      <b>{profileSong.title}</b>
+                      <span>{profileSong.artist}</span>
+                    </>
                   )
                 ) : (
                   'profile song: tbd'
@@ -437,6 +441,7 @@ const details = [
     margin: 0;
     font-size: var(--text-xl);
     letter-spacing: var(--tracking-tight);
+    text-transform: none;
   }
 
   .ms__headline {
@@ -583,15 +588,24 @@ const details = [
   }
 
   .ms__track {
-    overflow: hidden;
+    display: grid;
+    min-width: 0;
     color: var(--w);
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    line-height: 1.35;
   }
 
   .ms__track a {
+    display: grid;
     color: inherit;
     text-decoration: none;
+  }
+
+  .ms__track b {
+    font-weight: 600;
+  }
+
+  .ms__track span {
+    color: var(--g);
   }
 
   .ms__track a:hover,
