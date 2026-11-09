@@ -38,7 +38,8 @@
     "id": "2020-recurringcredit",
     "date": "2020-07",
     "kind": "project",
-    "title": "RecurringCredit launches"
+    "title": "RecurringCredit launches",
+    "detail": "A subscription that kept a small recurring charge on the credit cards you never use, so the card issuer wouldn't close them for inactivity. Real users, real revenue. Retired in 2024."
   },
   {
     "id": "2020-jamstack-conf",
@@ -58,7 +59,8 @@
     "id": "2020-remotejamstack",
     "date": "2020-10",
     "kind": "project",
-    "title": "Remote Jamstack launches"
+    "title": "Remote Jamstack",
+    "detail": "Job board for remote roles in the Jamstack ecosystem. Next.js, Tailwind and Firebase on Vercel. Pre-alpha, shut down in early 2021."
   },
   {
     "id": "2020-vueconf",
