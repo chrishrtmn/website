@@ -1,0 +1,74 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '~/layouts/Base.astro';
+import Footer from '~/components/Footer.astro';
+import '~/styles/prose.css';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.filter((p) => !p.data.draft).map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const words = post.body?.split(/\s+/).length ?? 0;
+const minutes = Math.max(1, Math.round(words / 220));
+---
+
+<Base title={post.data.title} description={post.data.summary}>
+  <article class="article wrap">
+    <header class="article__head">
+      <p class="label">
+        <a href="/posts">posts</a> · <time datetime={post.data.date.toISOString()}>{fmt.format(post.data.date)}</time> · {minutes} min
+      </p>
+      <h1 class="article__title">{post.data.title}</h1>
+      <p class="article__summary">{post.data.summary}</p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <footer class="article__foot mono">
+      <span>Chris Hartman · {post.data.tags.join(' · ')}</span>
+      <a href="/posts">← all posts</a>
+    </footer>
+  </article>
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .article {
+    padding-block: var(--s-24) var(--s-16);
+    max-width: calc(var(--measure) + 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  .article__head {
+    display: grid;
+    gap: var(--s-4);
+    margin-bottom: var(--s-12);
+  }
+
+  .article__head .label a {
+    text-decoration: none;
+  }
+
+  .article__title {
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+  }
+
+  .article__summary {
+    font-size: var(--text-lg);
+    color: var(--g);
+  }
+
+  .article__foot {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-top: var(--s-16);
+    padding-top: var(--s-6);
+    border-top: 1px solid var(--line);
+    color: var(--g);
+  }
+</style>

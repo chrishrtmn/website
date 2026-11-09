@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '~/layouts/Base.astro';
+import Footer from '~/components/Footer.astro';
+
+const posts = (await getCollection('posts'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<Base title="Posts" description="Notes on building for the web, hearing tech, and running small tools.">
+  <section class="page wrap">
+    <p class="label">posts</p>
+    <h1 class="page__title">Notes</h1>
+    {
+      posts.length === 0 ? (
+        <p class="page__empty">Nothing published yet. Ope.</p>
+      ) : (
+        <ol class="posts">
+          {posts.map((p) => (
+            <li class="post">
+              <a href={`/posts/${p.id}`} class="post__link">
+                <time class="post__date mono" datetime={p.data.date.toISOString()}>
+                  {fmt.format(p.data.date)}
+                </time>
+                <span class="post__title">{p.data.title}</span>
+                <span class="post__summary">{p.data.summary}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </section>
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-24) var(--s-16);
+  }
+
+  .page__title {
+    margin: var(--s-3) 0 var(--s-12);
+    font-size: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .page__empty {
+    color: var(--g);
+  }
+
+  .posts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .post {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post__link {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: var(--s-2) var(--s-6);
+    padding: var(--s-6) 0;
+    text-decoration: none;
+  }
+
+  .post__date {
+    color: var(--g);
+  }
+
+  .post__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .post__summary {
+    grid-column: 2;
+    color: var(--g);
+    max-width: var(--measure);
+  }
+
+  .post__link:hover .post__title {
+    color: var(--neon);
+  }
+
+  @media (max-width: 600px) {
+    .post__link {
+      grid-template-columns: 1fr;
+    }
+    .post__summary {
+      grid-column: 1;
+    }
+  }
+</style>
