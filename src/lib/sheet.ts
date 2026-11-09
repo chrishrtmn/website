@@ -23,6 +23,7 @@ const motionOn = () => document.documentElement.dataset.motion !== 'off';
 
 export function sheet(el: HTMLDialogElement, opts: SheetOptions = {}): Sheet {
   const grab = el.querySelector<HTMLElement>('[data-sheet-grab]');
+  const surfaces = [grab, ...el.querySelectorAll<HTMLElement>('[data-sheet-drag]')].filter(Boolean) as HTMLElement[];
   let lastFocus: HTMLElement | null = null;
   let closing = false;
 
@@ -88,26 +89,29 @@ export function sheet(el: HTMLDialogElement, opts: SheetOptions = {}): Sheet {
   });
   el.querySelectorAll<HTMLElement>('[data-sheet-close]').forEach((b) => b.addEventListener('click', () => close()));
 
-  if (grab) {
+  if (surfaces.length) {
     let startY = 0;
     let lastY = 0;
     let lastT = 0;
     let vel = 0;
     let dragging = false;
+    let active: HTMLElement | null = null;
     const rubber = (d: number) => d / (1 + Math.abs(d) / 80);
 
-    grab.addEventListener('pointerdown', (e) => {
+    const down = (surface: HTMLElement) => (e: PointerEvent) => {
       if (closing) return;
+      if ((e.target as HTMLElement).closest('a, button, input, textarea, select, label')) return;
+      active = surface;
       dragging = true;
       startY = lastY = e.clientY;
       lastT = e.timeStamp;
       vel = 0;
       el.getAnimations().forEach((a) => a.cancel());
       el.classList.add('is-dragging');
-      grab.setPointerCapture(e.pointerId);
-    });
+      surface.setPointerCapture(e.pointerId);
+    };
 
-    grab.addEventListener('pointermove', (e) => {
+    const move = (e: PointerEvent) => {
       if (!dragging) return;
       const d = e.clientY - startY;
       const dt = e.timeStamp - lastT || 16;
@@ -115,15 +119,16 @@ export function sheet(el: HTMLDialogElement, opts: SheetOptions = {}): Sheet {
       lastY = e.clientY;
       lastT = e.timeStamp;
       setY(d >= 0 ? d : rubber(d));
-    });
+    };
 
     const release = (e: PointerEvent) => {
       if (!dragging) return;
       dragging = false;
       el.classList.remove('is-dragging');
       try {
-        grab.releasePointerCapture(e.pointerId);
+        active?.releasePointerCapture(e.pointerId);
       } catch {}
+      active = null;
       const d = e.clientY - startY;
       const h = height();
       const flung = vel > 0.5;
@@ -134,8 +139,12 @@ export function sheet(el: HTMLDialogElement, opts: SheetOptions = {}): Sheet {
         animateTo(0, 420, EASE_SETTLE);
       }
     };
-    grab.addEventListener('pointerup', release);
-    grab.addEventListener('pointercancel', release);
+    for (const surface of surfaces) {
+      surface.addEventListener('pointerdown', down(surface));
+      surface.addEventListener('pointermove', move);
+      surface.addEventListener('pointerup', release);
+      surface.addEventListener('pointercancel', release);
+    }
   }
 
   return { open, close, el };

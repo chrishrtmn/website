@@ -221,7 +221,13 @@ html[data-motion='on'] .sheet.is-closing::backdrop {
   user-select: none;
 }
 
-.sheet.is-dragging .sheet__grab {
+.sheet [data-sheet-drag] {
+  touch-action: pan-x;
+  user-select: none;
+}
+
+.sheet.is-dragging .sheet__grab,
+.sheet.is-dragging [data-sheet-drag] {
   cursor: grabbing;
 }
 
