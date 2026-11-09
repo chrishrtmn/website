@@ -1,0 +1,61 @@
+[
+  {
+    "id": "elc",
+    "employer": "The Estée Lauder Companies",
+    "url": "https://www.elcompanies.com",
+    "titles": ["Senior Software Engineer, Brand Experience", "Front-End Engineer (contract)"],
+    "start": 2021,
+    "location": "Remote",
+    "scope": "Global e-commerce front-end for 23 brands: Drupal templates, React components inside Drupal, code review, performance work, and live-site support.",
+    "stack": ["Drupal", "React", "MobX", "Next.js", "Elixir", "Datadog", "Sentry"]
+  },
+  {
+    "id": "dss",
+    "employer": "Double Slash Studios",
+    "titles": ["Principal Engineer"],
+    "start": 2019,
+    "location": "Northeast Ohio",
+    "scope": "My own studio. Product work (RecurringCredit, Remote Jamstack, Workspacious) and higher-ed web proposals with accessibility and performance as the pitch.",
+    "stack": ["Next.js", "Astro", "Tailwind", "Cloudflare", "GitHub Actions"]
+  },
+  {
+    "id": "nas",
+    "employer": "NAS Recruitment Communications",
+    "titles": ["Front-End UI Developer"],
+    "start": 2018,
+    "end": 2020,
+    "location": "Hybrid, Northeast Ohio",
+    "scope": "45+ recruitment marketing sites on one ATS-connected platform for brands like Olive Garden, GNC, and Cardinal Health; wrote the shared base CSS system.",
+    "stack": ["Sass", "JavaScript", "ASP.NET Razor", "HubSpot", "TFS"]
+  },
+  {
+    "id": "questex",
+    "employer": "Questex",
+    "titles": ["Front-End Technical Lead", "Front-End UI/UX Developer"],
+    "start": 2014,
+    "end": 2018,
+    "location": "Remote",
+    "scope": "Front-ends for five multi-site Drupal platforms serving about 60 media brands; led a team of two and built the shared Sass design system.",
+    "stack": ["Drupal", "Sass", "jQuery", "Laravel", "Vue"]
+  },
+  {
+    "id": "independent",
+    "employer": "Independent",
+    "titles": ["Drupal Front-End Developer"],
+    "start": 2010,
+    "end": 2014,
+    "location": "Remote",
+    "scope": "Subcontracting for agencies and direct clients, including 79 Sony Music artist sites, Stanford, Juilliard, and Human Rights Watch.",
+    "stack": ["Drupal", "Sass", "Compass", "Pantheon"]
+  },
+  {
+    "id": "imagex",
+    "employer": "ImageX Media",
+    "titles": ["Drupal Developer"],
+    "start": 2007,
+    "end": 2010,
+    "location": "Remote",
+    "scope": "47 projects from theming to full builds, including Warner Bros. Records artist sites and Arizona State University.",
+    "stack": ["Drupal", "XHTML", "CSS", "jQuery"]
+  }
+]
