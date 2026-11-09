@@ -196,13 +196,13 @@ const details = [
                 ))
               }
             </ol>
-            <p class="ms__viewall"><button type="button" data-ms-action="all">View All of Chris's Friends</button></p>
+            {friends > 8 && <p class="ms__viewall"><button type="button" data-ms-action="all">View All of Chris's Friends</button></p>}
           </section>
 
           <section class="ms__module" aria-labelledby="ms-comments">
             <h3 class="ms__bar" id="ms-comments">Chris's Friends Comments</h3>
             <p class="ms__displaying mono small">
-              Displaying <b>{comments.length}</b> of <b>{comments.length}</b> comments (<a href="#ms-comments">View All</a> | <a href="#ms-add">Add Comment</a>)
+              Displaying <b>{comments.length}</b> of <b>{comments.length}</b> comments (<button type="button" data-ms-action="add">Add Comment</button>)
             </p>
             <ol class="ms__comments">
               {
@@ -254,6 +254,13 @@ const details = [
     document.addEventListener(UNLOCK_EVENT, () => setTimeout(top8.open, 50));
 
     const toast = (text: string) => document.dispatchEvent(new CustomEvent('toast', { detail: text }));
+    const scrollBodyTo = (target: HTMLElement) => {
+      const body = el.querySelector<HTMLElement>('.tray__body');
+      if (!body) return;
+      const head = el.querySelector<HTMLElement>('.tray__head')?.offsetHeight ?? 0;
+      const top = target.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - head - 16;
+      body.scrollTo({ top: Math.max(0, top), behavior: document.documentElement.dataset.motion === 'off' ? 'instant' : 'smooth' });
+    };
     const friends = Number(el.dataset.friends ?? 0);
 
     el.addEventListener('click', async (e) => {
@@ -269,13 +276,17 @@ const details = [
           toast(location.host);
         }
       }
+      if (action === 'add') {
+        const form = el.querySelector<HTMLElement>('[data-ms-form]');
+        if (form) {
+          scrollBodyTo(form);
+          form.querySelector<HTMLTextAreaElement>('textarea')?.focus({ preventScroll: true });
+        }
+      }
       if (action === 'all') {
         const grid = el.querySelector<HTMLElement>('.top8__grid');
-        const body = el.querySelector<HTMLElement>('.tray__body');
-        if (grid && body) {
-          const head = el.querySelector<HTMLElement>('.tray__head')?.offsetHeight ?? 0;
-          const top = grid.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - head - 16;
-          body.scrollTo({ top: Math.max(0, top), behavior: document.documentElement.dataset.motion === 'off' ? 'instant' : 'smooth' });
+        if (grid) {
+          scrollBodyTo(grid);
           grid.classList.remove('is-flash');
           void grid.offsetWidth;
           grid.classList.add('is-flash');
@@ -623,10 +634,18 @@ const details = [
     list-style: none;
   }
 
+  .ms__displaying button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+  }
+
   .ms__contact a,
   .ms__contact button,
   .ms__viewall button,
-  .ms__displaying a {
+  .ms__displaying button {
     color: var(--neon);
     text-decoration: none;
   }
@@ -637,8 +656,8 @@ const details = [
   .ms__contact button:focus-visible,
   .ms__viewall button:hover,
   .ms__viewall button:focus-visible,
-  .ms__displaying a:hover,
-  .ms__displaying a:focus-visible {
+  .ms__displaying button:hover,
+  .ms__displaying button:focus-visible {
     text-decoration: underline;
   }
 
