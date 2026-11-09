@@ -1,6 +1,7 @@
 ---
 import KitContents from './KitContents.astro';
 import { kitZip } from '~/lib/kit';
+import Flashes from './Flashes.astro';
 ---
 
 <dialog class="sheet tray" id="paparazzi-tray" aria-labelledby="tray-title">
@@ -9,15 +10,7 @@ import { kitZip } from '~/lib/kit';
       <span class="sheet__handle" aria-hidden="true"></span>
       <button type="button" class="visually-hidden" data-sheet-close>Close</button>
     </div>
-    <div class="tray__flashes" aria-hidden="true">
-      <b class="tray__bump"></b>
-      <i style="--x: 14%; --y: 22%; --d: 0ms; --s: 1"></i>
-      <i style="--x: 82%; --y: 30%; --d: 380ms; --s: 1.3"></i>
-      <i style="--x: 36%; --y: 72%; --d: 760ms; --s: 0.9"></i>
-      <i style="--x: 68%; --y: 56%; --d: 1120ms; --s: 1.15"></i>
-      <i style="--x: 50%; --y: 16%; --d: 1500ms; --s: 1.4"></i>
-      <i style="--x: 22%; --y: 86%; --d: 1900ms; --s: 0.8"></i>
-    </div>
+    <Flashes />
     <header class="tray__head" data-sheet-drag>
       <p class="label">paparazzi kit</p>
       <h2 id="tray-title" class="tray__title">Say cheese</h2>
@@ -133,35 +126,6 @@ import { kitZip } from '~/lib/kit';
     max-height: 88dvh;
   }
 
-  .tray__flashes {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .tray__flashes i {
-    position: absolute;
-    left: var(--x);
-    top: var(--y);
-    width: 36vmin;
-    height: 36vmin;
-    margin: -18vmin 0 0 -18vmin;
-    border-radius: 50%;
-    background: radial-gradient(circle, #fff 0%, #fff 12%, rgba(255, 255, 255, 0.7) 26%, rgba(243, 241, 238, 0) 62%);
-    opacity: 0;
-    transform: scale(0.5);
-    mix-blend-mode: screen;
-  }
-
-  .tray__bump {
-    position: absolute;
-    inset: 0;
-    background: #fff;
-    opacity: 0;
-  }
-
   .tray__head {
     position: sticky;
     top: 0;
@@ -208,65 +172,6 @@ import { kitZip } from '~/lib/kit';
     padding: var(--s-8) var(--gutter) var(--s-12);
     overflow-y: auto;
     overscroll-behavior: contain;
-  }
-
-  /* flash, motion on only */
-  :global(html[data-motion='on']) .tray.is-flashing .tray__flashes i {
-    animation: flash 900ms var(--ease-out) calc(360ms + var(--d)) both;
-  }
-
-  :global(html[data-motion='on']) .tray.is-flashing .tray__bump {
-    animation: bump 2400ms linear 360ms both;
-  }
-
-  @keyframes flash {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    6% {
-      opacity: 1;
-      transform: scale(var(--s));
-    }
-    22% {
-      opacity: 0.9;
-    }
-    100% {
-      opacity: 0;
-      transform: scale(calc(var(--s) * 1.3));
-    }
-  }
-
-  /* whole-sheet bumps on the 1st, 2nd and 5th pops */
-  @keyframes bump {
-    0%,
-    100% {
-      opacity: 0;
-    }
-    1% {
-      opacity: 0.22;
-    }
-    6% {
-      opacity: 0;
-    }
-    16% {
-      opacity: 0;
-    }
-    17% {
-      opacity: 0.16;
-    }
-    22% {
-      opacity: 0;
-    }
-    62% {
-      opacity: 0;
-    }
-    63% {
-      opacity: 0.26;
-    }
-    70% {
-      opacity: 0;
-    }
   }
 
   .ctx {
