@@ -142,8 +142,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       if (timer || unlocked()) return;
       timer = window.setTimeout(() => {
         nudge();
-        timer = window.setInterval(nudge, 12000);
-      }, 4000);
+        timer = window.setInterval(nudge, 6000);
+      }, 1500);
     };
     document.addEventListener(UNLOCK_EVENT, stop);
     cheat.addEventListener('animationend', (e) => {
