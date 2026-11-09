@@ -15,7 +15,7 @@
   /* type */
   --font-display: 'Schibsted Grotesk', 'Schibsted Grotesk Fallback', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', ui-monospace, 'SF Mono', Menlo, monospace;
-  --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Geist', 'Geist Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sign: 'Gallaudet', var(--font-display);
 
   --text-xs: 0.75rem;
@@ -41,7 +41,8 @@
   --s-16: 4rem;
   --s-24: 6rem;
   --gutter: clamp(1rem, 3vw, 2.5rem);
-  --measure: 68ch;
+  /* 68ch of Geist at 17px, fixed so the fallback font does not narrow the column before swap */
+  --measure: 47.875rem;
 
   /* motion */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

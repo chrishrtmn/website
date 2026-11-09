@@ -40,6 +40,16 @@
 }
 
 @font-face {
+  font-family: 'Geist Fallback';
+  src: local('Helvetica Neue'), local('HelveticaNeue'), local('Arial');
+  font-weight: 100 900;
+  size-adjust: 101.4%;
+  ascent-override: 100.5%;
+  descent-override: 29.5%;
+  line-gap-override: 0%;
+}
+
+@font-face {
   font-family: 'Geist Mono Fallback';
   src: local('Menlo'), local('Menlo-Regular');
   size-adjust: 99.7%;
