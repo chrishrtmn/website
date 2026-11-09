@@ -148,19 +148,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     outline-offset: 6px;
     overflow: hidden;
     background: var(--k2);
-    transform: rotate(2deg);
-    transition: transform var(--dur-2) var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .footer__stamp:hover {
-      transform: none;
-    }
-  }
-
-  :global(html[data-motion='off']) .footer__stamp {
-    transform: none;
-    transition: none;
   }
 
   .footer__stamp img {
