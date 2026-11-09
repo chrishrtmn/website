@@ -28,7 +28,7 @@ export async function buildCommands(): Promise<Command[]> {
   ];
 
   const work: Command[] = projects
-    .filter((p) => p.url || p.repo)
+    .filter((p) => p.featured && (p.url || p.repo))
     .map((p) => ({
       id: `project-${p.id}`,
       group: 'work',
