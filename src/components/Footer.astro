@@ -33,7 +33,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
       <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
       <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
-      <li><a href="/paparazzi/" data-kit-link>Paparazzi kit</a></li>
     </ul>
   </nav>
 
@@ -41,6 +40,14 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     <span>© {year} Chris Hartman</span>
     <span class="footer__sep" aria-hidden="true">·</span>
     <span class="footer__serve">Serving hot plates of Midwestern hospitality</span>
+    <span class="footer__badges">
+    <a class="footer__kit" href="/paparazzi/" data-kit-link>
+      <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+        <path d="M5.5 3.5 4.6 5H2.5A1.5 1.5 0 0 0 1 6.5v6A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 13.5 5h-2.1l-.9-1.5z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+        <circle cx="8" cy="9.25" r="2.6" fill="none" stroke="currentColor" stroke-width="1.3" />
+      </svg>
+      <span>Paparazzi kit</span>
+    </a>
     <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
       {
         ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'].map((d, i) => (
@@ -51,6 +58,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       }
       <span style="--i: 8">BA</span>
     </button>
+    </span>
   </div>
 </footer>
 
@@ -342,6 +350,11 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       flex-basis: 100%;
       order: 1;
     }
+    .footer__badges {
+      flex-basis: 100%;
+      order: 2;
+      margin-inline-start: 0;
+    }
   }
 
   .footer__fine {
@@ -352,9 +365,37 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     color: var(--g2);
   }
 
+  .footer__kit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.2em 0.6em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g2);
+    text-decoration: none;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__kit svg {
+    flex: none;
+  }
+
+  .footer__kit:hover,
+  .footer__kit:focus-visible {
+    color: var(--neon);
+    border-color: var(--neon);
+  }
+
+  .footer__badges {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-inline-start: auto;
+  }
+
   .footer__cheat {
     display: inline-flex;
-    margin-inline-start: auto;
     align-items: center;
     gap: 0.15em;
     padding: 0.2em 0.6em;
