@@ -13,6 +13,7 @@ interface Row {
   noreferrer?: boolean;
   sub?: string;
   detail?: string;
+  current?: boolean;
 }
 
 const mon = (m: number) => new Date(2000, m - 1, 1).toLocaleString('en-US', { month: 'short' });
@@ -33,6 +34,7 @@ const career: Row[] = (await getCollection('experience')).map(({ data: r }) => (
   noreferrer: r.noreferrer,
   sub: r.titles.join(' · '),
   detail: r.scope,
+  current: !r.end,
 }));
 
 const memories: Row[] = (await getCollection('timeline'))
@@ -72,7 +74,7 @@ const kinds: [Kind, string][] = [
   <dl class="xp">
     {
       rows.map((r) => (
-        <div class="xp__row" data-kind={r.kind} hidden={r.kind !== 'career'}>
+        <div class="xp__row" data-kind={r.kind} data-current={r.current ? '' : undefined} hidden={r.kind !== 'career'}>
           <dt class="xp__years mono">{r.when}</dt>
           <dd class="xp__body">
             <span class="xp__employer">
@@ -116,6 +118,7 @@ const kinds: [Kind, string][] = [
     const on = new Set(boxes.filter((b) => b.checked).map((b) => b.value));
     for (const row of rows) row.hidden = !on.has(row.dataset.kind ?? '');
     list?.classList.toggle('is-mixed', on.size > 1);
+    list?.classList.toggle('is-career', on.size === 1 && on.has('career'));
     if (empty) empty.hidden = on.size > 0;
   };
   boxes.forEach((b) => b.addEventListener('change', apply));
@@ -166,6 +169,8 @@ const kinds: [Kind, string][] = [
   }
 
   .xp {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     border-top: 1px solid var(--line);
   }
@@ -176,6 +181,18 @@ const kinds: [Kind, string][] = [
     gap: var(--s-6);
     padding-block: var(--s-6);
     border-bottom: 1px solid var(--line);
+  }
+
+  .xp.is-career .xp__row[data-current] {
+    order: -1;
+    padding-inline: var(--s-4);
+    margin-inline: calc(-1 * var(--s-4));
+    background: var(--neon-ink);
+    border-bottom-color: var(--neon-dim);
+  }
+
+  .xp.is-career .xp__row[data-current] .xp__years {
+    color: var(--neon);
   }
 
   .xp__row[hidden] {
