@@ -80,3 +80,15 @@
 .prose img {
   border: 1px solid var(--line);
 }
+
+.prose figure {
+  margin: var(--s-8) 0;
+}
+
+.prose figcaption {
+  margin-top: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  color: var(--g);
+}
