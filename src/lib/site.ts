@@ -4,7 +4,7 @@ export const site = {
   url: 'https://chrishrtmn.com',
   title: 'Chris Hartman, product engineer in northeast Ohio',
   description:
-    'Product engineer in northeast Ohio. Nineteen years of front-end work for global brands, and a few products of my own that I build and run.',
+    'Product engineer in northeast Ohio. Over fifteen years building web products for global brands, and a few of my own that I build and run.',
   pronunciation: 'HART-mun',
   email: 'hello@chrishrtmn.com',
   location: { city: 'Kent', region: 'Ohio', tz: 'America/New_York', lat: 41.15, lng: -81.36 },

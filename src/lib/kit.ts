@@ -26,8 +26,8 @@ export const kitColours = [
 ];
 
 export const kitBoilerplate = {
-  long: 'Chris Hartman is a product engineer in northeast Ohio with nineteen years of front-end work for global brands, currently on the e-commerce platform behind 23 beauty brands at The Estée Lauder Companies. He builds and runs his own products, LinuxStatistics and DegreeFast, from design through deployment. He works in React, TypeScript and Node, with AI tooling in the loop every day.',
-  short: 'Chris Hartman, product engineer in northeast Ohio. Nineteen years of front-end for global brands; builds and runs his own products.',
+  long: 'Chris Hartman is a product engineer in northeast Ohio with over fifteen years building web products for global brands, currently on the e-commerce platform behind 23 beauty brands at The Estée Lauder Companies. He builds and runs his own products, LinuxStatistics and DegreeFast, from design through deployment. He ships apps, websites and AI tooling in React, TypeScript and Node, with AI in the loop every day.',
+  short: 'Chris Hartman, product engineer in northeast Ohio. Over fifteen years building web products for global brands; builds and runs his own.',
 };
 
 export const kitZip = '/paparazzi/PaparazziKit.zip';
