@@ -17,6 +17,7 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
               {r.url ? (
                 <a href={r.url} target="_blank" rel="noopener">
                   {r.employer}
+                  <span class="xp__ext" aria-hidden="true">↗</span>
                 </a>
               ) : (
                 r.employer
@@ -83,8 +84,23 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
     text-decoration: none;
   }
 
-  .xp__employer a:hover {
+  .xp__employer a:hover,
+  .xp__employer a:focus-visible {
     color: var(--neon);
+  }
+
+  .xp__ext {
+    margin-inline-start: 0.2em;
+    font-family: var(--font-sans);
+    font-size: 0.6em;
+    vertical-align: 0.35em;
+    color: var(--g);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  .xp__employer a:hover .xp__ext,
+  .xp__employer a:focus-visible .xp__ext {
+    color: inherit;
   }
 
   .xp__titles {
