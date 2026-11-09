@@ -173,8 +173,7 @@ export default function CommandMenu({ commands, email }: Props) {
       return;
     }
     if (cmd.group === 'hidden') {
-      hide();
-      flash('true story.', 1800);
+      flash(cmd.hint === 'in training' ? 'working on it.' : 'true story.', 1800);
     }
   }
 
