@@ -19,7 +19,7 @@ interface Props {
 
 const GROUPS: Record<Command['group'], string> = {
   go: 'go to',
-  work: 'work',
+  work: 'projects',
   posts: 'posts',
   do: 'do',
   top8: 'top 8',

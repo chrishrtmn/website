@@ -18,7 +18,7 @@ export async function buildCommands(): Promise<Command[]> {
 
   const go: Command[] = [
     { id: 'home', group: 'go', label: 'Home', href: '/' },
-    { id: 'work', group: 'go', label: 'Work', href: '/#work', keywords: 'receipts projects' },
+    { id: 'work', group: 'go', label: 'Projects', href: '/#work', keywords: 'receipts work' },
     { id: 'experience', group: 'go', label: 'Experience', href: '/#experience', keywords: 'résumé resume timeline career' },
     { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
     { id: 'stack', group: 'go', label: 'Stack', href: '/stack' },
