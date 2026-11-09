@@ -4,7 +4,7 @@ import './CommandMenu.css';
 
 export interface Command {
   id: string;
-  group: 'go' | 'work' | 'posts' | 'do' | 'hidden' | 'top8';
+  group: 'go' | 'projects' | 'posts' | 'do' | 'hidden' | 'top8';
   label: string;
   hint?: string;
   href?: string;
@@ -19,7 +19,7 @@ interface Props {
 
 const GROUPS: Record<Command['group'], string> = {
   go: 'go to',
-  work: 'projects',
+  projects: 'projects',
   posts: 'posts',
   do: 'do',
   top8: 'top 8',

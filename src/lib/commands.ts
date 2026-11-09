@@ -4,7 +4,7 @@ import { top8 as top8Entries } from '~/content/top8';
 
 export interface Command {
   id: string;
-  group: 'go' | 'work' | 'posts' | 'do' | 'hidden' | 'top8';
+  group: 'go' | 'projects' | 'posts' | 'do' | 'hidden' | 'top8';
   label: string;
   hint?: string;
   href?: string;
@@ -18,7 +18,7 @@ export async function buildCommands(): Promise<Command[]> {
 
   const go: Command[] = [
     { id: 'home', group: 'go', label: 'Home', href: '/' },
-    { id: 'work', group: 'go', label: 'Projects', href: '/#work', keywords: 'receipts work' },
+    { id: 'projects', group: 'go', label: 'Projects', href: '/#projects', keywords: 'receipts work' },
     { id: 'experience', group: 'go', label: 'Experience', href: '/#experience', keywords: 'résumé resume timeline career' },
     { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
     { id: 'stack', group: 'go', label: 'Stack', href: '/stack' },
@@ -31,7 +31,7 @@ export async function buildCommands(): Promise<Command[]> {
     .filter((p) => p.featured && (p.url || p.repo))
     .map((p) => ({
       id: `project-${p.id}`,
-      group: 'work',
+      group: 'projects',
       label: p.name,
       hint: p.status,
       href: p.url ?? p.repo,

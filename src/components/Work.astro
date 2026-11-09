@@ -8,7 +8,7 @@ const projects = (await getCollection('projects'))
   .sort((a, b) => a.order - b.order);
 ---
 
-<Section id="work" label="projects" title="Receipts">
+<Section id="projects" label="projects" title="Receipts">
   <ol class="work">
     {
       projects.map((p, i) => {
