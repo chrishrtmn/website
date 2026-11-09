@@ -15,17 +15,19 @@ interface Row {
   detail?: string;
 }
 
-const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
+const mon = (m: number) => new Date(2000, m - 1, 1).toLocaleString('en-US', { month: 'short' });
+const span = (s: number, sm: number, e?: number, em?: number) =>
+  `${mon(sm)} ${s} – ${e && em ? `${mon(em)} ${e}` : 'now'}`;
 const month = (d: string) => {
   const [y, m] = d.split('-');
   if (!m) return y;
-  return `${new Date(Number(y), Number(m) - 1, 1).toLocaleString('en-US', { month: 'short' })} ${y}`;
+  return `${mon(Number(m))} ${y}`;
 };
 
 const career: Row[] = (await getCollection('experience')).map(({ data: r }) => ({
   kind: 'career',
-  sort: `${r.start}-00`,
-  when: span(r.start, r.end),
+  sort: `${r.start}-${String(r.startMonth).padStart(2, '0')}`,
+  when: span(r.start, r.startMonth, r.end, r.endMonth),
   title: r.employer,
   url: r.url,
   noreferrer: r.noreferrer,
@@ -164,7 +166,7 @@ const kinds: [Kind, string][] = [
 
   .xp__row {
     display: grid;
-    grid-template-columns: 6rem 1fr;
+    grid-template-columns: 10.5rem 1fr;
     gap: var(--s-6);
     padding-block: var(--s-6);
     border-bottom: 1px solid var(--line);
