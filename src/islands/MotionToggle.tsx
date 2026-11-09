@@ -4,13 +4,11 @@ import './MotionToggle.css';
 const KEY = 'motion';
 
 export default function MotionToggle() {
-  const [on, setOn] = useState<boolean | null>(null);
+  const [on, setOn] = useState(true);
 
   useEffect(() => {
     setOn(document.documentElement.dataset.motion !== 'off');
   }, []);
-
-  if (on === null) return <span className="motion-toggle" aria-hidden="true" />;
 
   function toggle() {
     const next = !on;

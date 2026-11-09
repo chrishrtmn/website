@@ -31,10 +31,20 @@
 /* fallback metrics so swapped-in fonts do not shift layout */
 @font-face {
   font-family: 'Schibsted Grotesk Fallback';
-  src: local('Helvetica Neue'), local('Arial');
-  size-adjust: 103%;
-  ascent-override: 92%;
-  descent-override: 24%;
+  src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Arial Bold');
+  font-weight: 700;
+  size-adjust: 105.4%;
+  ascent-override: 92.7%;
+  descent-override: 24.5%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Geist Mono Fallback';
+  src: local('Menlo'), local('Menlo-Regular');
+  size-adjust: 99.7%;
+  ascent-override: 100.8%;
+  descent-override: 29.6%;
   line-gap-override: 0%;
 }
 

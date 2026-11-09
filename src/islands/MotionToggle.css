@@ -8,7 +8,7 @@
   color: var(--g);
 }
 
-.motion-toggle[aria-checked='true'] {
+html[data-motion='on'] .motion-toggle {
   color: var(--w);
 }
 
@@ -21,7 +21,7 @@
   transition: background var(--dur-1) var(--ease-out);
 }
 
-.motion-toggle[aria-checked='true'] .motion-toggle__track {
+html[data-motion='on'] .motion-toggle__track {
   background: var(--neon);
 }
 
@@ -36,6 +36,6 @@
   transition: transform var(--dur-1) var(--ease-out);
 }
 
-.motion-toggle[aria-checked='true'] .motion-toggle__knob {
+html[data-motion='on'] .motion-toggle__knob {
   transform: translateX(0.75rem);
 }

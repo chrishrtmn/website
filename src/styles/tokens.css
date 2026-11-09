@@ -13,8 +13,8 @@
   --g2: oklch(44% 0.012 115);
 
   /* type */
-  --font-display: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display: 'Schibsted Grotesk', 'Schibsted Grotesk Fallback', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sign: 'Gallaudet', var(--font-display);
 
