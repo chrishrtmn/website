@@ -33,7 +33,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     </ul>
     <ul class="footer__index mono">
       <li><a href="/stack">Stack</a></li>
-      <li><a href="/timeline">Timeline</a></li>
       <li><a href="/posts">Posts</a></li>
       <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
       <li><a href="/paparazzi/" data-kit-link>Paparazzi kit</a></li>
@@ -83,8 +82,9 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       seen = true;
       if (motionOn()) set(true);
     }
+    const touch = matchMedia('(hover: none), (pointer: coarse)');
     talk.addEventListener('click', () => {
-      if (motionOn()) set(!talk.classList.contains('is-signed'));
+      if (touch.matches && motionOn()) set(!talk.classList.contains('is-signed'));
     });
     new MutationObserver(() => {
       if (!motionOn()) set(false);
@@ -193,6 +193,12 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   }
 
   @media (hover: hover) and (pointer: fine) {
+    .footer__talk {
+      cursor: default;
+    }
+    .footer__talk:active {
+      transform: none;
+    }
     .footer__talk.is-signed:hover .footer__latin {
       opacity: 1;
     }
