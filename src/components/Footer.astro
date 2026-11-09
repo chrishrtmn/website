@@ -32,6 +32,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     </picture>
   </figure>
   </div>
+  <p class="footer__line mono">hot plates and warm cups of Midwestern hospitality, served remote</p>
 
   <nav class="footer__nav" aria-label="Footer">
     <ul class="footer__prime">
@@ -253,6 +254,11 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   :global(html[data-motion='off']) .footer__talk:active {
     transform: none;
+  }
+
+  .footer__line {
+    margin-top: calc(-1 * var(--s-4));
+    color: var(--g);
   }
 
   .footer__nav {
