@@ -271,8 +271,11 @@ const details = [
       }
       if (action === 'all') {
         const grid = el.querySelector<HTMLElement>('.top8__grid');
-        if (grid) {
-          grid.scrollIntoView({ block: 'center', behavior: document.documentElement.dataset.motion === 'off' ? 'instant' : 'smooth' });
+        const body = el.querySelector<HTMLElement>('.tray__body');
+        if (grid && body) {
+          const head = el.querySelector<HTMLElement>('.tray__head')?.offsetHeight ?? 0;
+          const top = grid.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - head - 16;
+          body.scrollTo({ top: Math.max(0, top), behavior: document.documentElement.dataset.motion === 'off' ? 'instant' : 'smooth' });
           grid.classList.remove('is-flash');
           void grid.offsetWidth;
           grid.classList.add('is-flash');
