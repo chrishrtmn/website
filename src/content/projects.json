@@ -43,7 +43,7 @@
       "TypeScript",
       "shadcn registry"
     ],
-    "status": "concept",
+    "status": "building",
     "year": 2026,
     "url": "https://templates.sh",
     "featured": true
@@ -58,39 +58,27 @@
       "React",
       "TypeScript"
     ],
-    "status": "paused",
+    "status": "building",
     "year": 2026,
     "featured": true
   },
   {
-    "id": "pace",
+    "id": "stature",
     "order": 5,
-    "name": "Pace",
-    "line": "Local-first meeting recorder: on-device transcription, diarization, and summaries.",
+    "name": "Stature",
+    "line": "Turns issue-tracker history into an impact report you can hand to a manager or a recruiter.",
     "stack": [
-      "Rust"
+      "TypeScript",
+      "Node",
+      "launchd"
     ],
-    "status": "concept",
+    "status": "internal",
     "year": 2026,
-    "featured": true
-  },
-  {
-    "id": "remotejamstack",
-    "order": 6,
-    "name": "Remote Jamstack",
-    "line": "Job board for the Jamstack community.",
-    "stack": [
-      "Next.js",
-      "Tailwind",
-      "Firebase"
-    ],
-    "status": "archived",
-    "year": 2020,
     "featured": true
   },
   {
     "id": "splash",
-    "order": 7,
+    "order": 6,
     "name": "Splash",
     "line": "Universal personal media player with VR support.",
     "stack": [
@@ -103,46 +91,18 @@
     "featured": true
   },
   {
-    "id": "finale",
-    "order": 8,
-    "name": "Finale",
-    "line": "Zero-based budgeting with a bit of game design, as an alternative to the usual envelope apps.",
+    "id": "remotejamstack",
+    "order": 7,
+    "name": "Remote Jamstack",
+    "line": "Job board for the Jamstack community.",
     "stack": [
       "Next.js",
-      "Turborepo",
-      "Postgres"
+      "Tailwind",
+      "Firebase"
     ],
-    "status": "paused",
-    "year": 2026,
+    "status": "archived",
+    "year": 2020,
     "featured": true
-  },
-  {
-    "id": "stature",
-    "order": 205,
-    "name": "Stature",
-    "line": "Turns issue-tracker history into an impact report you can hand to a manager or a recruiter.",
-    "stack": [
-      "TypeScript",
-      "Node",
-      "launchd"
-    ],
-    "status": "paused",
-    "year": 2026,
-    "featured": false
-  },
-  {
-    "id": "workspacious",
-    "order": 208,
-    "name": "Workspacious",
-    "line": "Workspace and desk setup directory.",
-    "stack": [
-      "Next.js",
-      "TypeScript"
-    ],
-    "status": "paused",
-    "year": 2023,
-    "url": "https://workspacious.com",
-    "featured": false
   },
   {
     "id": "recurringcredit",
