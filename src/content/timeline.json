@@ -1,12 +1,5 @@
 [
   {
-    "id": "2007-imagex",
-    "date": "2007-11",
-    "kind": "career",
-    "title": "Start at ImageX Media",
-    "detail": "First Drupal job, a full-time contract. Self-taught up to this point."
-  },
-  {
     "id": "2010-drupalcon-sf",
     "date": "2010-04",
     "kind": "event",
@@ -21,25 +14,11 @@
     "place": "Vancouver"
   },
   {
-    "id": "2010-independent",
-    "date": "2010-11",
-    "kind": "career",
-    "title": "Leave ImageX Media",
-    "detail": "Agency subcontracting through Drupal Connect; 79 Sony Music artist sites in the first six months."
-  },
-  {
     "id": "2011-drupalcon-chi",
     "date": "2011-03",
     "kind": "event",
     "title": "DrupalCon Chicago",
     "place": "Chicago"
-  },
-  {
-    "id": "2014-questex",
-    "date": "2014-04",
-    "kind": "career",
-    "title": "Join Questex",
-    "detail": "Front-end for five multi-site platforms; promoted to technical lead in 2016."
   },
   {
     "id": "2016-drupalcon-nola",
@@ -54,20 +33,6 @@
     "kind": "event",
     "title": "DrupalCon Baltimore",
     "place": "Baltimore"
-  },
-  {
-    "id": "2018-nas",
-    "date": "2018-07",
-    "kind": "career",
-    "title": "Join NAS Recruitment",
-    "detail": "45+ career sites on one platform."
-  },
-  {
-    "id": "2019-dss",
-    "date": "2019-09",
-    "kind": "career",
-    "title": "Form Double Slash Studios",
-    "url": "https://doubleslashstudios.com"
   },
   {
     "id": "2020-recurringcredit",
@@ -108,13 +73,6 @@
     "kind": "event",
     "title": "GitHub Universe",
     "place": "Online"
-  },
-  {
-    "id": "2021-elc",
-    "date": "2021-02",
-    "kind": "career",
-    "title": "Join The Estée Lauder Companies",
-    "detail": "Contract first, full time from 2022. Global brand e-commerce front-end."
   },
   {
     "id": "2021-nextjs-conf",

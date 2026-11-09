@@ -52,7 +52,7 @@ const timeline = defineCollection({
   schema: z.object({
     id: z.string(),
     date: z.string().regex(/^\d{4}(-\d{2})?(-\d{2})?$/),
-    kind: z.enum(['career', 'project', 'event', 'hearing']),
+    kind: z.enum(['project', 'event', 'hearing']),
     title: z.string(),
     detail: z.string().optional(),
     place: z.string().optional(),

@@ -2,34 +2,96 @@
 import { getCollection } from 'astro:content';
 import Section from './Section.astro';
 
-const rows = (await getCollection('experience')).map((e) => e.data).sort((a, b) => b.start - a.start);
+type Kind = 'career' | 'project' | 'event';
+
+interface Row {
+  kind: Kind;
+  sort: string;
+  when: string;
+  title: string;
+  url?: string;
+  noreferrer?: boolean;
+  sub?: string;
+  detail?: string;
+}
+
 const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
+const month = (d: string) => {
+  const [y, m] = d.split('-');
+  if (!m) return y;
+  return `${new Date(Number(y), Number(m) - 1, 1).toLocaleString('en-US', { month: 'short' })} ${y}`;
+};
+
+const career: Row[] = (await getCollection('experience')).map(({ data: r }) => ({
+  kind: 'career',
+  sort: `${r.start}-00`,
+  when: span(r.start, r.end),
+  title: r.employer,
+  url: r.url,
+  noreferrer: r.noreferrer,
+  sub: r.titles.join(' · '),
+  detail: r.scope,
+}));
+
+const memories: Row[] = (await getCollection('timeline'))
+  .map((t) => t.data)
+  .filter((t): t is typeof t & { kind: 'project' | 'event' } => t.kind === 'project' || t.kind === 'event')
+  .map((t) => ({
+    kind: t.kind,
+    sort: t.date.length === 4 ? `${t.date}-00` : t.date,
+    when: month(t.date),
+    title: t.title,
+    url: t.url,
+    sub: t.kind === 'event' ? [t.kind, t.place].filter(Boolean).join(' · ') : t.kind,
+    detail: t.detail,
+  }));
+
+const rows = [...career, ...memories].sort((a, b) => (a.sort > b.sort ? -1 : a.sort < b.sort ? 1 : 0));
+
+const kinds: [Kind, string][] = [
+  ['career', 'career'],
+  ['project', 'projects'],
+  ['event', 'events'],
+];
 ---
 
-<Section id="experience" label="experience" title="The résumé part">
+<Section id="experience" label="experience · random access memories" title="The résumé part">
+  <fieldset class="xp__filters small">
+    <legend class="visually-hidden">Show</legend>
+    {
+      kinds.map(([k, l]) => (
+        <label>
+          <input type="checkbox" name="xp-kind" value={k} checked={k === 'career'} /> <span>{l}</span>
+        </label>
+      ))
+    }
+  </fieldset>
+
   <dl class="xp">
     {
       rows.map((r) => (
-        <div class="xp__row">
-          <dt class="xp__years mono">{span(r.start, r.end)}</dt>
+        <div class="xp__row" data-kind={r.kind} hidden={r.kind !== 'career'}>
+          <dt class="xp__years mono">{r.when}</dt>
           <dd class="xp__body">
             <span class="xp__employer">
               {r.url ? (
                 <a href={r.url} target="_blank" rel={r.noreferrer ? 'noopener noreferrer' : 'noopener'} referrerpolicy={r.noreferrer ? 'no-referrer' : undefined}>
-                  {r.employer.split(' ').slice(0, -1).join(' ')}{' '}
+                  {r.title.split(' ').slice(0, -1).join(' ')}{r.title.includes(' ') ? ' ' : ''}
                   <span class="xp__last">
-                    {r.employer.split(' ').at(-1)}<span class="xp__ext" aria-hidden="true">↗</span>
+                    {r.title.split(' ').at(-1)}<span class="xp__ext" aria-hidden="true">↗</span>
                   </span>
                 </a>
               ) : (
-                r.employer
+                r.title
               )}
             </span>
-            <span class="xp__titles small">{r.titles.join(' · ')}</span>
-            <details class="xp__more" open>
-              <summary class="small">what I did</summary>
-              <span class="xp__scope">{r.scope}</span>
-            </details>
+            <span class="xp__titles small">{r.sub}</span>
+            {r.detail && (
+              <details class="xp__more" open>
+                <summary class="small">more</summary>
+                <span class="xp__scope">{r.detail}</span>
+              </details>
+            )}
           </dd>
         </div>
       ))
@@ -38,21 +100,66 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
 </Section>
 
 <script>
-  const mq = matchMedia('(max-width: 600px)');
-  const items = document.querySelectorAll<HTMLDetailsElement>('.xp__more');
-  const apply = () => items.forEach((d) => (d.open = !mq.matches));
+  const section = document.getElementById('experience');
+  const boxes = [...document.querySelectorAll<HTMLInputElement>('input[name="xp-kind"]')];
+  const rows = [...document.querySelectorAll<HTMLElement>('.xp__row')];
+  const wanted = new URLSearchParams(location.search).get('kind');
+  if (wanted) for (const b of boxes) b.checked = b.value === wanted;
+
+  const apply = () => {
+    const on = new Set(boxes.filter((b) => b.checked).map((b) => b.value));
+    for (const row of rows) row.hidden = !on.has(row.dataset.kind ?? '');
+  };
+  boxes.forEach((b) => b.addEventListener('change', apply));
   apply();
-  mq.addEventListener('change', apply);
+
+  const mq = matchMedia('(max-width: 600px)');
+  const items = section?.querySelectorAll<HTMLDetailsElement>('.xp__more') ?? [];
+  const fold = () => items.forEach((d) => (d.open = !mq.matches));
+  fold();
+  mq.addEventListener('change', fold);
 </script>
 
 <style>
+  .xp__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin: 0 0 var(--s-8);
+    padding: 0;
+    border: 0;
+  }
+
+  .xp__filters label {
+    position: relative;
+    padding: 0.25em 0.8em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g);
+    cursor: pointer;
+  }
+
+  .xp__filters input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .xp__filters label:has(:checked) {
+    border-color: var(--neon);
+    color: var(--w);
+  }
+
+  .xp__filters label:has(:focus-visible) {
+    outline: 2px solid var(--neon);
+    outline-offset: 2px;
+  }
+
   .xp {
     margin: 0;
     border-top: 1px solid var(--line);
-  }
-
-  .xp__row:last-child {
-    border-bottom: 0;
   }
 
   .xp__row {
@@ -61,6 +168,15 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
     gap: var(--s-6);
     padding-block: var(--s-6);
     border-bottom: 1px solid var(--line);
+  }
+
+  .xp__row[hidden] {
+    display: none;
+  }
+
+  .xp__row[data-kind='event'],
+  .xp__row[data-kind='project'] {
+    padding-block: var(--s-4);
   }
 
   .xp__years {
@@ -80,6 +196,11 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
     letter-spacing: var(--tracking-tight);
     text-transform: uppercase;
     line-height: 1;
+  }
+
+  .xp__row[data-kind='event'] .xp__employer,
+  .xp__row[data-kind='project'] .xp__employer {
+    font-size: var(--text-base);
   }
 
   .xp__employer a {
@@ -115,7 +236,12 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
     color: var(--g);
   }
 
+  .xp__row[data-kind='project'] .xp__titles {
+    color: var(--neon);
+  }
+
   .xp__scope {
+    display: block;
     max-width: var(--measure);
     color: var(--w);
   }
@@ -126,10 +252,6 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
 
   .xp__more summary::-webkit-details-marker {
     display: none;
-  }
-
-  .xp__scope {
-    display: block;
   }
 
   @media (max-width: 600px) {
