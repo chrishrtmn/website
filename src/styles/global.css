@@ -156,6 +156,82 @@ video {
   color: var(--g);
 }
 
+/* bottom sheets (paparazzi kit, Top 8): position driven by --y from src/lib/sheet.ts */
+.sheet {
+  --y: 0px;
+  position: fixed;
+  inset: auto 0 0 0;
+  width: min(100%, 64rem);
+  max-width: none;
+  max-height: 88dvh;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+  background: var(--k);
+  color: var(--w);
+  box-shadow: 0 -24px 64px -24px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  transform: translateY(var(--y));
+  will-change: transform;
+  touch-action: none;
+}
+
+@media (max-width: 640px) {
+  .sheet {
+    border-inline: 0;
+  }
+}
+
+.sheet::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+html[data-motion='on'] .sheet[open]::backdrop {
+  animation: sheet-fade 250ms var(--ease-out) both;
+}
+
+html[data-motion='on'] .sheet.is-closing::backdrop {
+  animation: sheet-fade 240ms var(--ease-out) both reverse;
+}
+
+@keyframes sheet-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.sheet__grab {
+  display: grid;
+  place-items: center;
+  height: 28px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.sheet.is-dragging .sheet__grab {
+  cursor: grabbing;
+}
+
+.sheet__handle {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--g2);
+  transition: background var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+
+.sheet__grab:hover .sheet__handle,
+.sheet.is-dragging .sheet__handle {
+  background: var(--neon);
+}
+
+.sheet.is-dragging .sheet__handle {
+  transform: scaleX(1.15);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

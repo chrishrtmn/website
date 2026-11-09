@@ -3,8 +3,12 @@ import KitContents from './KitContents.astro';
 import { kitZip } from '~/lib/kit';
 ---
 
-<dialog class="tray" id="paparazzi-tray" aria-labelledby="tray-title">
+<dialog class="sheet tray" id="paparazzi-tray" aria-labelledby="tray-title">
   <div class="tray__panel">
+    <div class="sheet__grab" data-sheet-grab>
+      <span class="sheet__handle" aria-hidden="true"></span>
+      <button type="button" class="visually-hidden" data-sheet-close>Close</button>
+    </div>
     <div class="tray__flashes" aria-hidden="true">
       <b class="tray__bump"></b>
       <i style="--x: 14%; --y: 22%; --d: 0ms; --s: 1"></i>
@@ -20,7 +24,7 @@ import { kitZip } from '~/lib/kit';
       <div class="tray__tools small">
         <a href={kitZip} download>zip</a>
         <a href="/paparazzi/">page</a>
-        <button type="button" class="tray__close" data-tray-close aria-label="Close">esc</button>
+        <button type="button" class="tray__close" data-sheet-close aria-label="Close">esc</button>
       </div>
     </header>
     <div class="tray__body">
@@ -38,42 +42,27 @@ import { kitZip } from '~/lib/kit';
 </menu>
 
 <script>
+  import { sheet } from '~/lib/sheet';
+
   const tray = document.getElementById('paparazzi-tray') as HTMLDialogElement | null;
   const menu = document.getElementById('logo-menu') as HTMLElement | null;
   const logo = document.querySelector<HTMLElement>('[data-logo]');
-  let lastFocus: HTMLElement | null = null;
 
-  function motionOn() {
-    return document.documentElement.dataset.motion !== 'off';
-  }
-
-  function openTray() {
-    if (!tray || tray.open) return;
-    lastFocus = document.activeElement as HTMLElement;
-    tray.showModal();
-    document.body.style.overflow = 'hidden';
-    if (motionOn()) {
-      tray.classList.remove('is-flashing');
-      void tray.offsetWidth;
-      tray.classList.add('is-flashing');
-    }
-    tray.querySelector<HTMLElement>('[data-tray-close]')?.focus();
-  }
-
-  function closeTray() {
-    if (!tray?.open) return;
-    tray.close();
-  }
-
-  tray?.addEventListener('close', () => {
-    document.body.style.overflow = '';
-    tray.classList.remove('is-flashing');
-    lastFocus?.focus();
-  });
-  tray?.addEventListener('click', (e) => {
-    if (e.target === tray) closeTray();
-  });
-  tray?.querySelector('[data-tray-close]')?.addEventListener('click', closeTray);
+  const kit = tray
+    ? sheet(tray, {
+        focus: '.tray__close',
+        onOpen(el) {
+          if (document.documentElement.dataset.motion === 'off') return;
+          el.classList.remove('is-flashing');
+          void el.offsetWidth;
+          el.classList.add('is-flashing');
+        },
+        onClose(el) {
+          el.classList.remove('is-flashing');
+        },
+      })
+    : null;
+  const openTray = () => kit?.open();
 
   document.addEventListener('click', (e) => {
     const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-kit-link]');
@@ -137,30 +126,10 @@ import { kitZip } from '~/lib/kit';
 </script>
 
 <style>
-  .tray {
-    position: fixed;
-    inset: auto 0 0 0;
-    width: 100%;
-    max-width: none;
-    max-height: 88dvh;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-top: 1px solid var(--line);
-    border-radius: 14px 14px 0 0;
-    background: var(--k);
-    color: var(--w);
-    overflow: hidden;
-  }
-
-  .tray::backdrop {
-    background: rgba(0, 0, 0, 0.6);
-  }
-
   .tray__panel {
     position: relative;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     max-height: 88dvh;
   }
 
@@ -241,36 +210,13 @@ import { kitZip } from '~/lib/kit';
     overscroll-behavior: contain;
   }
 
-  /* entrance + flash, motion on only */
-  :global(html[data-motion='on']) .tray[open] {
-    animation: tray-in 400ms var(--ease-out) both;
-  }
-
-  :global(html[data-motion='on']) .tray[open]::backdrop {
-    animation: fade 250ms var(--ease-out) both;
-  }
-
+  /* flash, motion on only */
   :global(html[data-motion='on']) .tray.is-flashing .tray__flashes i {
     animation: flash 900ms var(--ease-out) calc(360ms + var(--d)) both;
   }
 
   :global(html[data-motion='on']) .tray.is-flashing .tray__bump {
     animation: bump 2400ms linear 360ms both;
-  }
-
-  @keyframes tray-in {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: none;
-    }
-  }
-
-  @keyframes fade {
-    from {
-      opacity: 0;
-    }
   }
 
   @keyframes flash {
