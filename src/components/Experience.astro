@@ -56,7 +56,7 @@ const kinds: [Kind, string][] = [
 ---
 
 <Section id="experience" label="résumé" title="Random access memories">
-  <fieldset class="xp__filters small">
+  <fieldset class="xp__filters small" slot="head">
     <legend class="visually-hidden">Show</legend>
     {
       kinds.map(([k, l]) => (
@@ -125,7 +125,7 @@ const kinds: [Kind, string][] = [
     display: flex;
     flex-wrap: wrap;
     gap: var(--s-2);
-    margin: 0 0 var(--s-8);
+    margin: 0;
     padding: 0;
     border: 0;
   }
