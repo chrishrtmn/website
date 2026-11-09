@@ -44,7 +44,7 @@ const memories: Row[] = (await getCollection('timeline'))
     when: month(t.date),
     title: t.title,
     url: t.url,
-    sub: t.kind === 'event' ? t.place : t.detail ? undefined : 'launch',
+    sub: t.kind === 'event' ? t.place : undefined,
     detail: t.detail,
   }));
 
@@ -73,10 +73,7 @@ const kinds: [Kind, string][] = [
     {
       rows.map((r) => (
         <div class="xp__row" data-kind={r.kind} hidden={r.kind !== 'career'}>
-          <dt class="xp__years mono">
-            {r.when}
-            <span class="xp__kind">{r.kind}</span>
-          </dt>
+          <dt class="xp__years mono">{r.when}</dt>
           <dd class="xp__body">
             <span class="xp__employer">
               {r.url ? (
@@ -89,6 +86,7 @@ const kinds: [Kind, string][] = [
               ) : (
                 r.title
               )}
+              <span class="xp__kind mono">{r.kind}</span>
             </span>
             {r.sub && <span class="xp__titles small">{r.sub}</span>}
             {r.detail && (
@@ -182,20 +180,21 @@ const kinds: [Kind, string][] = [
   }
 
   .xp__years {
-    display: grid;
-    gap: var(--s-2);
-    align-content: start;
-    justify-items: start;
     color: var(--g);
     font-variant-numeric: tabular-nums;
   }
 
   .xp__kind {
     display: none;
-    padding: 0.1em 0.6em;
+    margin-inline-start: var(--s-3);
+    padding: 0.15em 0.6em;
     border: 1px solid var(--line);
     border-radius: 999px;
     font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: var(--tracking-mono);
+    text-transform: none;
+    vertical-align: 0.25em;
     color: var(--g2);
   }
 
@@ -274,11 +273,6 @@ const kinds: [Kind, string][] = [
       grid-template-columns: 1fr;
       gap: var(--s-2);
       padding-block: var(--s-4);
-    }
-    .xp__years {
-      display: flex;
-      align-items: center;
-      gap: var(--s-3);
     }
     .xp__more summary {
       display: inline-block;
