@@ -131,6 +131,13 @@ video {
   color: var(--neon-ink);
 }
 
+/* on Volt surfaces the default would be invisible; invert */
+.on-neon ::selection,
+.on-neon::selection {
+  background: var(--neon-ink);
+  color: var(--neon);
+}
+
 .mono {
   font-family: var(--font-mono);
   font-size: var(--text-sm);

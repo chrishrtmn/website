@@ -18,7 +18,7 @@ const { lines, label } = Astro.props;
 const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } : i);
 ---
 
-<section class="ticker" aria-label={label} data-view="scroll">
+<section class="ticker on-neon" aria-label={label} data-view="scroll">
   <fieldset class="ticker__view small">
     <legend class="visually-hidden">Layout</legend>
     <label><input type="radio" name="ticker-view" value="scroll" checked /> <span>scroll</span></label>
