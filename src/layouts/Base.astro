@@ -9,9 +9,10 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  hero?: boolean;
 }
 
-const { title, description = site.description, ogImage } = Astro.props;
+const { title, description = site.description, ogImage, hero = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.title;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 
@@ -30,7 +31,7 @@ const person = {
 ---
 
 <!doctype html>
-<html lang="en" data-motion="on">
+<html lang="en" data-motion="on" data-hero={hero ? '' : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,7 +61,7 @@ const person = {
           on = stored ? stored === 'on' : !matchMedia('(prefers-reduced-motion: reduce)').matches;
         } catch (e) {}
         root.dataset.motion = on ? 'on' : 'off';
-        if (!on) return;
+        if (!on || !root.hasAttribute('data-hero')) return;
         try {
           if (!sessionStorage.getItem('intro')) {
             sessionStorage.setItem('intro', '1');
