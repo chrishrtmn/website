@@ -191,6 +191,17 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
     outline-offset: 2px;
   }
 
+  @media (max-width: 600px) {
+    .ticker__view {
+      position: static;
+      justify-content: flex-end;
+      padding: var(--s-3) var(--gutter) 0;
+    }
+    .ticker[data-view='scroll'] .ticker__body {
+      padding-block: var(--s-3) var(--s-6);
+    }
+  }
+
   :global(html[data-motion='off']) .ticker__view {
     display: none;
   }
@@ -201,12 +212,6 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
     font-weight: 700;
     letter-spacing: var(--tracking-display);
     text-transform: uppercase;
-  }
-
-  @media (max-width: 600px) {
-    .ticker .ticker__line--outline {
-      display: none;
-    }
   }
 
   .ticker__name {
@@ -245,7 +250,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
 
   /* scroll view, motion on */
   :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__line {
-    font-size: clamp(3rem, 9cqw, 8.5rem);
+    font-size: clamp(2.4rem, 9cqw, 8.5rem);
     line-height: 1;
     padding-block: 0.14em 0.06em;
     white-space: nowrap;
