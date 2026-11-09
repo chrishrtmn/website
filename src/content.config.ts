@@ -73,24 +73,4 @@ const posts = defineCollection({
   }),
 });
 
-const places = defineCollection({
-  loader: file('src/content/places.json'),
-  schema: z
-    .object({
-      id: z.string(),
-      name: z.string(),
-      region: z.string(),
-      country: z.string().length(2),
-      kind: z.enum(['lived', 'conference', 'trip', 'favourite', 'planned']),
-      year: year.optional(),
-      note: z.string().optional(),
-      lat: z.number().optional(),
-      lng: z.number().optional(),
-    })
-    .refine((p) => !['US', 'CA'].includes(p.country) || (p.lat !== undefined && p.lng !== undefined), {
-      message: 'US and CA places need lat and lng for the map pin',
-    })
-    .refine((p) => p.kind !== 'planned' || p.year === undefined, { message: 'planned places carry no year' }),
-});
-
-export const collections = { projects, experience, skills, timeline, posts, places };
+export const collections = { projects, experience, skills, timeline, posts };
