@@ -3,12 +3,14 @@ import { getCollection } from 'astro:content';
 import Base from '~/layouts/Base.astro';
 import Footer from '~/components/Footer.astro';
 
-const entries = (await getCollection('timeline')).map((t) => t.data).sort((a, b) => (a.date > b.date ? -1 : 1));
+const entries = (await getCollection('timeline'))
+  .map((t) => t.data)
+  .filter((t) => t.kind !== 'hearing')
+  .sort((a, b) => (a.date > b.date ? -1 : 1));
 const kinds = [
   ['career', 'career'],
   ['project', 'projects'],
   ['event', 'events'],
-  ['hearing', 'hearing tech'],
 ] as const;
 const years = [...new Set(entries.map((e) => e.date.slice(0, 4)))];
 const label = (d: string) => {
@@ -18,7 +20,7 @@ const label = (d: string) => {
 };
 ---
 
-<Base title="Timeline" description="Random access memories: career moves, launches, events, and hearing tech, in order.">
+<Base title="Timeline" description="Random access memories: career moves, launches, and events, in order.">
   <section class="page wrap">
     <p class="label">timeline</p>
     <h1 class="page__title">Random access memories</h1>
@@ -28,7 +30,7 @@ const label = (d: string) => {
       {
         kinds.map(([k, l]) => (
           <label>
-            <input type="checkbox" name="kind" value={k} checked={k !== 'hearing'} /> <span>{l}</span>
+            <input type="checkbox" name="kind" value={k} checked /> <span>{l}</span>
           </label>
         ))
       }
