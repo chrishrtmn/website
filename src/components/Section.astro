@@ -4,12 +4,13 @@ interface Props {
   label: string;
   title?: string;
   tight?: boolean;
+  flush?: boolean;
 }
 
-const { id, label, title, tight = false } = Astro.props;
+const { id, label, title, tight = false, flush = false } = Astro.props;
 ---
 
-<section id={id} class:list={['section', 'wrap', { 'section--tight': tight }]} aria-labelledby={`${id}-label`}>
+<section id={id} class:list={['section', 'wrap', { 'section--tight': tight, 'section--flush': flush }]} aria-labelledby={`${id}-label`}>
   <header class="section__head">
     <p id={`${id}-label`} class="label">{label}</p>
     <div class="section__row">
@@ -67,5 +68,9 @@ const { id, label, title, tight = false } = Astro.props;
     .section__title {
       font-size: var(--text-xl);
     }
+  }
+
+  .section--flush {
+    padding-block-start: 0;
   }
 </style>
