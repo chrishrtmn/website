@@ -228,7 +228,7 @@ const details = [
             <form class="ms__add-form" id="ms-add" data-ms-form action={mailto} method="get">
               <label class="visually-hidden" for="ms-comment-text">Add a comment</label>
               <textarea id="ms-comment-text" name="body" rows="3" placeholder="thanks for the add!!" class="mono small"></textarea>
-              <input type="hidden" name="subject" value="comment on chrishrtmn.com" />
+              <input type="hidden" name="subject" value="Recommendation for Chris's Space" />
               <button type="submit" class="mono small">Add Comment</button>
             </form>
           </section>
@@ -266,6 +266,25 @@ const details = [
         top8.close();
         setTimeout(() => document.dispatchEvent(new CustomEvent('command-menu:open')), 250);
       }
+    });
+
+    const form = el.querySelector<HTMLFormElement>('[data-ms-form]');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = (form.querySelector<HTMLTextAreaElement>('textarea')?.value ?? '').trim();
+      const subject = form.querySelector<HTMLInputElement>('input[name="subject"]')?.value ?? '';
+      const body = [
+        'Hi Chris,',
+        '',
+        "Leaving a comment / recommendation for the Friends Comments board on your site's Top 8:",
+        '',
+        text || '[your comment here]',
+        '',
+        'Name as it should appear (first name + last initial):',
+        'How we worked together (company, years):',
+        'LinkedIn (optional):',
+      ].join('\n');
+      location.href = `${form.action}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 
     const counter = el.querySelector<HTMLElement>('[data-ms-counter]');
