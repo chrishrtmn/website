@@ -1,16 +1,27 @@
 ---
+import { getCollection } from 'astro:content';
 import Clock from '~/islands/Clock';
 import { site } from '~/lib/site';
 
-const ledger = [
-  ['name', 'Chris Hartman'],
-  ['role', 'Product engineer'],
-  ['at', 'Senior Software Engineer · The Estée Lauder Companies'],
-  ['studio', 'Principal Engineer · Double Slash Studios'],
-  ['base', 'Kent, Ohio · remote'],
-  ['since', '2007'],
-  ['now', 'linuxstatistics.com'],
-] as const;
+const jobs = Object.fromEntries((await getCollection('experience')).map((e) => [e.id, e.data]));
+const elc = jobs.elc;
+const dss = jobs.dss;
+
+interface Row {
+  k: string;
+  text: string;
+  link?: { label: string; href: string; noreferrer?: boolean };
+}
+
+const ledger: Row[] = [
+  { k: 'name', text: 'Chris Hartman' },
+  { k: 'role', text: 'Product engineer' },
+  { k: 'at', text: 'Senior Software Engineer · ', link: { label: elc.employer, href: elc.url!, noreferrer: elc.noreferrer } },
+  { k: 'studio', text: 'Principal Engineer · ', link: { label: dss.employer, href: dss.url!, noreferrer: dss.noreferrer } },
+  { k: 'base', text: 'Kent, Ohio · remote' },
+  { k: 'since', text: '2007' },
+  { k: 'now', text: '', link: { label: 'linuxstatistics.com', href: 'https://linuxstatistics.com' } },
+];
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
@@ -29,10 +40,25 @@ const ledger = [
     <div class="hero__word" aria-hidden="true">OPE!</div>
     <dl class="hero__ledger mono">
       {
-        ledger.map(([k, v], i) => (
+        ledger.map((row, i) => (
           <div class="hero__row" style={`--i: ${i}`}>
-            <dt>{k}</dt>
-            <dd>{v}</dd>
+            <dt>{row.k}</dt>
+            <dd>
+              {row.text}
+              {row.link && (
+                <a
+                  href={row.link.href}
+                  target="_blank"
+                  rel={row.link.noreferrer ? 'noopener noreferrer' : 'noopener'}
+                  referrerpolicy={row.link.noreferrer ? 'no-referrer' : undefined}
+                >
+                  {row.link.label.split(' ').slice(0, -1).join(' ')}{row.link.label.includes(' ') ? ' ' : ''}
+                  <span class="hero__last">
+                    {row.link.label.split(' ').at(-1)}<span class="hero__ext" aria-hidden="true">↗</span>
+                  </span>
+                </a>
+              )}
+            </dd>
           </div>
         ))
       }
@@ -144,6 +170,35 @@ const ledger = [
     min-width: 0;
     font-weight: 700;
     overflow-wrap: anywhere;
+  }
+
+  .hero__row a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--neon-dim);
+    text-underline-offset: 0.18em;
+    transition: text-decoration-color var(--dur-1) var(--ease-out);
+  }
+
+  .hero__row a:hover,
+  .hero__row a:focus-visible {
+    text-decoration-color: currentColor;
+  }
+
+  .hero__last {
+    white-space: nowrap;
+  }
+
+  .hero__ext {
+    margin-inline-start: 0.15em;
+    font-size: 0.75em;
+    vertical-align: 0.2em;
+    color: var(--neon-dim);
+  }
+
+  .hero__row a:hover .hero__ext,
+  .hero__row a:focus-visible .hero__ext {
+    color: inherit;
   }
 
   .hero__dot {
