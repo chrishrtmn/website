@@ -1,38 +1,30 @@
 ---
 import { site } from '~/lib/site';
-import { kitHeadshot } from '~/lib/kit';
 
 const year = new Date().getFullYear();
 const subject = encodeURIComponent('Résumé request');
 const body = encodeURIComponent('Hi Chris, could you send over your résumé? Here is a bit about the role: ');
-const talk = "let's talk".split('');
+const talk = "let's chat".split('');
 const external = { target: '_blank', rel: 'noopener' } as const;
 ---
 
 <footer class="footer wrap" id="contact">
-  <div class="footer__top">
-  <button type="button" class="footer__talk" aria-label="Let's talk. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
-    {
-      talk.map((ch, i) =>
-        ch === ' ' ? (
-          <span class="footer__space" aria-hidden="true"> </span>
-        ) : (
-          <span class="footer__ch" style={`--i: ${i}`} aria-hidden="true">
-            <span class="footer__latin">{ch}</span>
-            <span class="footer__sign">{ch === "'" ? '' : ch}</span>
-          </span>
-        ),
-      )
-    }
+  <button type="button" class="footer__talk" aria-label="Let's chat. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
+    <span class="footer__row footer__row--latin" aria-hidden="true">
+      {
+        talk.map((ch, i) =>
+          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__latin" style={`--i: ${i}`}>{ch}</span>,
+        )
+      }
+    </span>
+    <span class="footer__row footer__row--sign" aria-hidden="true">
+      {
+        talk.map((ch, i) =>
+          ch === ' ' ? <span class="footer__space"> </span> : ch === "'" ? null : <span class="footer__sign" style={`--i: ${i}`}>{ch}</span>,
+        )
+      }
+    </span>
   </button>
-  <figure class="footer__stamp">
-    <picture>
-      <source type="image/webp" srcset={`${kitHeadshot.webp2} 400w, ${kitHeadshot.webp1} 200w`} sizes="(max-width: 600px) 5.5rem, 9rem" />
-      <img src={kitHeadshot.jpg} width="500" height="500" alt="Chris Hartman" loading="lazy" decoding="async" />
-    </picture>
-  </figure>
-  </div>
-  <p class="footer__line mono">hot plates and warm cups of Midwestern hospitality, served remote</p>
 
   <nav class="footer__nav" aria-label="Footer">
     <ul class="footer__prime">
@@ -50,9 +42,20 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     </ul>
   </nav>
 
-  <div class="footer__fine small">
+  <div class="footer__fine mono">
     <span>© {year} Chris Hartman</span>
-    <button type="button" class="footer__cheat mono" title="cheat code" aria-label="Cheat code hint" data-cheat>↑↑↓↓←→←→BA</button>
+    <span class="footer__sep" aria-hidden="true">·</span>
+    <span class="footer__serve">Serving hot plates of Midwestern hospitality</span>
+    <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
+      {
+        ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'].map((d) => (
+          <svg class={`footer__key footer__key--${d}`} viewBox="0 0 10 10" width="10" height="10" aria-hidden="true">
+            <path d="M2 6.5 5 3.5l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        ))
+      }
+      <span>BA</span>
+    </button>
   </div>
 </footer>
 
@@ -80,7 +83,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
                   if (motionOn()) set(true);
                   const lastSign = [...talk.querySelectorAll<HTMLElement>('.footer__sign')].pop();
                   lastSign?.addEventListener('transitionend', () => talk.classList.remove('is-slow'), { once: true });
-                }, 1600);
+                }, 300);
               }
               io.disconnect();
             }
@@ -133,35 +136,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     border-top: 1px solid var(--line);
   }
 
-  .footer__top {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--s-8);
-  }
-
-  .footer__stamp {
-    flex: none;
-    width: 9rem;
-    aspect-ratio: 1;
-    margin: 0 0 0.12em;
-    border: 2px solid var(--neon);
-    outline: 1px solid var(--line);
-    outline-offset: 6px;
-    overflow: hidden;
-    background: var(--k2);
-  }
-
-  .footer__stamp img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   .footer__talk {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     max-width: none;
     margin: 0;
     text-align: left;
@@ -171,6 +147,27 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     text-transform: uppercase;
     -webkit-tap-highlight-color: transparent;
     transition: transform var(--dur-1) var(--ease-out);
+  }
+
+  .footer__row {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  /* pull the first glyph's side bearing back onto the gutter */
+  .footer__row--latin {
+    margin-inline-start: -0.07em;
+  }
+
+  .footer__row--sign {
+    gap: 0.14em;
+    margin-inline-start: -0.025em;
+  }
+
+  .footer__row--sign .footer__space {
+    width: 0.22em;
   }
 
   .footer__talk:active {
@@ -187,23 +184,16 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     width: 0.3em;
   }
 
-  .footer__ch {
-    position: relative;
-    display: inline-grid;
-    justify-items: center;
-  }
-
   .footer__latin,
   .footer__sign {
-    grid-area: 1 / 1;
     transition: opacity var(--dur-3) var(--ease-out);
     transition-delay: calc(var(--i) * 60ms);
   }
 
   .footer__talk.is-slow .footer__latin,
   .footer__talk.is-slow .footer__sign {
-    transition-duration: var(--dur-4);
-    transition-delay: calc(var(--i) * 110ms);
+    transition-duration: 500ms;
+    transition-delay: calc(var(--i) * 45ms);
   }
 
   .footer__latin {
@@ -255,11 +245,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   :global(html[data-motion='off']) .footer__talk:active {
     transform: none;
-  }
-
-  .footer__line {
-    margin-top: calc(-1 * var(--s-4));
-    color: var(--g);
   }
 
   .footer__nav {
@@ -354,16 +339,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   }
 
   @media (max-width: 600px) {
-    .footer__top {
-      flex-direction: column-reverse;
-      align-items: flex-start;
-      gap: var(--s-6);
-    }
-    .footer__stamp {
-      width: 5.5rem;
-      outline-offset: 4px;
-      margin: 0;
-    }
     .footer__prime {
       gap: var(--s-3) var(--s-6);
     }
@@ -379,6 +354,13 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       content: none;
       margin: 0;
     }
+    .footer__sep {
+      display: none;
+    }
+    .footer__serve {
+      flex-basis: 100%;
+      order: 1;
+    }
   }
 
   .footer__fine {
@@ -393,7 +375,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     display: inline-flex;
     margin-inline-start: auto;
     align-items: center;
-    gap: var(--s-2);
+    gap: 0.15em;
     padding: 0.2em 0.6em;
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -401,6 +383,29 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     font: inherit;
     letter-spacing: 0.08em;
     transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__cheat span {
+    margin-inline-start: 0.3em;
+  }
+
+  .footer__key {
+    display: block;
+    width: 0.7em;
+    height: 0.7em;
+    flex: none;
+  }
+
+  .footer__key--down {
+    transform: rotate(180deg);
+  }
+
+  .footer__key--left {
+    transform: rotate(-90deg);
+  }
+
+  .footer__key--right {
+    transform: rotate(90deg);
   }
 
   .footer__cheat:hover {
