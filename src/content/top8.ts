@@ -65,7 +65,7 @@ export const comments: Top8Comment[] = [
     text: 'Dedicated, experienced and professional. Chris is an outstanding developer and technical lead. He works very well with all members of the team and is able to quickly turn mock-ups and design ideas into functioning code. His responsiveness and organizational skills create a harmonious relationship with project managers and product owners. I have no hesitation in recommending him and know that he will fit into any team, large or small.',
   },
   {
-    name: 'Rick',
+    name: 'Rick J.',
     date: '5/25/2016',
     text: "Chris is a great front-end developer and team lead. He's willing and able to work directly with his team to help troubleshoot issues and provide solutions while also taking on a significant amount of front end work himself. He's able to take vague requirements, produce something great, and be patient with stakeholder feedback. Fantastic colleague and pleasure to work with.",
   },
@@ -105,7 +105,7 @@ export const comments: Top8Comment[] = [
     text: 'Chris has worked with us for a number of years and has an excellent attitude, an insatiable desire to learn, is self-motivated and industrious and has a great work ethic.',
   },
   {
-    name: 'Rick',
+    name: 'Rick V.',
     date: '7/12/2010',
     text: 'I had the pleasure of working with Chris for a number of years. During that time Chris grew professionally and in his technical skills. He was a go-to developer for Drupal projects that needed extra care and attention in theming. At all times Chris was a team player who put his all into his work.',
   },
