@@ -1,0 +1,31 @@
+---
+import Base from '~/layouts/Base.astro';
+import Footer from '~/components/Footer.astro';
+import KitContents from '~/components/KitContents.astro';
+---
+
+<Base title="Paparazzi kit" description="Logos, colours, a headshot, and boilerplate for Chris Hartman. Download the zip or grab what you need.">
+  <section class="page wrap">
+    <p class="label">paparazzi kit</p>
+    <h1 class="page__title">Say cheese</h1>
+    <p class="page__lede">Everything you'd need to put me in a slide, a byline, or a speaker card, without emailing first.</p>
+    <KitContents />
+  </section>
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-24) var(--s-16);
+  }
+
+  .page__title {
+    margin: var(--s-3) 0 var(--s-4);
+    font-size: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .page__lede {
+    color: var(--g);
+    margin-bottom: var(--s-12);
+  }
+</style>

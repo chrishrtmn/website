@@ -2,6 +2,7 @@
 import '~/styles/global.css';
 import { site } from '~/lib/site';
 import Header from '~/components/Header.astro';
+import KitTray from '~/components/KitTray.astro';
 
 interface Props {
   title?: string;
@@ -63,6 +64,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
       <slot />
     </main>
     <slot name="footer" />
+    <KitTray />
   </body>
 </html>
 

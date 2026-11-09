@@ -1,0 +1,356 @@
+---
+import KitContents from './KitContents.astro';
+import { kitZip } from '~/lib/kit';
+---
+
+<dialog class="tray" id="paparazzi-tray" aria-labelledby="tray-title">
+  <div class="tray__panel">
+    <div class="tray__flashes" aria-hidden="true">
+      <b class="tray__bump"></b>
+      <i style="--x: 14%; --y: 22%; --d: 0ms; --s: 1"></i>
+      <i style="--x: 82%; --y: 30%; --d: 380ms; --s: 1.3"></i>
+      <i style="--x: 36%; --y: 72%; --d: 760ms; --s: 0.9"></i>
+      <i style="--x: 68%; --y: 56%; --d: 1120ms; --s: 1.15"></i>
+      <i style="--x: 50%; --y: 16%; --d: 1500ms; --s: 1.4"></i>
+      <i style="--x: 22%; --y: 86%; --d: 1900ms; --s: 0.8"></i>
+    </div>
+    <header class="tray__head">
+      <p class="label">paparazzi kit</p>
+      <h2 id="tray-title" class="tray__title">Say cheese</h2>
+      <div class="tray__tools mono">
+        <a href={kitZip} download>zip</a>
+        <a href="/paparazzi/">page</a>
+        <button type="button" class="tray__close" data-tray-close aria-label="Close">esc</button>
+      </div>
+    </header>
+    <div class="tray__body">
+      <KitContents compact />
+    </div>
+  </div>
+</dialog>
+
+<menu class="ctx mono" id="logo-menu" hidden>
+  <li><button type="button" role="menuitem" data-ctx="copy-svg">Copy OPE! SVG</button></li>
+  <li><a role="menuitem" href="/brand/ope-volt.svg" download>Download SVG</a></li>
+  <li><a role="menuitem" href="/brand/ope-volt.png" download>Download PNG</a></li>
+  <li><a role="menuitem" href={kitZip} download>Download kit (.zip)</a></li>
+  <li><button type="button" role="menuitem" data-ctx="open-tray">Open paparazzi kit</button></li>
+</menu>
+
+<script>
+  const tray = document.getElementById('paparazzi-tray') as HTMLDialogElement | null;
+  const menu = document.getElementById('logo-menu') as HTMLElement | null;
+  const logo = document.querySelector<HTMLElement>('[data-logo]');
+  let lastFocus: HTMLElement | null = null;
+
+  function motionOn() {
+    return document.documentElement.dataset.motion !== 'off';
+  }
+
+  function openTray() {
+    if (!tray || tray.open) return;
+    lastFocus = document.activeElement as HTMLElement;
+    tray.showModal();
+    document.body.style.overflow = 'hidden';
+    if (motionOn()) {
+      tray.classList.remove('is-flashing');
+      void tray.offsetWidth;
+      tray.classList.add('is-flashing');
+    }
+    tray.querySelector<HTMLElement>('[data-tray-close]')?.focus();
+  }
+
+  function closeTray() {
+    if (!tray?.open) return;
+    tray.close();
+  }
+
+  tray?.addEventListener('close', () => {
+    document.body.style.overflow = '';
+    tray.classList.remove('is-flashing');
+    lastFocus?.focus();
+  });
+  tray?.addEventListener('click', (e) => {
+    if (e.target === tray) closeTray();
+  });
+  tray?.querySelector('[data-tray-close]')?.addEventListener('click', closeTray);
+
+  document.addEventListener('click', (e) => {
+    const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-kit-link]');
+    if (!a) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
+    e.preventDefault();
+    openTray();
+  });
+  document.addEventListener('paparazzi:open', openTray);
+
+  // logo context menu
+  function showMenu(x: number, y: number) {
+    if (!menu) return;
+    menu.hidden = false;
+    const r = menu.getBoundingClientRect();
+    menu.style.left = `${Math.min(x, innerWidth - r.width - 8)}px`;
+    menu.style.top = `${Math.min(y, innerHeight - r.height - 8)}px`;
+    menu.querySelector<HTMLElement>('[role=menuitem]')?.focus();
+  }
+  function hideMenu() {
+    if (menu) menu.hidden = true;
+  }
+  logo?.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    showMenu(e.clientX, e.clientY);
+  });
+  let press: number | undefined;
+  logo?.addEventListener('touchstart', (e) => {
+    const t = e.touches[0];
+    press = window.setTimeout(() => showMenu(t.clientX, t.clientY), 500);
+  }, { passive: true });
+  logo?.addEventListener('touchend', () => clearTimeout(press));
+  logo?.addEventListener('touchmove', () => clearTimeout(press));
+  document.addEventListener('click', (e) => {
+    if (menu && !menu.hidden && !menu.contains(e.target as Node)) hideMenu();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) hideMenu();
+    if (!menu || menu.hidden) return;
+    const items = [...menu.querySelectorAll<HTMLElement>('[role=menuitem]')];
+    const i = items.indexOf(document.activeElement as HTMLElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length]?.focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length]?.focus(); }
+  });
+  menu?.addEventListener('click', async (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLElement>('[data-ctx]');
+    if (!b) return;
+    if (b.dataset.ctx === 'open-tray') openTray();
+    if (b.dataset.ctx === 'copy-svg') {
+      try {
+        const svg = await (await fetch('/brand/ope-volt.svg')).text();
+        await navigator.clipboard.writeText(svg);
+        b.textContent = 'Copied';
+        setTimeout(() => (b.textContent = 'Copy OPE! SVG'), 1200);
+      } catch {
+        window.open('/brand/ope-volt.svg', '_blank', 'noopener');
+      }
+    }
+    if (b.dataset.ctx !== 'copy-svg') hideMenu();
+  });
+</script>
+
+<style>
+  .tray {
+    position: fixed;
+    inset: auto 0 0 0;
+    width: 100%;
+    max-width: none;
+    max-height: 88dvh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 14px 14px 0 0;
+    background: var(--k);
+    color: var(--w);
+    overflow: hidden;
+  }
+
+  .tray::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .tray__panel {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    max-height: 88dvh;
+  }
+
+  .tray__flashes {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .tray__flashes i {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 36vmin;
+    height: 36vmin;
+    margin: -18vmin 0 0 -18vmin;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, #fff 12%, rgba(255, 255, 255, 0.7) 26%, rgba(243, 241, 238, 0) 62%);
+    opacity: 0;
+    transform: scale(0.5);
+    mix-blend-mode: screen;
+  }
+
+  .tray__bump {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+  }
+
+  .tray__head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: var(--s-6);
+    row-gap: var(--s-1);
+    padding: var(--s-6) var(--gutter) var(--s-4);
+    background: var(--k);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tray__title {
+    font-size: var(--text-2xl);
+  }
+
+  .tray__tools {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    display: flex;
+    gap: var(--s-3);
+    align-self: start;
+  }
+
+  .tray__tools a,
+  .tray__close {
+    padding: 0.25em 0.7em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g);
+    text-decoration: none;
+    font: inherit;
+  }
+
+  .tray__tools a:hover,
+  .tray__close:hover {
+    color: var(--neon);
+    border-color: var(--neon);
+  }
+
+  .tray__body {
+    padding: var(--s-8) var(--gutter) var(--s-12);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* entrance + flash, motion on only */
+  :global(html[data-motion='on']) .tray[open] {
+    animation: tray-in 400ms var(--ease-out) both;
+  }
+
+  :global(html[data-motion='on']) .tray[open]::backdrop {
+    animation: fade 250ms var(--ease-out) both;
+  }
+
+  :global(html[data-motion='on']) .tray.is-flashing .tray__flashes i {
+    animation: flash 900ms var(--ease-out) calc(360ms + var(--d)) both;
+  }
+
+  :global(html[data-motion='on']) .tray.is-flashing .tray__bump {
+    animation: bump 2400ms linear 360ms both;
+  }
+
+  @keyframes tray-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes flash {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    6% {
+      opacity: 1;
+      transform: scale(var(--s));
+    }
+    22% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(calc(var(--s) * 1.3));
+    }
+  }
+
+  /* whole-sheet bumps on the 1st, 2nd and 5th pops */
+  @keyframes bump {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    1% {
+      opacity: 0.22;
+    }
+    6% {
+      opacity: 0;
+    }
+    16% {
+      opacity: 0;
+    }
+    17% {
+      opacity: 0.16;
+    }
+    22% {
+      opacity: 0;
+    }
+    62% {
+      opacity: 0;
+    }
+    63% {
+      opacity: 0.26;
+    }
+    70% {
+      opacity: 0;
+    }
+  }
+
+  .ctx {
+    position: fixed;
+    z-index: var(--z-menu);
+    min-width: 14rem;
+    margin: 0;
+    padding: var(--s-2);
+    list-style: none;
+    background: var(--k2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .ctx [role='menuitem'] {
+    display: block;
+    width: 100%;
+    padding: var(--s-2) var(--s-3);
+    border-radius: 4px;
+    text-align: left;
+    text-decoration: none;
+    color: var(--w);
+    font: inherit;
+  }
+
+  .ctx [role='menuitem']:hover,
+  .ctx [role='menuitem']:focus-visible {
+    background: var(--neon);
+    color: var(--neon-ink);
+    outline: none;
+  }
+</style>

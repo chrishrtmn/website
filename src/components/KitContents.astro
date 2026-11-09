@@ -1,0 +1,299 @@
+---
+import { kitAssets, kitBoilerplate, kitColours, kitHeadshot, kitZip } from '~/lib/kit';
+import { site } from '~/lib/site';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div class:list={['kit', { 'kit--compact': compact }]}>
+  <section class="kit__section" aria-labelledby="kit-logos">
+    <h3 id="kit-logos" class="label">marks</h3>
+    <ul class="kit__grid">
+      {
+        kitAssets.map((a) => (
+          <li class:list={['kit__asset', { 'kit__asset--dark': a.dark, 'kit__asset--tile': a.tile }]}>
+            <img src={a.svg} alt={`${a.name}, ${a.note}`} loading="lazy" decoding="async" />
+            <div class="kit__meta">
+              <span class="kit__name">{a.name}</span>
+              <span class="kit__note mono">{a.note}</span>
+              <span class="kit__actions mono">
+                <a href={a.svg} download>SVG</a>
+                <a href={a.png} download>PNG</a>
+                <button type="button" data-copy-svg={a.svg}>Copy SVG</button>
+              </span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <div class="kit__row">
+    <section class="kit__section" aria-labelledby="kit-colours">
+      <h3 id="kit-colours" class="label">colours</h3>
+      <ul class="kit__colours">
+        {
+          kitColours.map((c) => (
+            <li>
+              <button type="button" class="kit__swatch" data-copy={c.hex} title="Copy hex">
+                <span class="kit__chip" style={`background:${c.hex}`} aria-hidden="true" />
+                <span class="kit__cname">{c.name}</span>
+                <span class="kit__hex mono">{c.hex}</span>
+                <span class="kit__use mono">{c.use}</span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="kit__section" aria-labelledby="kit-photo">
+      <h3 id="kit-photo" class="label">headshot</h3>
+      <a class="kit__photo" href={kitHeadshot.jpg} download>
+        <picture>
+          <source srcset={`${kitHeadshot.webp1} 1x, ${kitHeadshot.webp2} 2x`} type="image/webp" />
+          <img src={kitHeadshot.jpg} alt="Chris Hartman" width="200" height="200" loading="lazy" decoding="async" />
+        </picture>
+        <span class="mono">Chris Hartman ↓</span>
+      </a>
+    </section>
+  </div>
+
+  <section class="kit__section" aria-labelledby="kit-bio">
+    <h3 id="kit-bio" class="label">boilerplate</h3>
+    <p class="kit__bio">{kitBoilerplate.long}</p>
+    <p class="kit__bio kit__bio--short">{kitBoilerplate.short}</p>
+    <p class="kit__actions mono">
+      <button type="button" data-copy={kitBoilerplate.long}>Copy long</button>
+      <button type="button" data-copy={kitBoilerplate.short}>Copy short</button>
+    </p>
+  </section>
+
+  <section class="kit__section kit__foot" aria-labelledby="kit-dl">
+    <h3 id="kit-dl" class="label">everything</h3>
+    <p class="kit__actions mono">
+      <a class="kit__zip" href={kitZip} download>Download PaparazziKit.zip</a>
+      <a href={`mailto:${site.email}?subject=${encodeURIComponent('Press')}`}>Press contact</a>
+    </p>
+    <p class="kit__fine">Please don't recolour, outline, stretch, or add effects to the marks. Volt is the only accent.</p>
+  </section>
+</div>
+
+<script>
+  async function copy(text: string, el: HTMLElement) {
+    const prev = el.textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      el.textContent = 'copied';
+    } catch {
+      el.textContent = 'copy failed';
+    }
+    setTimeout(() => (el.textContent = prev), 1400);
+  }
+  document.addEventListener('click', async (e) => {
+    const t = (e.target as HTMLElement).closest<HTMLElement>('[data-copy],[data-copy-svg]');
+    if (!t) return;
+    if (t.dataset.copy) return copy(t.dataset.copy, t);
+    if (t.dataset.copySvg) {
+      try {
+        const res = await fetch(t.dataset.copySvg);
+        copy(await res.text(), t);
+      } catch {
+        window.open(t.dataset.copySvg, '_blank', 'noopener');
+      }
+    }
+  });
+</script>
+
+<style>
+  .kit {
+    display: grid;
+    gap: var(--s-12);
+  }
+
+  .kit--compact {
+    gap: var(--s-8);
+  }
+
+  .kit__section {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .kit__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .kit__asset {
+    display: grid;
+    gap: var(--s-3);
+    padding: var(--s-4);
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+
+  .kit__asset--dark {
+    background: var(--k2);
+  }
+
+  .kit__asset--tile {
+    background: oklch(32% 0.008 115);
+  }
+
+  .kit__asset img {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: contain;
+  }
+
+  .kit__asset--dark img {
+    aspect-ratio: 16 / 7;
+  }
+
+  .kit__meta {
+    display: grid;
+    gap: var(--s-1);
+    color: var(--w);
+  }
+
+  .kit__asset:not(.kit__asset--dark) .kit__meta {
+    color: var(--k);
+  }
+
+  .kit__name {
+    font-weight: 500;
+  }
+
+  .kit__note {
+    color: var(--g);
+    font-size: var(--text-xs);
+  }
+
+  .kit__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    font-size: var(--text-xs);
+    max-width: none;
+  }
+
+  .kit__actions a,
+  .kit__actions button {
+    padding: 0.2em 0.6em;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.8;
+  }
+
+  .kit__actions a:hover,
+  .kit__actions button:hover {
+    opacity: 1;
+    border-color: var(--neon);
+    color: var(--neon);
+  }
+
+  .kit__asset:not(.kit__asset--dark) .kit__actions a:hover,
+  .kit__asset:not(.kit__asset--dark) .kit__actions button:hover {
+    color: var(--k);
+    border-color: var(--k);
+  }
+
+  .kit__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--s-12);
+    align-items: start;
+  }
+
+  .kit__colours {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .kit__swatch {
+    display: grid;
+    grid-template-columns: 2.25rem 7rem 5.5rem 1fr;
+    gap: var(--s-4);
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    padding: var(--s-2) 0;
+  }
+
+  .kit__swatch:hover .kit__hex {
+    color: var(--neon);
+  }
+
+  .kit__chip {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+
+  .kit__hex,
+  .kit__use {
+    color: var(--g);
+  }
+
+  .kit__photo {
+    display: grid;
+    gap: var(--s-2);
+    width: 8rem;
+    text-decoration: none;
+    color: var(--w);
+  }
+
+  .kit__photo img {
+    width: 8rem;
+    height: 10rem;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border: 1px solid var(--line);
+  }
+
+  .kit__bio {
+    max-width: var(--measure);
+  }
+
+  .kit__bio--short {
+    color: var(--g);
+  }
+
+  .kit__zip {
+    background: var(--neon);
+    color: var(--neon-ink) !important;
+    border-color: var(--neon) !important;
+    opacity: 1 !important;
+  }
+
+  .kit__fine {
+    color: var(--g2);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 700px) {
+    .kit__row {
+      grid-template-columns: 1fr;
+    }
+    .kit__swatch {
+      grid-template-columns: 2.25rem 1fr auto;
+    }
+    .kit__use {
+      display: none;
+    }
+  }
+</style>

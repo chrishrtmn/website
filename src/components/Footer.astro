@@ -1,0 +1,202 @@
+---
+import { site } from '~/lib/site';
+
+const year = new Date().getFullYear();
+const subject = encodeURIComponent('Résumé request');
+const body = encodeURIComponent('Hi Chris, could you send over your résumé? Here is a bit about the role: ');
+const talk = "let's talk".split('');
+const external = { target: '_blank', rel: 'noopener' } as const;
+---
+
+<footer class="footer wrap" id="contact">
+  <p class="footer__talk" aria-label="Let's talk">
+    {
+      talk.map((ch, i) =>
+        ch === ' ' ? (
+          <span class="footer__space" aria-hidden="true"> </span>
+        ) : (
+          <span class="footer__ch" style={`--i: ${i}`} aria-hidden="true">
+            <span class="footer__latin">{ch}</span>
+            <span class="footer__sign">{ch === "'" ? '' : ch}</span>
+          </span>
+        ),
+      )
+    }
+  </p>
+
+  <ul class="footer__links mono">
+    <li><a href={`mailto:${site.email}`}>Email</a></li>
+    <li><a href={site.links.github} {...external} rel="me noopener">GitHub <span class="ext" aria-hidden="true">↗</span></a></li>
+    <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn <span class="ext" aria-hidden="true">↗</span></a></li>
+    <li><a href="/resume.json" {...external}>resume.json <span class="ext" aria-hidden="true">↗</span></a></li>
+    <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`}>Request résumé</a></li>
+    <li><a href="/paparazzi/" data-kit-link>Paparazzi kit</a></li>
+  </ul>
+
+  <div class="footer__fine mono">
+    <span>© {year} Chris Hartman</span>
+    <span class="footer__song" title="profile song">♪ profile song: tbd</span>
+    <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
+      <svg viewBox="0 0 24 14" width="24" height="14" aria-hidden="true">
+        <rect x="0.5" y="0.5" width="23" height="13" rx="2" fill="none" stroke="currentColor" />
+        <rect x="4" y="4.5" width="6" height="2" fill="currentColor" />
+        <rect x="6" y="2.5" width="2" height="6" fill="currentColor" />
+        <circle cx="16" cy="7.5" r="1.5" fill="currentColor" />
+        <circle cx="20" cy="5.5" r="1.5" fill="currentColor" />
+      </svg>
+      <span>↑↑↓↓←→←→BA</span>
+    </button>
+  </div>
+</footer>
+
+<script>
+  const talk = document.querySelector<HTMLElement>('.footer__talk');
+  if (talk && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setTimeout(() => talk.classList.add('is-signed'), 600);
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(talk);
+  }
+  document.querySelector('[data-cheat]')?.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent('command-menu:open'));
+  });
+</script>
+
+<style>
+  .footer {
+    display: grid;
+    gap: var(--s-8);
+    padding-block: var(--s-16) var(--s-8);
+    border-top: 1px solid var(--line);
+  }
+
+  .footer__talk {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: none;
+    font-size: clamp(3rem, 12vw, 11rem);
+    line-height: 1;
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+  }
+
+  .footer__space {
+    width: 0.3em;
+  }
+
+  .footer__ch {
+    position: relative;
+    display: inline-grid;
+  }
+
+  .footer__latin,
+  .footer__sign {
+    grid-area: 1 / 1;
+    transition: opacity var(--dur-3) var(--ease-out);
+    transition-delay: calc(var(--i) * 60ms);
+  }
+
+  .footer__latin {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--w);
+  }
+
+  .footer__sign {
+    font-family: var(--font-sign);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: lowercase;
+    color: var(--neon);
+    opacity: 0;
+  }
+
+  .footer__talk.is-signed .footer__latin {
+    opacity: 0;
+  }
+
+  .footer__talk.is-signed .footer__sign {
+    opacity: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer__talk.is-signed:hover .footer__latin {
+      opacity: 1;
+    }
+    .footer__talk.is-signed:hover .footer__sign {
+      opacity: 0;
+    }
+  }
+
+  :global(html[data-motion='off']) .footer__latin,
+  :global(html[data-motion='off']) .footer__sign {
+    transition: none;
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer__links a {
+    text-decoration: none;
+    color: var(--w);
+  }
+
+  .footer__links a:hover {
+    color: var(--neon);
+  }
+
+  .ext {
+    font-size: 0.8em;
+    color: var(--g);
+  }
+
+  .footer__fine {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-4) var(--s-6);
+    color: var(--g2);
+  }
+
+  .footer__song {
+    margin-inline-start: auto;
+  }
+
+  .footer__cheat {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: 0.2em 0.6em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g2);
+    font: inherit;
+    letter-spacing: 0.08em;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__cheat:hover {
+    color: var(--neon);
+    border-color: var(--neon);
+  }
+
+  @media (max-width: 600px) {
+    .footer__song {
+      margin-inline-start: 0;
+    }
+  }
+</style>
