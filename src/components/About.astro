@@ -29,7 +29,7 @@ import { kitHeadshot } from '~/lib/kit';
 <style>
   .about__stamp {
     grid-row: 1 / 3;
-    width: 9rem;
+    width: 100%;
     aspect-ratio: 1;
     margin: var(--s-2) 0 0;
     border: 2px solid var(--neon);
@@ -48,8 +48,8 @@ import { kitHeadshot } from '~/lib/kit';
 
   .about__text {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    column-gap: var(--s-8);
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    column-gap: var(--s-6);
     row-gap: var(--s-8);
     align-items: start;
   }
