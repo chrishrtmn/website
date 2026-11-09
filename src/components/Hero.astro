@@ -233,20 +233,26 @@ const ledger = [
       max-width: 20ch;
     }
     .hero__word {
+      --word-size: 44cqw;
+      --word-bleed: 0.22em;
       left: var(--word-x);
       right: auto;
-      font-size: 44cqw;
-      bottom: -0.08em;
+      font-size: var(--word-size);
+      bottom: calc(-1 * var(--word-bleed));
       letter-spacing: -0.04em;
     }
     .hero__column .hero__word {
-      display: none;
+      display: block;
+      top: calc(-1 * (0.8em - var(--word-bleed)));
+      bottom: auto;
+      left: var(--word-x);
+      opacity: 1;
     }
     .hero__meta {
       display: none;
     }
     .hero__column {
-      padding: var(--s-8) var(--gutter);
+      padding: calc(var(--s-8) + 0.22 * 44cqw) var(--gutter) var(--s-8);
     }
     :global(html[data-intro='play']) .hero__column {
       animation-name: rise;
