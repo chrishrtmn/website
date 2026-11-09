@@ -86,6 +86,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
         void track.offsetWidth;
         track.style.animation = '';
       }
+      setRate(rate);
     };
 
     if (!motionOn) {
@@ -124,6 +125,33 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
       localStorage.setItem('ticker-view', next);
     } catch {}
   });
+
+  // hover: ease the marquee down to a crawl, ease back up on leave
+  const IDLE = 0.15;
+  const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+  let rate = 1;
+  let raf = 0;
+
+  const tracks = () => (body ? [...body.querySelectorAll<HTMLElement>('.ticker__track')] : []);
+  const setRate = (r: number) => {
+    rate = r;
+    for (const track of tracks()) for (const a of track.getAnimations()) a.updatePlaybackRate(r);
+  };
+  const rampTo = (target: number, ms: number) => {
+    cancelAnimationFrame(raf);
+    const from = rate;
+    const start = performance.now();
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / ms);
+      setRate(from + (target - from) * easeOut(t));
+      if (t < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  };
+  const scrolling = () => ticker?.dataset.view === 'scroll' && document.documentElement.dataset.motion !== 'off';
+
+  body?.addEventListener('pointerenter', () => scrolling() && rampTo(IDLE, 400));
+  body?.addEventListener('pointerleave', () => scrolling() && rampTo(1, 600));
 </script>
 
 <style>
@@ -136,7 +164,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
   }
 
   .ticker__body {
-    padding-block: var(--s-12) var(--s-8);
+    padding-block: var(--s-12);
     transition: opacity var(--dur-2) var(--ease-out);
   }
 
@@ -189,17 +217,6 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
   .ticker__view label:has(:focus-visible) {
     outline: 2px solid var(--neon-ink);
     outline-offset: 2px;
-  }
-
-  @media (max-width: 600px) {
-    .ticker__view {
-      position: static;
-      justify-content: flex-end;
-      padding: var(--s-3) var(--gutter) 0;
-    }
-    .ticker[data-view='scroll'] .ticker__body {
-      padding-block: var(--s-4) var(--s-6);
-    }
   }
 
   :global(html[data-motion='off']) .ticker__view {
@@ -271,11 +288,6 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
     animation-direction: reverse;
   }
 
-  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__body:hover .ticker__track,
-  :global(html[data-motion='on']) .ticker[data-view='scroll'] .ticker__body:focus-within .ticker__track {
-    animation-play-state: paused;
-  }
-
   @keyframes slide {
     to {
       transform: translateX(-50%);
@@ -287,14 +299,13 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
   :global(html[data-motion='off']) .ticker .ticker__body {
     display: grid;
     gap: var(--s-8);
-    padding: var(--s-16) var(--gutter) var(--s-12);
+    padding: var(--s-16) var(--gutter);
   }
 
   @media (max-width: 600px) {
     .ticker[data-view='grid'] .ticker__body,
     :global(html[data-motion='off']) .ticker .ticker__body {
       gap: var(--s-6);
-      padding: var(--s-4) var(--gutter) var(--s-8);
     }
   }
 
