@@ -72,7 +72,6 @@ export default function CommandMenu({ commands, email }: Props) {
     const q = query.trim().toLowerCase();
     const top8 = q === 'myspace' || q === 'top 8' || q === 'top8' || unlocked;
     return commands.filter((c) => {
-      if (c.group === 'hidden' && !unlocked) return false;
       if (c.group === 'top8') return top8;
       if (!q) return true;
       return `${c.label} ${c.hint ?? ''} ${c.keywords ?? ''}`.toLowerCase().includes(q);
@@ -171,6 +170,11 @@ export default function CommandMenu({ commands, email }: Props) {
       if (/^https?:/.test(cmd.href)) window.open(cmd.href, '_blank', 'noopener');
       else location.href = cmd.href;
       hide();
+      return;
+    }
+    if (cmd.group === 'hidden') {
+      hide();
+      flash('true story.', 1800);
     }
   }
 
