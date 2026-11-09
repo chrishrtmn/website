@@ -10,7 +10,6 @@ const facts = [
 ---
 
 <section id="about" class="about wrap" aria-labelledby="about-label">
-  <div class="about__rule" aria-hidden="true"></div>
   <div class="about__grid">
     <header class="about__head">
       <p id="about-label" class="label">about</p>
@@ -59,16 +58,8 @@ const facts = [
   .about {
     position: relative;
     padding-block: var(--s-24);
+    border-top: 8px solid var(--neon);
     container-type: inline-size;
-  }
-
-  .about__rule {
-    position: absolute;
-    top: 0;
-    left: var(--gutter);
-    width: calc(41.6667% - var(--gutter));
-    height: 4px;
-    background: var(--neon);
   }
 
   .about__grid {
@@ -190,9 +181,7 @@ const facts = [
   @media (max-width: 800px) {
     .about {
       padding-block: var(--s-12);
-    }
-    .about__rule {
-      width: calc(100% - 2 * var(--gutter));
+      border-top-width: 6px;
     }
     .about__grid {
       grid-template-columns: 1fr;
