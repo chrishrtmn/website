@@ -1,0 +1,25 @@
+---
+import Base from '~/layouts/Base.astro';
+import Hero from '~/components/Hero.astro';
+import Work from '~/components/Work.astro';
+import Ticker from '~/components/Ticker.astro';
+import Experience from '~/components/Experience.astro';
+import About from '~/components/About.astro';
+import Footer from '~/components/Footer.astro';
+import { disciplines, builtFor } from '~/content/brands';
+---
+
+<Base hero>
+  <Hero />
+  <Work />
+  <Ticker
+    label="What I work on, and brands I have built for"
+    lines={[
+      { name: 'what', items: disciplines, duration: 40 },
+      { name: 'built for', items: builtFor, duration: 52, reverse: true, outline: true },
+    ]}
+  />
+  <Experience />
+  <About />
+  <Footer slot="footer" />
+</Base>

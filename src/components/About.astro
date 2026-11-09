@@ -1,0 +1,104 @@
+---
+import Section from './Section.astro';
+import { kitHeadshot } from '~/lib/kit';
+---
+
+<Section id="about" label="about" title="Facts, no cap" flush>
+  <div class="about__text">
+    <figure class="about__stamp">
+      <picture>
+        <source type="image/webp" srcset={`${kitHeadshot.webp2} 400w, ${kitHeadshot.webp1} 200w`} sizes="(max-width: 600px) 5.5rem, 9rem" />
+        <img src={kitHeadshot.jpg} width="500" height="500" alt="Chris Hartman" loading="lazy" decoding="async" />
+      </picture>
+    </figure>
+    <p class="about__lede">
+      I'm Chris. I taught myself HTML and CSS by breaking MySpace layouts in 2005 and never really stopped. Over
+      fifteen years later I build products for a living and more of them for fun: apps, websites, and lately a lot of
+      AI tooling, from northeast Ohio.
+    </p>
+    <p class="about__body">
+      Most of my spare hours go to designing and building products; the ones on the homepage, plus whatever I'm taking
+      apart in the homelab that week. I've been working in VR and XR environments a lot lately, enough that
+      <strong>spatial computing is the next thing I want to build for</strong>. Away from a screen you'll find me at a
+      music festival or a Guardians game, hosting a game night, or hiking Hocking Hills. I also say "ope" more than is
+      strictly necessary.
+    </p>
+  </div>
+</Section>
+
+<style>
+  .about__stamp {
+    grid-row: 1 / 3;
+    width: 100%;
+    aspect-ratio: 1;
+    margin: var(--s-2) 0 0;
+    border: 2px solid var(--neon);
+    outline: 1px solid var(--line);
+    outline-offset: 6px;
+    overflow: hidden;
+    background: var(--k2);
+  }
+
+  .about__stamp img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about__text {
+    display: grid;
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    column-gap: var(--s-6);
+    row-gap: var(--s-8);
+    align-items: start;
+  }
+
+  .about__text p {
+    grid-column: 2;
+    max-width: none;
+  }
+
+  .about__lede {
+    font-size: clamp(var(--text-xl), 3.2vw, var(--text-3xl));
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.2;
+    color: var(--w);
+    text-wrap: pretty;
+  }
+
+  .about__body {
+    font-size: clamp(var(--text-lg), 2.1vw, var(--text-2xl));
+    line-height: 1.4;
+    color: var(--g);
+    text-wrap: pretty;
+  }
+
+  .about__body strong {
+    color: var(--w);
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .about__lede {
+      font-size: var(--text-lg);
+    }
+    .about__body {
+      font-size: var(--text-base);
+    }
+    .about__text {
+      grid-template-columns: 1fr;
+      row-gap: var(--s-6);
+    }
+    .about__stamp {
+      grid-row: auto;
+      width: 5.5rem;
+      margin: var(--s-1) 0 0;
+      outline-offset: 4px;
+    }
+    .about__text p {
+      grid-column: 1;
+    }
+  }
+</style>

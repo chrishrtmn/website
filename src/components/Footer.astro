@@ -1,0 +1,454 @@
+---
+import { site } from '~/lib/site';
+
+const year = new Date().getFullYear();
+const subject = encodeURIComponent('Résumé request');
+const body = encodeURIComponent('Hi Chris, could you send over your résumé? Here is a bit about the role: ');
+const talk = "let's chat".split('');
+const external = { target: '_blank', rel: 'noopener' } as const;
+---
+
+<footer class="footer wrap" id="contact">
+  <button type="button" class="footer__talk" aria-label="Let's chat. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
+    <span class="footer__row footer__row--latin" aria-hidden="true">
+      {
+        talk.map((ch, i) =>
+          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__latin" style={`--i: ${i}`}>{ch}</span>,
+        )
+      }
+    </span>
+    <span class="footer__row footer__row--sign" aria-hidden="true">
+      {
+        talk.map((ch, i) =>
+          ch === ' ' ? <span class="footer__space"> </span> : ch === "'" ? null : <span class="footer__sign" style={`--i: ${i}`}>{ch}</span>,
+        )
+      }
+    </span>
+  </button>
+
+  <nav class="footer__nav" aria-label="Footer">
+    <ul class="footer__prime">
+      <li><a href={`mailto:${site.email}`}>Email</a></li>
+      <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`}>Request résumé</a></li>
+      <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
+      <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
+      <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="footer__fine mono">
+    <span>© {year} Chris Hartman</span>
+    <span class="footer__sep" aria-hidden="true">·</span>
+    <span class="footer__serve">Serving hot plates of Midwestern hospitality</span>
+    <span class="footer__badges">
+    <a class="footer__kit" href="/paparazzi/" data-kit-link>
+      <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+        <path d="M5.5 3.5 4.6 5H2.5A1.5 1.5 0 0 0 1 6.5v6A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 13.5 5h-2.1l-.9-1.5z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+        <circle cx="8" cy="9.25" r="2.6" fill="none" stroke="currentColor" stroke-width="1.3" />
+      </svg>
+      <span>Paparazzi kit</span>
+    </a>
+    <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
+      {
+        ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'].map((d, i) => (
+          <svg class={`footer__key footer__key--${d}`} style={`--i: ${i}`} viewBox="0 0 10 10" width="10" height="10" aria-hidden="true">
+            <path d="M2 6.5 5 3.5l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        ))
+      }
+      <span style="--i: 8">BA</span>
+    </button>
+    </span>
+  </div>
+</footer>
+
+<script>
+  import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
+
+  const talk = document.querySelector<HTMLButtonElement>('[data-talk]');
+  if (talk) {
+    const root = document.documentElement;
+    const motionOn = () => root.dataset.motion !== 'off';
+    const set = (signed: boolean) => {
+      talk.classList.toggle('is-signed', signed);
+      talk.setAttribute('aria-pressed', String(signed));
+    };
+    let seen = false;
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              seen = true;
+              if (motionOn()) {
+                talk.classList.add('is-slow');
+                setTimeout(() => {
+                  if (motionOn()) set(true);
+                  const lastSign = [...talk.querySelectorAll<HTMLElement>('.footer__sign')].pop();
+                  lastSign?.addEventListener('transitionend', () => talk.classList.remove('is-slow'), { once: true });
+                }, 300);
+              }
+              io.disconnect();
+            }
+          }
+        },
+        { threshold: 0.6 },
+      );
+      io.observe(talk);
+    } else {
+      seen = true;
+      if (motionOn()) set(true);
+    }
+    const touch = matchMedia('(hover: none), (pointer: coarse)');
+    talk.addEventListener('click', () => {
+      if (touch.matches && motionOn()) set(!talk.classList.contains('is-signed'));
+    });
+    new MutationObserver(() => {
+      if (!motionOn()) set(false);
+      else if (seen) set(true);
+    }).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
+  }
+  const cheat = document.querySelector<HTMLButtonElement>('[data-cheat]');
+  if (cheat) {
+    const unlocked = () => {
+      try {
+        return sessionStorage.getItem(UNLOCK_KEY) === '1';
+      } catch {
+        return false;
+      }
+    };
+    const label = () => {
+      const on = unlocked();
+      cheat.title = on ? 'Open the Top 8' : 'cheat code';
+      cheat.setAttribute('aria-label', on ? 'Open the Top 8' : 'Cheat code hint');
+    };
+    label();
+    document.addEventListener(UNLOCK_EVENT, label);
+    cheat.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent(unlocked() ? UNLOCK_EVENT : 'command-menu:nope'));
+    });
+
+    // while locked: light the keys up in play order every so often, once the footer is on screen
+    const motionOn = () => document.documentElement.dataset.motion !== 'off';
+    let timer = 0;
+    const nudge = () => {
+      if (unlocked() || !motionOn() || cheat.matches(':hover, :focus-visible') || document.hidden) return;
+      cheat.classList.remove('is-nudge');
+      void cheat.offsetWidth;
+      cheat.classList.add('is-nudge');
+    };
+    const stop = () => {
+      clearInterval(timer);
+      timer = 0;
+      cheat.classList.remove('is-nudge');
+    };
+    const start = () => {
+      if (timer || unlocked()) return;
+      timer = window.setTimeout(() => {
+        nudge();
+        timer = window.setInterval(nudge, 6000);
+      }, 1500);
+    };
+    document.addEventListener(UNLOCK_EVENT, stop);
+    cheat.addEventListener('animationend', (e) => {
+      if ((e.target as HTMLElement).style.getPropertyValue('--i') === '8') cheat.classList.remove('is-nudge');
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.5 }).observe(cheat);
+    } else {
+      start();
+    }
+  }
+
+</script>
+
+<style>
+  .footer {
+    display: grid;
+    gap: var(--s-8);
+    padding-block: var(--s-16) var(--s-8);
+    border-top: 1px solid var(--line);
+  }
+
+  .footer__talk {
+    display: grid;
+    max-width: none;
+    margin: 0;
+    text-align: left;
+    font-size: clamp(3rem, 12vw, 11rem);
+    line-height: 1;
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform var(--dur-1) var(--ease-out);
+  }
+
+  .footer__row {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  /* pull the first glyph's side bearing back onto the gutter */
+  .footer__row--latin {
+    margin-inline-start: -0.07em;
+  }
+
+  .footer__row--sign {
+    gap: 0.14em;
+    margin-inline-start: -0.025em;
+  }
+
+  .footer__row--sign .footer__space {
+    width: 0.22em;
+  }
+
+  .footer__talk:active {
+    transform: scale(0.985);
+    transform-origin: left center;
+  }
+
+  .footer__talk:focus-visible {
+    outline: 2px solid var(--neon);
+    outline-offset: 0.08em;
+  }
+
+  .footer__space {
+    width: 0.3em;
+  }
+
+  .footer__latin,
+  .footer__sign {
+    transition: opacity var(--dur-3) var(--ease-out);
+    transition-delay: calc(var(--i) * 60ms);
+  }
+
+  .footer__talk.is-slow .footer__latin,
+  .footer__talk.is-slow .footer__sign {
+    transition-duration: 500ms;
+    transition-delay: calc(var(--i) * 45ms);
+  }
+
+  .footer__latin {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--w);
+  }
+
+  .footer__sign {
+    font-family: var(--font-sign);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: lowercase;
+    color: var(--neon);
+    opacity: 0;
+  }
+
+  .footer__talk.is-signed .footer__latin {
+    opacity: 0;
+  }
+
+  .footer__talk.is-signed .footer__sign {
+    opacity: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer__talk {
+      cursor: default;
+    }
+    .footer__talk:active {
+      transform: none;
+    }
+    .footer__talk.is-signed:hover .footer__latin {
+      opacity: 1;
+    }
+    .footer__talk.is-signed:hover .footer__sign {
+      opacity: 0;
+    }
+  }
+
+  :global(html[data-motion='off']) .footer__latin,
+  :global(html[data-motion='off']) .footer__sign {
+    transition: none;
+  }
+
+  :global(html[data-motion='off']) .footer__talk {
+    cursor: default;
+  }
+
+  :global(html[data-motion='off']) .footer__talk:active {
+    transform: none;
+  }
+
+  .footer__nav {
+    display: grid;
+    gap: var(--s-8);
+  }
+
+  .footer__prime {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer__prime {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4) var(--s-8);
+  }
+
+  .footer__prime a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    line-height: 1;
+    text-decoration: none;
+    color: var(--w);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__prime a:hover,
+  .footer__prime a:focus-visible {
+    color: var(--neon);
+  }
+
+  .footer__prime .ext {
+    font-size: 0.5em;
+    font-family: var(--font-sans);
+    font-weight: 400;
+  }
+
+  .ext {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 0.8em;
+    color: var(--g);
+  }
+
+  .footer__prime a:hover .ext,
+  .footer__prime a:focus-visible .ext {
+    color: inherit;
+  }
+
+  @media (max-width: 600px) {
+    .footer__prime {
+      gap: var(--s-3) var(--s-6);
+    }
+    .footer__prime a {
+      font-size: 1.5rem;
+    }
+    .footer__sep {
+      display: none;
+    }
+    .footer__serve {
+      flex-basis: 100%;
+      order: 1;
+    }
+    .footer__badges {
+      flex-basis: 100%;
+      order: 2;
+      margin-inline-start: 0;
+    }
+  }
+
+  .footer__fine {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-4) var(--s-6);
+    color: var(--g2);
+  }
+
+  .footer__kit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.2em 0.6em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g2);
+    text-decoration: none;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__kit svg {
+    flex: none;
+  }
+
+  .footer__kit:hover,
+  .footer__kit:focus-visible {
+    color: var(--neon);
+    border-color: var(--neon);
+  }
+
+  .footer__badges {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-inline-start: auto;
+  }
+
+  .footer__cheat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15em;
+    padding: 0.2em 0.6em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g2);
+    font: inherit;
+    letter-spacing: 0.08em;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__cheat span {
+    margin-inline-start: 0.3em;
+  }
+
+  .footer__key {
+    display: block;
+    width: 0.7em;
+    height: 0.7em;
+    flex: none;
+  }
+
+  .footer__key--down {
+    transform: rotate(180deg);
+  }
+
+  .footer__key--left {
+    transform: rotate(-90deg);
+  }
+
+  .footer__key--right {
+    transform: rotate(90deg);
+  }
+
+  .footer__cheat:hover {
+    color: var(--neon);
+    border-color: var(--neon);
+  }
+
+  /* locked hint: each key lights up in play order, then settles back */
+  :global(html[data-motion='on']) .footer__cheat.is-nudge > * {
+    animation: key-hint var(--dur-3) var(--ease-out) calc(var(--i) * 60ms) both;
+  }
+
+  @keyframes key-hint {
+    0% {
+      color: var(--g2);
+    }
+    15% {
+      color: var(--neon);
+    }
+    100% {
+      color: var(--g2);
+    }
+  }
+</style>

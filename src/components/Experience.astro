@@ -1,0 +1,343 @@
+---
+import { getCollection } from 'astro:content';
+import Section from './Section.astro';
+
+type Kind = 'career' | 'project' | 'event';
+
+interface Row {
+  kind: Kind;
+  sort: string;
+  when: string;
+  title: string;
+  url?: string;
+  noreferrer?: boolean;
+  sub?: string;
+  detail?: string;
+  current?: boolean;
+}
+
+const mon = (m: number) => new Date(2000, m - 1, 1).toLocaleString('en-US', { month: 'short' });
+const span = (s: number, sm: number, e?: number, em?: number) =>
+  `${mon(sm)} ${s} – ${e && em ? `${mon(em)} ${e}` : 'now'}`;
+const month = (d: string) => {
+  const [y, m] = d.split('-');
+  if (!m) return y;
+  return `${mon(Number(m))} ${y}`;
+};
+
+const career: Row[] = (await getCollection('experience')).map(({ data: r }) => ({
+  kind: 'career',
+  sort: `${r.start}-${String(r.startMonth).padStart(2, '0')}`,
+  when: span(r.start, r.startMonth, r.end, r.endMonth),
+  title: r.employer,
+  url: r.url,
+  noreferrer: r.noreferrer,
+  sub: r.titles.join(' · '),
+  detail: r.scope,
+  current: !r.end,
+}));
+
+const memories: Row[] = (await getCollection('timeline'))
+  .map((t) => t.data)
+  .filter((t): t is typeof t & { kind: 'project' | 'event' } => t.kind === 'project' || t.kind === 'event')
+  .map((t) => ({
+    kind: t.kind,
+    sort: t.date.length === 4 ? `${t.date}-00` : t.date,
+    when: month(t.date),
+    title: t.title,
+    url: t.url,
+    sub: t.kind === 'event' ? t.place : undefined,
+    detail: t.detail,
+  }));
+
+const rows = [...career, ...memories].sort((a, b) => (a.sort > b.sort ? -1 : a.sort < b.sort ? 1 : 0));
+
+const kinds: [Kind, string][] = [
+  ['career', 'career'],
+  ['project', 'projects'],
+  ['event', 'events'],
+];
+---
+
+<Section id="experience" label="experience" title="Random access memories">
+  <fieldset class="xp__filters small" slot="head">
+    <legend class="visually-hidden">Show</legend>
+    {
+      kinds.map(([k, l]) => (
+        <label>
+          <input type="checkbox" name="xp-kind" value={k} checked={k === 'career'} /> <span>{l}</span>
+        </label>
+      ))
+    }
+  </fieldset>
+
+  <dl class="xp">
+    {
+      rows.map((r) => (
+        <div class="xp__row" data-kind={r.kind} data-current={r.current ? '' : undefined} hidden={r.kind !== 'career'}>
+          <dt class="xp__years mono">
+            {r.when}
+            <span class="xp__kind xp__kind--top mono">{r.kind}</span>
+          </dt>
+          <dd class="xp__body">
+            <span class="xp__employer">
+              {r.url ? (
+                <a href={r.url} target="_blank" rel={r.noreferrer ? 'noopener noreferrer' : 'noopener'} referrerpolicy={r.noreferrer ? 'no-referrer' : undefined}>
+                  {r.title.split(' ').slice(0, -1).join(' ')}{r.title.includes(' ') ? ' ' : ''}
+                  <span class="xp__last">
+                    {r.title.split(' ').at(-1)}<span class="xp__ext" aria-hidden="true">↗</span>
+                  </span>
+                </a>
+              ) : (
+                r.title
+              )}
+              <span class="xp__kind mono">{r.kind}</span>
+            </span>
+            {r.sub && <span class="xp__titles small">{r.sub}</span>}
+            {r.detail && (
+              <details class="xp__more" open>
+                <summary class="small">more</summary>
+                <span class="xp__scope">{r.detail}</span>
+              </details>
+            )}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>
+
+<script>
+  const section = document.getElementById('experience');
+  const boxes = [...document.querySelectorAll<HTMLInputElement>('input[name="xp-kind"]')];
+  const rows = [...document.querySelectorAll<HTMLElement>('.xp__row')];
+  const wanted = new URLSearchParams(location.search).get('kind');
+  if (wanted) for (const b of boxes) b.checked = b.value === wanted;
+
+  const list = section?.querySelector<HTMLElement>('.xp');
+  const apply = () => {
+    const checked = boxes.filter((b) => b.checked);
+    if (checked.length === 0 && boxes[0]) {
+      boxes[0].checked = true;
+      checked.push(boxes[0]);
+    }
+    const last = checked.length === 1 ? checked[0] : null;
+    for (const b of boxes) {
+      b.disabled = b === last;
+      b.closest('label')?.classList.toggle('is-last', b === last);
+    }
+    const on = new Set(checked.map((b) => b.value));
+    for (const row of rows) row.hidden = !on.has(row.dataset.kind ?? '');
+    list?.classList.toggle('is-mixed', on.size > 1);
+    list?.classList.toggle('is-career', on.size === 1 && on.has('career'));
+  };
+  boxes.forEach((b) => b.addEventListener('change', apply));
+  apply();
+
+  const mq = matchMedia('(max-width: 600px)');
+  const items = section?.querySelectorAll<HTMLDetailsElement>('.xp__more') ?? [];
+  const fold = () => items.forEach((d) => (d.open = !mq.matches));
+  fold();
+  mq.addEventListener('change', fold);
+</script>
+
+<style>
+  .xp__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .xp__filters label {
+    position: relative;
+    padding: 0.25em 0.8em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--g);
+    cursor: pointer;
+  }
+
+  .xp__filters input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .xp__filters label:has(:checked) {
+    border-color: var(--neon);
+    color: var(--w);
+  }
+
+  .xp__filters label.is-last,
+  .xp__filters label.is-last input {
+    cursor: default;
+  }
+
+  .xp__filters label:has(:focus-visible) {
+    outline: 2px solid var(--neon);
+    outline-offset: 2px;
+  }
+
+  .xp {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .xp__row {
+    display: grid;
+    grid-template-columns: 10.5rem 1fr;
+    gap: var(--s-6);
+    padding-block: var(--s-6);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .xp.is-career .xp__row[data-current] {
+    order: -1;
+  }
+
+  .xp__row[data-current] .xp__years {
+    color: var(--neon);
+  }
+
+  .xp__row[hidden] {
+    display: none;
+  }
+
+  .xp__years {
+    color: var(--g);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .xp__kind {
+    display: none;
+    margin-inline-start: var(--s-3);
+    padding: 0.15em 0.6em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: var(--tracking-mono);
+    text-transform: none;
+    vertical-align: 0.25em;
+    color: var(--g2);
+  }
+
+  .xp.is-mixed .xp__kind {
+    display: inline-block;
+  }
+
+  .xp__kind--top,
+  .xp.is-mixed .xp__kind--top {
+    display: none;
+  }
+
+  .xp__row[data-kind='project'] .xp__kind {
+    border-color: var(--neon-dim);
+    color: var(--neon);
+  }
+
+  .xp__body {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+  }
+
+  .xp__employer {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .xp__employer a {
+    text-decoration: none;
+  }
+
+  .xp__employer a:hover,
+  .xp__employer a:focus-visible {
+    color: var(--neon);
+  }
+
+  .xp__last {
+    white-space: nowrap;
+  }
+
+  .xp__ext {
+    display: inline-block;
+    text-decoration: none;
+    margin-inline-start: 0.2em;
+    font-family: var(--font-sans);
+    font-size: 0.6em;
+    vertical-align: 0.35em;
+    color: var(--g);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  .xp__employer a:hover .xp__ext,
+  .xp__employer a:focus-visible .xp__ext {
+    color: inherit;
+  }
+
+  .xp__titles {
+    color: var(--g);
+  }
+
+  .xp__scope {
+    display: block;
+    max-width: var(--measure);
+    color: var(--w);
+  }
+
+  .xp__more summary {
+    display: none;
+  }
+
+  .xp__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .xp__row {
+      grid-template-columns: 1fr;
+      gap: var(--s-2);
+      padding-block: var(--s-4);
+    }
+    .xp__years {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s-3);
+    }
+    .xp.is-mixed .xp__employer .xp__kind {
+      display: none;
+    }
+    .xp.is-mixed .xp__kind--top {
+      display: inline-block;
+      margin-inline-start: 0;
+      vertical-align: baseline;
+    }
+    .xp__more summary {
+      display: inline-block;
+      cursor: pointer;
+      color: var(--g);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--line);
+      list-style: none;
+    }
+    .xp__more[open] summary {
+      color: var(--g2);
+    }
+    .xp__more[open] .xp__scope {
+      margin-top: var(--s-2);
+    }
+  }
+</style>

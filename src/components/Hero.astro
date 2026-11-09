@@ -1,0 +1,319 @@
+---
+import { getCollection } from 'astro:content';
+
+const jobs = Object.fromEntries((await getCollection('experience')).map((e) => [e.id, e.data]));
+const elc = jobs.elc;
+const dss = jobs.dss;
+
+interface Row {
+  k: string;
+  text: string;
+  link?: { label: string; href: string; noreferrer?: boolean };
+}
+
+const ledger: Row[] = [
+  { k: 'name', text: 'Chris Hartman' },
+  { k: 'at', text: '', link: { label: elc.employer, href: elc.url!, noreferrer: elc.noreferrer } },
+  { k: 'studio', text: '', link: { label: dss.employer, href: dss.url!, noreferrer: dss.noreferrer } },
+  { k: 'base', text: 'Kent, Ohio · remote' },
+  { k: 'since', text: '2007' },
+];
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__field">
+    <h1 id="hero-heading" class="hero__headline wrap">
+      <span>Product engineer in northeast Ohio.</span>
+      <span class="hero__tag">Let me just slip my portfolio past ya.</span>
+    </h1>
+    <div class="hero__word" aria-hidden="true">OPE!</div>
+    <p class="hero__meta small wrap">
+      <span aria-hidden="true">↓</span> scroll
+    </p>
+  </div>
+
+  <aside class="hero__column on-neon" aria-label="At a glance">
+    <div class="hero__word" aria-hidden="true">OPE!</div>
+    <dl class="hero__ledger mono">
+      {
+        ledger.map((row, i) => (
+          <div class="hero__row" style={`--i: ${i}`}>
+            <dt>{row.k}</dt>
+            <dd>
+              {row.text}
+              {row.link && (
+                <a
+                  href={row.link.href}
+                  target="_blank"
+                  rel={row.link.noreferrer ? 'noopener noreferrer' : 'noopener'}
+                  referrerpolicy={row.link.noreferrer ? 'no-referrer' : undefined}
+                >
+                  {row.link.label.split(' ').slice(0, -1).join(' ')}{row.link.label.includes(' ') ? ' ' : ''}
+                  <span class="hero__last">
+                    {row.link.label.split(' ').at(-1)}<span class="hero__ext" aria-hidden="true">↗</span>
+                  </span>
+                </a>
+              )}
+            </dd>
+          </div>
+        ))
+      }
+      <div class="hero__row" style={`--i: ${ledger.length}`}>
+        <dt>status</dt>
+        <dd><span class="hero__dot" aria-hidden="true"></span>shipping</dd>
+      </div>
+    </dl>
+  </aside>
+</section>
+
+<style>
+  .hero {
+    --col: max(36cqw, 22rem);
+    --word-size: 40cqw;
+    --word-x: -0.16em;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--col);
+    min-height: 100dvh;
+    overflow: hidden;
+    container-type: inline-size;
+  }
+
+  .hero__field {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__headline {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 0.1em;
+    padding-top: clamp(5rem, 14cqw, 9rem);
+    font-size: clamp(1.5rem, 2.6cqw, 2.6rem);
+    max-width: 24ch;
+  }
+
+  .hero__tag {
+    color: var(--neon);
+  }
+
+  .hero__word {
+    position: absolute;
+    left: var(--word-x);
+    bottom: -0.1em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--word-size);
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--w);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero__column .hero__word {
+    left: calc(var(--word-x) - (100cqw - var(--col)));
+    opacity: 0.9;
+    color: var(--neon-ink);
+  }
+
+  .hero__meta {
+    position: absolute;
+    right: var(--gutter);
+    bottom: var(--s-6);
+    z-index: 2;
+    color: var(--g);
+    background: var(--k);
+    padding: var(--s-1) var(--s-2);
+  }
+
+  .hero__column {
+    position: relative;
+    overflow: hidden;
+    container-type: normal;
+    background: var(--neon);
+    color: var(--neon-ink);
+    padding: clamp(5rem, 7cqw, 7rem) var(--s-8) var(--s-8);
+  }
+
+  .hero__ledger {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+  }
+
+  .hero__row {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: var(--s-4);
+  }
+
+  .hero__row dt {
+    color: var(--neon-dim);
+  }
+
+  .hero__row dd {
+    margin: 0;
+    min-width: 0;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+  .hero__row a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--neon-dim);
+    text-underline-offset: 0.18em;
+    transition: text-decoration-color var(--dur-1) var(--ease-out);
+  }
+
+  .hero__row a:hover,
+  .hero__row a:focus-visible {
+    text-decoration-color: currentColor;
+  }
+
+  .hero__last {
+    white-space: nowrap;
+  }
+
+  .hero__ext {
+    display: inline-block;
+    text-decoration: none;
+    margin-inline-start: 0.15em;
+    font-size: 0.75em;
+    vertical-align: 0.2em;
+    color: var(--neon-dim);
+  }
+
+  .hero__row a:hover .hero__ext,
+  .hero__row a:focus-visible .hero__ext {
+    color: inherit;
+  }
+
+  .hero__dot {
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    margin-right: 0.5em;
+    border-radius: 50%;
+    background: currentColor;
+    vertical-align: middle;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  /* intro: armed by the inline head script on the first view per session, motion on */
+  :global(html[data-intro='play']) .hero__field .hero__word {
+    animation: word var(--dur-4) var(--ease-in-out) 100ms both;
+  }
+  :global(html[data-intro='play']) .hero__headline {
+    animation: rise var(--dur-3) var(--ease-out) 350ms both;
+  }
+  :global(html[data-intro='play']) .hero__column {
+    animation: column 700ms var(--ease-out) 500ms both;
+  }
+  :global(html[data-intro='play']) .hero__row {
+    animation: rise 400ms var(--ease-out) calc(900ms + var(--i) * 80ms) both;
+  }
+  :global(html[data-intro='play']) .hero__meta {
+    animation: fade 500ms var(--ease-out) 1400ms both;
+  }
+
+  @keyframes word {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 -5% 0 0);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes column {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      min-height: 0;
+    }
+    .hero__field {
+      display: grid;
+      align-content: start;
+      min-height: min(70dvh, 34rem);
+      padding-bottom: 36cqw;
+    }
+    .hero__headline {
+      padding-top: calc(var(--s-16) + var(--s-6));
+      font-size: clamp(1.4rem, 5.5cqw, 2rem);
+      max-width: 20ch;
+    }
+    .hero__word {
+      --word-size: 44cqw;
+      --word-bleed: 0.148em;
+      left: var(--word-x);
+      right: auto;
+      font-size: var(--word-size);
+      bottom: calc(-1 * var(--word-bleed));
+      letter-spacing: -0.04em;
+    }
+    .hero__column .hero__word {
+      display: block;
+      top: calc(-1 * (0.8em - var(--word-bleed)));
+      bottom: auto;
+      left: var(--word-x);
+      opacity: 1;
+    }
+    .hero__meta {
+      display: none;
+    }
+    .hero__column {
+      padding: calc(var(--s-8) + 0.148 * 44cqw) var(--gutter) var(--s-8);
+    }
+    :global(html[data-intro='play']) .hero__column {
+      animation-name: rise;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero__headline {
+      padding-top: calc(var(--s-16) + var(--s-8));
+    }
+    .hero__field {
+      min-height: min(62dvh, 30rem);
+    }
+  }
+</style>

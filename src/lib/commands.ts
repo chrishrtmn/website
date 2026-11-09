@@ -1,0 +1,72 @@
+import { getCollection } from 'astro:content';
+import { site } from './site';
+import { top8 as top8Entries } from '~/content/top8';
+
+export interface Command {
+  id: string;
+  group: 'go' | 'projects' | 'posts' | 'do' | 'hidden' | 'top8';
+  label: string;
+  hint?: string;
+  href?: string;
+  action?: 'copy-email' | 'request-resume' | 'toggle-motion';
+  keywords?: string;
+}
+
+export async function buildCommands(): Promise<Command[]> {
+  const projects = (await getCollection('projects')).map((p) => p.data).sort((a, b) => a.order - b.order);
+  const posts = (await getCollection('posts')).filter((p) => !p.data.draft);
+
+  const go: Command[] = [
+    { id: 'home', group: 'go', label: 'Home', href: '/' },
+    { id: 'projects', group: 'go', label: 'Projects', href: '/#projects', keywords: 'receipts work' },
+    { id: 'experience', group: 'go', label: 'Experience', href: '/#experience', keywords: 'résumé resume timeline career' },
+    { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
+    { id: 'contact', group: 'go', label: 'Contact', href: '/#contact' },
+    { id: 'paparazzi', group: 'go', label: 'Paparazzi kit', href: '/paparazzi/' },
+  ];
+
+  const work: Command[] = projects
+    .filter((p) => p.featured && (p.url || p.repo))
+    .map((p) => ({
+      id: `project-${p.id}`,
+      group: 'projects',
+      label: p.name,
+      hint: p.status,
+      href: p.url ?? p.repo,
+      keywords: p.stack.join(' '),
+    }));
+
+  const postCmds: Command[] = posts.map((p) => ({
+    id: `post-${p.id}`,
+    group: 'posts',
+    label: p.data.title,
+    href: `/posts/${p.id}`,
+    keywords: p.data.tags.join(' '),
+  }));
+
+  const act: Command[] = [
+    { id: 'copy-email', group: 'do', label: 'Copy email address', action: 'copy-email' },
+    { id: 'request-resume', group: 'do', label: 'Request résumé', action: 'request-resume' },
+    { id: 'resume-json', group: 'do', label: 'Open resume.json', href: '/resume.json' },
+    { id: 'toggle-motion', group: 'do', label: 'Toggle motion', action: 'toggle-motion' },
+    { id: 'github', group: 'do', label: 'GitHub', href: site.links.github },
+    { id: 'linkedin', group: 'do', label: 'LinkedIn', href: site.links.linkedin },
+  ];
+
+  const top8: Command[] = top8Entries.filter((e) => !e.placeholder).map((e, i) => ({
+    id: `top8-${i}`,
+    group: 'top8' as const,
+    label: `${i + 1}. ${e.name}`,
+    hint: e.note,
+    href: e.url,
+  }));
+
+  const hidden: Command[] = [
+    { id: 'talent-1', group: 'hidden', label: 'Tears on cue', keywords: 'hidden talent' },
+    { id: 'talent-2', group: 'hidden', label: 'Double-jointed thumbs', keywords: 'hidden talent' },
+    { id: 'talent-3', group: 'hidden', label: 'Reads lips with uncanny accuracy', keywords: 'hidden talent' },
+    { id: 'talent-4', group: 'hidden', label: 'JCVD splits', hint: 'in training', keywords: 'hidden talent van damme' },
+  ];
+
+  return [...go, ...work, ...postCmds, ...act, ...top8, ...hidden];
+}

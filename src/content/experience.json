@@ -1,0 +1,108 @@
+[
+  {
+    "id": "elc",
+    "employer": "The Estée Lauder Companies",
+    "url": "https://www.elcompanies.com",
+    "noreferrer": true,
+    "titles": [
+      "Senior Engineer, Brand Experience, Global Online",
+      "Front-End Engineer (contract)"
+    ],
+    "start": 2021,
+    "startMonth": 2,
+    "location": "Remote",
+    "scope": "Global e-commerce front-end for 23 brands: Drupal templates, React components inside Drupal, Elixir and Perl services, performance work, code review, and live-site support.",
+    "stack": [
+      "Drupal",
+      "React",
+      "MobX",
+      "Elixir",
+      "Perl",
+      "Next.js",
+      "Datadog",
+      "Sentry"
+    ]
+  },
+  {
+    "id": "dss",
+    "employer": "Double Slash Studios",
+    "titles": [
+      "Principal Engineer"
+    ],
+    "start": 2019,
+    "startMonth": 9,
+    "location": "Northeast Ohio",
+    "scope": "My own studio for product work and client builds, with accessibility and performance treated as requirements rather than extras.",
+    "stack": [
+      "Next.js",
+      "Astro",
+      "Tailwind",
+      "Cloudflare",
+      "GitHub Actions"
+    ],
+    "url": "https://doubleslashstudios.com"
+  },
+  {
+    "id": "nas",
+    "employer": "NAS Recruitment Communications",
+    "titles": [
+      "Front-End UI Developer"
+    ],
+    "start": 2018,
+    "startMonth": 7,
+    "end": 2020,
+    "endMonth": 3,
+    "location": "Hybrid, Northeast Ohio",
+    "scope": "45+ recruitment marketing sites on one ATS-connected platform for brands like Olive Garden, GNC, and Cardinal Health; created the platform's design system and theming layer.",
+    "stack": [
+      "Sass",
+      "JavaScript",
+      "ASP.NET Razor",
+      "HubSpot",
+      "TFS"
+    ]
+  },
+  {
+    "id": "questex",
+    "employer": "Questex",
+    "titles": [
+      "Front-End Technical Lead",
+      "Front-End UI/UX Developer"
+    ],
+    "start": 2014,
+    "startMonth": 4,
+    "end": 2018,
+    "endMonth": 3,
+    "location": "Remote",
+    "scope": "Front-ends for five multi-site Drupal platforms serving about 60 media brands; owned front-end direction, code review and the shared Sass design system.",
+    "stack": [
+      "Drupal",
+      "Sass",
+      "jQuery",
+      "Laravel",
+      "Vue"
+    ]
+  },
+  {
+    "id": "independent",
+    "employer": "Independent",
+    "titles": [
+      "Drupal Front-End Developer"
+    ],
+    "start": 2007,
+    "startMonth": 11,
+    "end": 2014,
+    "endMonth": 4,
+    "location": "Remote",
+    "scope": "Seven years of contract Drupal work: three full-time with ImageX Media (47 projects, including Warner Music Group and Arizona State University), then subcontracting through Drupal Connect, Origin Eight and others for clients including 79 Sony Music artist sites, Stanford, Juilliard, and Human Rights Watch.",
+    "stack": [
+      "Drupal",
+      "Sass",
+      "Compass",
+      "jQuery",
+      "XHTML",
+      "CSS",
+      "Pantheon"
+    ]
+  }
+]

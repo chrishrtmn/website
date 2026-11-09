@@ -1,0 +1,76 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  title?: string;
+  tight?: boolean;
+  flush?: boolean;
+}
+
+const { id, label, title, tight = false, flush = false } = Astro.props;
+---
+
+<section id={id} class:list={['section', 'wrap', { 'section--tight': tight, 'section--flush': flush }]} aria-labelledby={`${id}-label`}>
+  <header class="section__head">
+    <p id={`${id}-label`} class="label">{label}</p>
+    <div class="section__row">
+      {title && <h2 class="section__title">{title}</h2>}
+      <slot name="head" />
+    </div>
+  </header>
+  <slot />
+</section>
+
+<style>
+  .section {
+    padding-block: var(--s-24);
+  }
+
+  .section--tight {
+    padding-block: var(--s-8) var(--s-16);
+  }
+
+  .section__head {
+    display: grid;
+    gap: var(--s-3);
+    margin-bottom: var(--s-8);
+  }
+
+  .section__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4) var(--s-8);
+  }
+
+  .section__title {
+    font-size: var(--text-2xl);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  @media (max-width: 900px) {
+    .section {
+      padding-block: var(--s-16);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .section {
+      padding-block: var(--s-12);
+    }
+    .section--tight {
+      padding-block: var(--s-6) var(--s-12);
+    }
+    .section__head {
+      margin-bottom: var(--s-6);
+    }
+    .section__title {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .section--flush {
+    padding-block-start: 0;
+  }
+</style>
