@@ -168,6 +168,12 @@ video {
 }
 
 /* bottom sheets (paparazzi kit, Top 8): position driven by --y from src/lib/sheet.ts */
+@property --y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
 .sheet {
   --y: 0px;
   position: fixed;
