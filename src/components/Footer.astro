@@ -24,29 +24,25 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     }
   </button>
 
-  <ul class="footer__links small">
-    <li><a href={`mailto:${site.email}`}>Email</a></li>
-    <li><a href={site.links.github} {...external} rel="me noopener">GitHub <span class="ext" aria-hidden="true">↗</span></a></li>
-    <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn <span class="ext" aria-hidden="true">↗</span></a></li>
-    <li><a href="/stack">Stack</a></li>
-    <li><a href="/timeline">Timeline</a></li>
-    <li><a href="/resume.json" {...external}>resume.json <span class="ext" aria-hidden="true">↗</span></a></li>
-    <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`}>Request résumé</a></li>
-    <li><a href="/paparazzi/" data-kit-link>Paparazzi kit</a></li>
-  </ul>
+  <nav class="footer__nav" aria-label="Footer">
+    <ul class="footer__prime">
+      <li><a href={`mailto:${site.email}`}>Email</a></li>
+      <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`}>Request résumé</a></li>
+      <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
+      <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
+    </ul>
+    <ul class="footer__index mono">
+      <li><a href="/stack">Stack</a></li>
+      <li><a href="/timeline">Timeline</a></li>
+      <li><a href="/posts">Posts</a></li>
+      <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
+      <li><a href="/paparazzi/" data-kit-link>Paparazzi kit</a></li>
+    </ul>
+  </nav>
 
   <div class="footer__fine small">
     <span>© {year} Chris Hartman</span>
-    <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
-      <svg viewBox="0 0 24 14" width="24" height="14" aria-hidden="true">
-        <rect x="0.5" y="0.5" width="23" height="13" rx="2" fill="none" stroke="currentColor" />
-        <rect x="4" y="4.5" width="6" height="2" fill="currentColor" />
-        <rect x="6" y="2.5" width="2" height="6" fill="currentColor" />
-        <circle cx="16" cy="7.5" r="1.5" fill="currentColor" />
-        <circle cx="20" cy="5.5" r="1.5" fill="currentColor" />
-      </svg>
-      <span>↑↑↓↓←→←→BA</span>
-    </button>
+    <button type="button" class="footer__cheat mono" title="cheat code" aria-label="Cheat code hint" data-cheat>↑↑↓↓←→←→BA</button>
   </div>
 </footer>
 
@@ -217,22 +213,82 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     transform: none;
   }
 
-  .footer__links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-6);
+  .footer__nav {
+    display: grid;
+    gap: var(--s-8);
+  }
+
+  .footer__prime,
+  .footer__index {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .footer__links a {
-    text-decoration: none;
-    color: var(--w);
+  .footer__prime {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4) var(--s-8);
   }
 
-  .footer__links a:hover {
+  .footer__prime a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    line-height: 1;
+    text-decoration: none;
+    color: var(--w);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__prime a:hover,
+  .footer__prime a:focus-visible {
     color: var(--neon);
+  }
+
+  .footer__prime .ext {
+    font-size: 0.5em;
+    font-family: var(--font-sans);
+    font-weight: 400;
+  }
+
+  .footer__index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) 0;
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
+    color: var(--g);
+  }
+
+  .footer__index li {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .footer__index li + li::before {
+    content: '·';
+    margin-inline: var(--s-3);
+    color: var(--g2);
+  }
+
+  .footer__index a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3em;
+    text-decoration: none;
+    color: var(--g);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__index a:hover,
+  .footer__index a:focus-visible {
+    color: var(--w);
   }
 
   .ext {
@@ -240,6 +296,30 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     text-decoration: none;
     font-size: 0.8em;
     color: var(--g);
+  }
+
+  .footer__prime a:hover .ext,
+  .footer__prime a:focus-visible .ext,
+  .footer__index a:hover .ext {
+    color: inherit;
+  }
+
+  @media (max-width: 600px) {
+    .footer__prime {
+      gap: var(--s-3) var(--s-6);
+    }
+    .footer__prime a {
+      font-size: 1.5rem;
+    }
+    .footer__index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--s-3) var(--s-6);
+    }
+    .footer__index li + li::before {
+      content: none;
+      margin: 0;
+    }
   }
 
   .footer__fine {
