@@ -83,32 +83,18 @@
     "titles": [
       "Drupal Front-End Developer"
     ],
-    "start": 2010,
+    "start": 2007,
     "end": 2014,
     "location": "Remote",
-    "scope": "Subcontracting for agencies and direct clients, including 79 Sony Music artist sites, Stanford, Juilliard, and Human Rights Watch.",
+    "scope": "Seven years of contract Drupal work: three full-time with ImageX Media (47 projects, including Warner Bros. Records and Arizona State University), then subcontracting through Drupal Connect, Origin Eight and others for clients including 79 Sony Music artist sites, Stanford, Juilliard, and Human Rights Watch.",
     "stack": [
       "Drupal",
       "Sass",
       "Compass",
-      "Pantheon"
-    ]
-  },
-  {
-    "id": "imagex",
-    "employer": "ImageX Media",
-    "titles": [
-      "Drupal Developer"
-    ],
-    "start": 2007,
-    "end": 2010,
-    "location": "Remote",
-    "scope": "47 projects from theming to full builds, including Warner Bros. Records artist sites and Arizona State University.",
-    "stack": [
-      "Drupal",
+      "jQuery",
       "XHTML",
       "CSS",
-      "jQuery"
+      "Pantheon"
     ]
   }
 ]
