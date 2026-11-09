@@ -89,32 +89,5 @@
     "status": "concept",
     "year": 2026,
     "featured": true
-  },
-  {
-    "id": "remotejamstack",
-    "order": 7,
-    "name": "Remote Jamstack",
-    "line": "Job board for the Jamstack community.",
-    "stack": [
-      "Next.js",
-      "Tailwind",
-      "Firebase"
-    ],
-    "status": "archived",
-    "year": 2020,
-    "featured": true
-  },
-  {
-    "id": "recurringcredit",
-    "order": 210,
-    "name": "RecurringCredit",
-    "line": "Subscription tracking with Stripe billing (2020).",
-    "stack": [
-      "Next.js",
-      "Stripe"
-    ],
-    "status": "archived",
-    "year": 2020,
-    "featured": false
   }
 ]
