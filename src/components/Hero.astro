@@ -50,12 +50,12 @@ const ledger = [
 
 <style>
   .hero {
-    --col: 36cqw;
+    --col: max(36cqw, 22rem);
     --word-size: 40cqw;
     --word-x: -0.16em;
     position: relative;
     display: grid;
-    grid-template-columns: calc(100% - var(--col)) var(--col);
+    grid-template-columns: minmax(0, 1fr) var(--col);
     min-height: 100dvh;
     overflow: hidden;
     container-type: inline-size;
@@ -141,7 +141,9 @@ const ledger = [
 
   .hero__row dd {
     margin: 0;
+    min-width: 0;
     font-weight: 700;
+    overflow-wrap: anywhere;
   }
 
   .hero__dot {
@@ -217,34 +219,46 @@ const ledger = [
     .hero {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto;
+      min-height: 0;
     }
     .hero__field {
-      min-height: 70dvh;
+      display: grid;
+      align-content: start;
+      min-height: min(70dvh, 34rem);
+      padding-bottom: 36cqw;
     }
     .hero__headline {
+      padding-top: calc(var(--s-16) + var(--s-6));
       font-size: clamp(1.4rem, 5.5cqw, 2rem);
       max-width: 20ch;
     }
     .hero__word {
-      left: auto;
-      right: -0.14em;
-      font-size: 62cqw;
+      left: var(--word-x);
+      right: auto;
+      font-size: 44cqw;
       bottom: -0.08em;
+      letter-spacing: -0.04em;
     }
     .hero__column .hero__word {
       display: none;
     }
     .hero__meta {
-      right: auto;
-      left: var(--gutter);
-      top: calc(100% - var(--s-12));
-      bottom: auto;
+      display: none;
     }
     .hero__column {
       padding: var(--s-8) var(--gutter);
     }
     :global(html[data-intro='play']) .hero__column {
       animation-name: rise;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero__headline {
+      padding-top: calc(var(--s-16) + var(--s-8));
+    }
+    .hero__field {
+      min-height: min(62dvh, 30rem);
     }
   }
 </style>

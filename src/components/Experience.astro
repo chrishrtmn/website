@@ -16,8 +16,10 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
             <span class="xp__employer">
               {r.url ? (
                 <a href={r.url} target="_blank" rel="noopener">
-                  {r.employer}
-                  <span class="xp__ext" aria-hidden="true">↗</span>
+                  {r.employer.split(' ').slice(0, -1).join(' ')}{' '}
+                  <span class="xp__last">
+                    {r.employer.split(' ').at(-1)}<span class="xp__ext" aria-hidden="true">↗</span>
+                  </span>
                 </a>
               ) : (
                 r.employer
@@ -87,6 +89,10 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
   .xp__employer a:hover,
   .xp__employer a:focus-visible {
     color: var(--neon);
+  }
+
+  .xp__last {
+    white-space: nowrap;
   }
 
   .xp__ext {

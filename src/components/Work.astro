@@ -46,7 +46,7 @@ const projects = (await getCollection('projects'))
 
   .work__row {
     display: grid;
-    grid-template-columns: 2.5rem minmax(10rem, 0.8fr) minmax(0, 2fr) minmax(0, 1fr) 5.5rem 3.5rem 1.5rem;
+    grid-template-columns: 2.5rem max-content minmax(0, 2fr) minmax(0, 1fr) 5.5rem 3.5rem 1.5rem;
     gap: var(--s-4);
     align-items: baseline;
     padding: var(--s-4) var(--s-2);
@@ -125,7 +125,7 @@ const projects = (await getCollection('projects'))
     transform: translate(2px, -2px);
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     .work__row {
       grid-template-columns: 2.5rem 1fr auto;
       grid-template-areas:

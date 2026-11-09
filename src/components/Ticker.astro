@@ -204,7 +204,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
   }
 
   @media (max-width: 600px) {
-    .ticker[data-view='scroll'] .ticker__line--outline {
+    .ticker .ticker__line--outline {
       display: none;
     }
   }
@@ -339,5 +339,34 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
   .ticker[data-view='grid'] .ticker__line--outline .ticker__item,
   :global(html[data-motion='off']) .ticker .ticker__line--outline .ticker__item {
     border-style: dashed;
+  }
+
+  @media (max-width: 900px) {
+    .ticker[data-view='grid'],
+    :global(html[data-motion='off']) .ticker {
+      padding-block: var(--s-12) var(--s-8);
+    }
+    .ticker[data-view='grid'] .ticker__line,
+    :global(html[data-motion='off']) .ticker .ticker__line {
+      font-size: var(--text-base);
+      letter-spacing: var(--tracking-tight);
+    }
+    .ticker[data-view='grid'] .ticker__track,
+    :global(html[data-motion='off']) .ticker .ticker__track {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-2);
+    }
+    .ticker[data-view='grid'] .ticker__item,
+    :global(html[data-motion='off']) .ticker .ticker__item {
+      display: inline-flex;
+      gap: var(--s-2);
+      align-items: baseline;
+      padding: var(--s-1) var(--s-3);
+    }
+    .ticker[data-view='grid'] .ticker__via,
+    :global(html[data-motion='off']) .ticker .ticker__via {
+      display: none;
+    }
   }
 </style>
