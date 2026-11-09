@@ -37,22 +37,16 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   <div class="footer__fine small">
     <span>© {year} Chris Hartman</span>
     <span class="footer__song" title="profile song">♪ profile song: tbd</span>
-    <span class="footer__keys">
-      <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
-        <svg viewBox="0 0 24 14" width="24" height="14" aria-hidden="true">
-          <rect x="0.5" y="0.5" width="23" height="13" rx="2" fill="none" stroke="currentColor" />
-          <rect x="4" y="4.5" width="6" height="2" fill="currentColor" />
-          <rect x="6" y="2.5" width="2" height="6" fill="currentColor" />
-          <circle cx="16" cy="7.5" r="1.5" fill="currentColor" />
-          <circle cx="20" cy="5.5" r="1.5" fill="currentColor" />
-        </svg>
-        <span>↑↑↓↓←→←→BA</span>
-      </button>
-      <button type="button" class="footer__cheat footer__menu" aria-label="Open menu" data-menu>
-        <span class="footer__menu-keys" aria-hidden="true">⌘K</span>
-        <span class="footer__menu-word" aria-hidden="true">menu</span>
-      </button>
-    </span>
+    <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
+      <svg viewBox="0 0 24 14" width="24" height="14" aria-hidden="true">
+        <rect x="0.5" y="0.5" width="23" height="13" rx="2" fill="none" stroke="currentColor" />
+        <rect x="4" y="4.5" width="6" height="2" fill="currentColor" />
+        <rect x="6" y="2.5" width="2" height="6" fill="currentColor" />
+        <circle cx="16" cy="7.5" r="1.5" fill="currentColor" />
+        <circle cx="20" cy="5.5" r="1.5" fill="currentColor" />
+      </svg>
+      <span>↑↑↓↓←→←→BA</span>
+    </button>
   </div>
 </footer>
 
@@ -102,9 +96,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   document.querySelector('[data-cheat]')?.addEventListener('click', () => {
     document.dispatchEvent(new CustomEvent('command-menu:nope'));
   });
-  document.querySelector('[data-menu]')?.addEventListener('click', () => {
-    document.dispatchEvent(new CustomEvent('command-menu:open'));
-  });
+
 </script>
 
 <style>
@@ -257,24 +249,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   .footer__cheat:hover {
     color: var(--neon);
     border-color: var(--neon);
-  }
-
-  .footer__keys {
-    display: inline-flex;
-    gap: var(--s-2);
-  }
-
-  .footer__menu-word {
-    display: none;
-  }
-
-  @media (pointer: coarse) {
-    .footer__menu-keys {
-      display: none;
-    }
-    .footer__menu-word {
-      display: inline;
-    }
   }
 
   @media (max-width: 600px) {
