@@ -20,7 +20,7 @@ const events = (await getCollection('timeline'))
           <span class="ticket__body">
             <span class="ticket__year mono">{e.date.slice(0, 4)}</span>
             <span class="ticket__title">{e.title}</span>
-            <span class="ticket__place mono">{e.place}</span>
+            <span class="ticket__place small">{e.place}</span>
           </span>
         </li>
       ))
@@ -131,6 +131,25 @@ const events = (await getCollection('timeline'))
   .ticket__place {
     color: var(--g2);
     font-size: var(--text-xs);
+  }
+
+  @media (max-width: 600px) {
+    .tickets {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: var(--s-2);
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: var(--gutter);
+      scrollbar-width: none;
+    }
+    .tickets::-webkit-scrollbar {
+      display: none;
+    }
+    .ticket {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+    }
   }
 
   @media (hover: hover) and (pointer: fine) {

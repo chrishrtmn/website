@@ -96,9 +96,17 @@ const commitFallback = `“${fallbackCommit.message}” · ${fallbackCommit.repo
   }
 
   @media (max-width: 600px) {
-    .now__row {
-      grid-template-columns: 1fr;
+    .now {
+      padding-block: var(--s-8);
+    }
+    .now__ledger {
+      margin-top: var(--s-4);
       gap: var(--s-1);
+    }
+    .now__row {
+      grid-template-columns: 5rem 1fr;
+      gap: var(--s-3);
+      font-size: var(--text-xs);
     }
   }
 </style>

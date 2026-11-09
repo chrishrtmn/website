@@ -22,14 +22,25 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
                 r.employer
               )}
             </span>
-            <span class="xp__titles mono">{r.titles.join(' · ')}</span>
-            <span class="xp__scope">{r.scope}</span>
+            <span class="xp__titles small">{r.titles.join(' · ')}</span>
+            <details class="xp__more" open>
+              <summary class="small">what I did</summary>
+              <span class="xp__scope">{r.scope}</span>
+            </details>
           </dd>
         </div>
       ))
     }
   </dl>
 </Section>
+
+<script>
+  const mq = matchMedia('(max-width: 600px)');
+  const items = document.querySelectorAll<HTMLDetailsElement>('.xp__more');
+  const apply = () => items.forEach((d) => (d.open = !mq.matches));
+  apply();
+  mq.addEventListener('change', apply);
+</script>
 
 <style>
   .xp {
@@ -85,10 +96,38 @@ const span = (s: number, e?: number) => `${s}–${e ? String(e).slice(2) : ''}`;
     color: var(--w);
   }
 
+  .xp__more summary {
+    display: none;
+  }
+
+  .xp__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .xp__scope {
+    display: block;
+  }
+
   @media (max-width: 600px) {
     .xp__row {
       grid-template-columns: 1fr;
       gap: var(--s-2);
+      padding-block: var(--s-4);
+    }
+    .xp__more summary {
+      display: inline-block;
+      cursor: pointer;
+      color: var(--g);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--line);
+      list-style: none;
+    }
+    .xp__more[open] summary {
+      color: var(--g2);
+    }
+    .xp__more[open] .xp__scope {
+      margin-top: var(--s-2);
     }
   }
 </style>

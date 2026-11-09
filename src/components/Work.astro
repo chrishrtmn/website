@@ -20,8 +20,8 @@ const projects = (await getCollection('projects'))
               <span class="work__index mono">{String(i + 1).padStart(2, '0')}</span>
               <span class="work__name">{p.name}</span>
               <span class="work__line">{p.line}</span>
-              <span class="work__stack mono">{p.stack.join(' · ')}</span>
-              <span class:list={['work__status', 'mono', `work__status--${p.status}`]}>{p.status}</span>
+              <span class="work__stack small">{p.stack.join(' · ')}</span>
+              <span class:list={['work__status', 'small', `work__status--${p.status}`]}>{p.status}</span>
               <span class="work__year mono">{p.year}</span>
               <span class="work__arrow" aria-hidden="true">{href ? '↗' : ''}</span>
             </Tag>
@@ -146,6 +146,21 @@ const projects = (await getCollection('projects'))
       justify-self: end;
     }
     .work__arrow {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .work__row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        'name status'
+        'line line';
+      row-gap: var(--s-1);
+    }
+    .work__index,
+    .work__stack,
+    .work__year {
       display: none;
     }
   }

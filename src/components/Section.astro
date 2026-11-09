@@ -42,4 +42,19 @@ const { id, label, title, tight = false } = Astro.props;
       padding-block: var(--s-16);
     }
   }
+
+  @media (max-width: 600px) {
+    .section {
+      padding-block: var(--s-12);
+    }
+    .section--tight {
+      padding-block: var(--s-6) var(--s-12);
+    }
+    .section__head {
+      margin-bottom: var(--s-6);
+    }
+    .section__title {
+      font-size: var(--text-xl);
+    }
+  }
 </style>
