@@ -26,6 +26,7 @@ const experience = defineCollection({
     id: z.string(),
     employer: z.string(),
     url: z.string().url().optional(),
+    noreferrer: z.boolean().default(false),
     titles: z.array(z.string()).min(1),
     start: year,
     end: year.optional(),

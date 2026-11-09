@@ -3,6 +3,7 @@
     "id": "elc",
     "employer": "The Estée Lauder Companies",
     "url": "https://www.elcompanies.com",
+    "noreferrer": true,
     "titles": [
       "Senior Software Engineer, Brand Experience",
       "Front-End Engineer (contract)"
