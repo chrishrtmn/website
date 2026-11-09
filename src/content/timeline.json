@@ -82,26 +82,6 @@
     "place": "Online"
   },
   {
-    "id": "2023-workspacious",
-    "date": "2023-12",
-    "kind": "project",
-    "title": "Workspacious"
-  },
-  {
-    "id": "2026-linuxstatistics",
-    "date": "2026",
-    "kind": "project",
-    "title": "LinuxStatistics",
-    "url": "https://linuxstatistics.com"
-  },
-  {
-    "id": "2026-degreefast",
-    "date": "2026",
-    "kind": "project",
-    "title": "DegreeFast",
-    "url": "https://degreefa.st"
-  },
-  {
     "id": "2026-site",
     "date": "2026-11",
     "kind": "project",
