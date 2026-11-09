@@ -8,13 +8,20 @@ const { href = '/' } = Astro.props;
 ---
 
 <a class="wm mono" href={href} aria-label={`${site.name}, home`} title="Right-click for the paparazzi kit" data-logo>
-  <span aria-hidden="true">chrish</span><span class="wm__slash" style="--phase: 0s" aria-hidden="true"></span><span aria-hidden="true">rtm</span><span class="wm__slash" style="--phase: 4.2s" aria-hidden="true"></span><span aria-hidden="true">n</span>
+  <span class="wm__half" aria-hidden="true">chrish<span class="wm__slash" style="--phase: 0s"></span></span><span class="wm__half" aria-hidden="true">rtm<span class="wm__slash" style="--phase: 4.2s"></span>n</span>
 </a>
 
 <style>
   .wm {
+    display: inline-block;
     color: var(--w);
     text-decoration: none;
+    line-height: 1.1;
+  }
+
+  .wm__half {
+    display: inline-block;
+    white-space: nowrap;
   }
 
   .wm__slash {

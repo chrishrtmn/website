@@ -26,10 +26,17 @@ export default function MotionToggle() {
       aria-label="Motion"
       onClick={toggle}
     >
-      <span aria-hidden="true">motion</span>
+      <span className="motion-toggle__word" aria-hidden="true">motion</span>
       <span className="motion-toggle__track" aria-hidden="true">
         <span className="motion-toggle__knob" />
       </span>
+      <svg className="motion-toggle__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+        {on ? (
+          <path d="M2 10h2l2-6 3 12 3-9 2 3h4" />
+        ) : (
+          <path d="M2 10h16" />
+        )}
+      </svg>
     </button>
   );
 }

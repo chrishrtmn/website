@@ -13,7 +13,7 @@ const path = Astro.url.pathname;
 <header class="header wrap">
   <Wordmark />
   <nav aria-label="Primary">
-    <ul class="mono">
+    <ul class="small">
       {
         nav.map((item) => (
           <li>
@@ -70,8 +70,15 @@ const path = Astro.url.pathname;
   }
 
   @media (max-width: 600px) {
-    ul {
+    .header {
       gap: var(--s-3);
+      padding-block: var(--s-3);
+    }
+    nav {
+      display: none;
+    }
+    .header > :global(.motion-toggle) {
+      margin-inline-start: auto;
     }
   }
 </style>

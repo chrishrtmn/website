@@ -30,7 +30,11 @@
   font-size: var(--text-xs);
 }
 
-@media (pointer: coarse) {
+@media (pointer: coarse), (max-width: 600px) {
+  .cmd-trigger {
+    min-height: 44px;
+    align-items: center;
+  }
   .cmd-trigger__keys {
     display: none;
   }
