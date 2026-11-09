@@ -125,7 +125,8 @@ export default function CommandMenu({ commands, email }: Props) {
     let nope = 0;
     const onNope = () => {
       if (matchMedia('(pointer: coarse)').matches) return flash('nope. needs a keyboard.', 2400);
-      flash(nopes[nope % nopes.length], 2800);
+      const i = nope % nopes.length;
+      flash(nopes[i], i === nopes.length - 1 ? 4000 : 2800);
       nope++;
     };
     document.addEventListener('command-menu:open', onOpen);
