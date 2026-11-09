@@ -148,9 +148,10 @@
 
 .cmd-toast {
   position: fixed;
-  left: 50%;
-  bottom: var(--s-8);
+  inset: auto auto var(--s-8) 50%;
   z-index: var(--z-toast);
+  margin: 0;
+  overflow: visible;
   transform: translateX(-50%);
   padding: var(--s-2) var(--s-4);
   border: 1px solid var(--neon-ink);
@@ -159,6 +160,14 @@
   color: var(--neon-ink);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   animation: toast-in var(--dur-2) var(--ease-out) both;
+}
+
+.cmd-toast:not(:popover-open) {
+  display: none;
+}
+
+.cmd-toast::backdrop {
+  display: none;
 }
 
 .cmd-toast.is-out {

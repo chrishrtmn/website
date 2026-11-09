@@ -39,6 +39,17 @@ export default function CommandMenu({ commands, email }: Props) {
   const [toastOut, setToastOut] = useState(false);
   const toastTimer = useRef<number>();
   const toastExit = useRef<number>();
+  const toastEl = useRef<HTMLDivElement>(null);
+
+  // the toast lives in the top layer so it stacks above open dialogs and sheets
+  useEffect(() => {
+    const el = toastEl.current;
+    if (!el || typeof el.showPopover !== 'function') return;
+    try {
+      if (toast && !el.matches(':popover-open')) el.showPopover();
+      else if (!toast && el.matches(':popover-open')) el.hidePopover();
+    } catch {}
+  }, [toast]);
 
   function flash(text: string, ms = 2000) {
     window.clearTimeout(toastTimer.current);
@@ -249,11 +260,9 @@ export default function CommandMenu({ commands, email }: Props) {
         </div>
       </dialog>
 
-      {toast && (
-        <div class={`cmd-toast small${toastOut ? ' is-out' : ''}`} role="status">
-          {toast}
-        </div>
-      )}
+      <div ref={toastEl} class={`cmd-toast small${toastOut ? ' is-out' : ''}`} role="status" popover="manual">
+        {toast}
+      </div>
     </>
   );
 }
