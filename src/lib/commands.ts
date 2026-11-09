@@ -20,7 +20,6 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'home', group: 'go', label: 'Home', href: '/' },
     { id: 'work', group: 'go', label: 'Selected work', href: '/#work' },
     { id: 'experience', group: 'go', label: 'Experience', href: '/#experience' },
-    { id: 'events', group: 'go', label: 'Events', href: '/#events' },
     { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
     { id: 'stack', group: 'go', label: 'Stack', href: '/stack' },
     { id: 'timeline', group: 'go', label: 'Timeline', href: '/timeline' },

@@ -21,8 +21,7 @@ const ledger = [
     </h1>
     <div class="hero__word" aria-hidden="true">OPE!</div>
     <p class="hero__meta small wrap">
-      <span aria-hidden="true">↓</span> scroll ·{' '}
-      <Clock client:visible tz={site.location.tz} /> {site.location.city}, OH
+      <span aria-hidden="true">↓</span> scroll
     </p>
   </div>
 
@@ -38,6 +37,10 @@ const ledger = [
         ))
       }
       <div class="hero__row" style={`--i: ${ledger.length}`}>
+        <dt>local</dt>
+        <dd><Clock client:visible tz={site.location.tz} seconds={false} /> {site.location.city}, OH</dd>
+      </div>
+      <div class="hero__row" style={`--i: ${ledger.length + 1}`}>
         <dt>status</dt>
         <dd><span class="hero__dot" aria-hidden="true"></span>shipping</dd>
       </div>
