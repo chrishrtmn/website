@@ -176,11 +176,6 @@ const kinds: [Kind, string][] = [
     display: none;
   }
 
-  .xp__row[data-kind='event'],
-  .xp__row[data-kind='project'] {
-    padding-block: var(--s-4);
-  }
-
   .xp__years {
     color: var(--g);
     font-variant-numeric: tabular-nums;
@@ -198,11 +193,6 @@ const kinds: [Kind, string][] = [
     letter-spacing: var(--tracking-tight);
     text-transform: uppercase;
     line-height: 1;
-  }
-
-  .xp__row[data-kind='event'] .xp__employer,
-  .xp__row[data-kind='project'] .xp__employer {
-    font-size: var(--text-base);
   }
 
   .xp__employer a {
@@ -236,10 +226,6 @@ const kinds: [Kind, string][] = [
 
   .xp__titles {
     color: var(--g);
-  }
-
-  .xp__row[data-kind='project'] .xp__titles {
-    color: var(--neon);
   }
 
   .xp__scope {
