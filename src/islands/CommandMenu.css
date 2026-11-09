@@ -144,6 +144,18 @@
   background: var(--neon);
   color: var(--neon-ink);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: toast-in var(--dur-2) var(--ease-out) both;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
 }
 
 .cmd__ext {

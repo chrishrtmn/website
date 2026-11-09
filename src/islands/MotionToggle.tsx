@@ -15,6 +15,7 @@ export default function MotionToggle() {
     setOn(next);
     document.documentElement.dataset.motion = next ? 'on' : 'off';
     localStorage.setItem(KEY, next ? 'on' : 'off');
+    document.dispatchEvent(new CustomEvent('toast', { detail: next ? 'motion on' : 'motion off' }));
   }
 
   return (

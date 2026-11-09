@@ -36,6 +36,19 @@ export default function CommandMenu({ commands, email }: Props) {
   const [active, setActive] = useState(0);
   const [unlocked, setUnlocked] = useState(false);
   const [toast, setToast] = useState('');
+  const toastTimer = useRef<number>();
+
+  function flash(text: string, ms = 2000) {
+    window.clearTimeout(toastTimer.current);
+    setToast(text);
+    toastTimer.current = window.setTimeout(() => setToast(''), ms);
+  }
+
+  useEffect(() => {
+    const onToast = (e: Event) => flash(String((e as CustomEvent).detail ?? ''));
+    document.addEventListener('toast', onToast);
+    return () => document.removeEventListener('toast', onToast);
+  }, []);
 
   useEffect(() => {
     try {
@@ -88,8 +101,7 @@ export default function CommandMenu({ commands, email }: Props) {
           } catch {}
           document.dispatchEvent(new CustomEvent(UNLOCK_EVENT));
           if (open) hide();
-          setToast('top 8 unlocked ↓');
-          setTimeout(() => setToast(''), 2400);
+          flash('top 8 unlocked ↓', 2400);
         }
       } else {
         progress = key === KONAMI[0] ? 1 : 0;
@@ -98,8 +110,7 @@ export default function CommandMenu({ commands, email }: Props) {
     document.addEventListener('keydown', onKey);
     const onOpen = () => show();
     const onNope = () => {
-      setToast(matchMedia('(pointer: coarse)').matches ? 'nope. needs a keyboard.' : 'nope. not that easy.');
-      setTimeout(() => setToast(''), 2400);
+      flash(matchMedia('(pointer: coarse)').matches ? 'nope. needs a keyboard.' : 'nope. not that easy.', 2400);
     };
     document.addEventListener('command-menu:open', onOpen);
     document.addEventListener('command-menu:nope', onNope);
@@ -118,11 +129,10 @@ export default function CommandMenu({ commands, email }: Props) {
     if (cmd.action === 'copy-email') {
       try {
         await navigator.clipboard.writeText(email);
-        setToast('copied');
+        flash('copied', 1800);
       } catch {
-        setToast(email);
+        flash(email, 1800);
       }
-      setTimeout(() => setToast(''), 1800);
       hide();
       return;
     }
@@ -137,6 +147,7 @@ export default function CommandMenu({ commands, email }: Props) {
       root.dataset.motion = next;
       localStorage.setItem('motion', next);
       hide();
+      flash(`motion ${next}`);
       return;
     }
     if (cmd.href) {
