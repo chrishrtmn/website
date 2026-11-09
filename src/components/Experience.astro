@@ -44,7 +44,7 @@ const memories: Row[] = (await getCollection('timeline'))
     when: month(t.date),
     title: t.title,
     url: t.url,
-    sub: t.kind === 'event' ? [t.kind, t.place].filter(Boolean).join(' · ') : t.kind,
+    sub: t.kind === 'event' ? t.place : t.detail ? undefined : 'launch',
     detail: t.detail,
   }));
 
@@ -73,7 +73,10 @@ const kinds: [Kind, string][] = [
     {
       rows.map((r) => (
         <div class="xp__row" data-kind={r.kind} hidden={r.kind !== 'career'}>
-          <dt class="xp__years mono">{r.when}</dt>
+          <dt class="xp__years mono">
+            {r.when}
+            <span class="xp__kind">{r.kind}</span>
+          </dt>
           <dd class="xp__body">
             <span class="xp__employer">
               {r.url ? (
@@ -87,7 +90,7 @@ const kinds: [Kind, string][] = [
                 r.title
               )}
             </span>
-            <span class="xp__titles small">{r.sub}</span>
+            {r.sub && <span class="xp__titles small">{r.sub}</span>}
             {r.detail && (
               <details class="xp__more" open>
                 <summary class="small">more</summary>
@@ -108,9 +111,11 @@ const kinds: [Kind, string][] = [
   const wanted = new URLSearchParams(location.search).get('kind');
   if (wanted) for (const b of boxes) b.checked = b.value === wanted;
 
+  const list = section?.querySelector<HTMLElement>('.xp');
   const apply = () => {
     const on = new Set(boxes.filter((b) => b.checked).map((b) => b.value));
     for (const row of rows) row.hidden = !on.has(row.dataset.kind ?? '');
+    list?.classList.toggle('is-mixed', on.size > 1);
   };
   boxes.forEach((b) => b.addEventListener('change', apply));
   apply();
@@ -177,8 +182,30 @@ const kinds: [Kind, string][] = [
   }
 
   .xp__years {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    justify-items: start;
     color: var(--g);
     font-variant-numeric: tabular-nums;
+  }
+
+  .xp__kind {
+    display: none;
+    padding: 0.1em 0.6em;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    color: var(--g2);
+  }
+
+  .xp.is-mixed .xp__kind {
+    display: inline-block;
+  }
+
+  .xp__row[data-kind='project'] .xp__kind {
+    border-color: var(--neon-dim);
+    color: var(--neon);
   }
 
   .xp__body {
@@ -247,6 +274,11 @@ const kinds: [Kind, string][] = [
       grid-template-columns: 1fr;
       gap: var(--s-2);
       padding-block: var(--s-4);
+    }
+    .xp__years {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
     }
     .xp__more summary {
       display: inline-block;
