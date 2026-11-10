@@ -18,10 +18,7 @@ const projects = (await getCollection('projects'))
           <li class="work__item">
             <Tag class="work__row" href={href} target={href ? '_blank' : undefined} rel={href ? 'noopener' : undefined}>
               <span class="work__index mono">{String(i + 1).padStart(2, '0')}</span>
-              <span class="work__name">
-                {p.name}
-                {href && <span class="work__ext" aria-hidden="true">↗</span>}
-              </span>
+              <span class="work__name">{p.name}{href && <span class="work__ext" aria-hidden="true">↗</span>}</span>
               <span class="work__line">{p.line}</span>
               <span class="work__stack small">{p.stack.join(' · ')}</span>
               <span class:list={['work__status', 'small', `work__status--${p.status}`]}>{p.status}</span>
@@ -91,6 +88,12 @@ const projects = (await getCollection('projects'))
     font-family: var(--font-sans);
     font-size: 0.6em;
     vertical-align: 0.35em;
+    color: var(--g);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  a.work__row:hover .work__ext,
+  a.work__row:focus-visible .work__ext {
     color: var(--neon);
   }
 
