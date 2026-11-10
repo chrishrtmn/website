@@ -94,12 +94,7 @@ const kinds: [Kind, string][] = [
               <span class="xp__kind mono">{r.kind}</span>
             </span>
             {r.sub && <span class="xp__titles small">{r.sub}</span>}
-            {r.detail && (
-              <details class="xp__more" open>
-                <summary class="small">more</summary>
-                <span class="xp__scope">{r.detail}</span>
-              </details>
-            )}
+            {r.detail && <span class="xp__scope">{r.detail}</span>}
           </dd>
         </div>
       ))
@@ -133,12 +128,6 @@ const kinds: [Kind, string][] = [
   };
   boxes.forEach((b) => b.addEventListener('change', apply));
   apply();
-
-  const mq = matchMedia('(max-width: 600px)');
-  const items = section?.querySelectorAll<HTMLDetailsElement>('.xp__more') ?? [];
-  const fold = () => items.forEach((d) => (d.open = !mq.matches));
-  fold();
-  mq.addEventListener('change', fold);
 </script>
 
 <style>
@@ -296,14 +285,6 @@ const kinds: [Kind, string][] = [
     color: var(--w);
   }
 
-  .xp__more summary {
-    display: none;
-  }
-
-  .xp__more summary::-webkit-details-marker {
-    display: none;
-  }
-
   @media (max-width: 600px) {
     .xp__row {
       grid-template-columns: 1fr;
@@ -324,20 +305,8 @@ const kinds: [Kind, string][] = [
       margin-inline-start: 0;
       vertical-align: baseline;
     }
-    .xp__more summary {
-      display: inline-block;
-      cursor: pointer;
-      color: var(--g);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--line);
-      list-style: none;
-    }
-    .xp__more[open] summary {
-      color: var(--g2);
-    }
-    .xp__more[open] .xp__scope {
-      margin-top: var(--s-2);
+    .xp__scope {
+      margin-top: var(--s-1);
     }
   }
 </style>
