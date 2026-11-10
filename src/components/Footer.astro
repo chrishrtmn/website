@@ -5,6 +5,8 @@ const year = new Date().getFullYear();
 const subject = encodeURIComponent('Résumé request');
 const body = encodeURIComponent('Hi Chris, could you send over your résumé? Here is a bit about the role: ');
 const talk = 'hey chat'.split('');
+// letter-only position, so the phone wave runs straight from Y to C without a slot for the space
+const nth = (i: number) => talk.slice(0, i).filter((c) => c !== ' ').length;
 const external = { target: '_blank', rel: 'noopener' } as const;
 ---
 
@@ -14,14 +16,14 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     <span class="footer__row footer__row--latin" aria-hidden="true">
       {
         talk.map((ch, i) =>
-          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__latin" style={`--i: ${i}`}>{ch}</span>,
+          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__latin" style={`--i: ${i}; --n: ${nth(i)}`}>{ch}</span>,
         )
       }
     </span>
     <span class="footer__row footer__row--sign" aria-hidden="true">
       {
         talk.map((ch, i) =>
-          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__sign" style={`--i: ${i}`}>{ch}</span>,
+          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__sign" style={`--i: ${i}; --n: ${nth(i)}`}>{ch}</span>,
         )
       }
     </span>
@@ -29,10 +31,23 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   <nav class="footer__nav" aria-label="Footer">
     <ul class="footer__prime">
-      <li><a href={`mailto:${site.email}`}>Email</a></li>
-      <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`}>Request résumé</a></li>
+      <li><a href={`mailto:${site.email}`} data-umami-event="email">Email</a></li>
+      <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`} data-umami-event="resume-request">Request résumé</a></li>
+    </ul>
+    <ul class="footer__links mono">
       <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
       <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
+      {
+        site.social.map((s) => (
+          <li>
+            <a href={s.url} {...external} rel="me noopener">
+              {s.network}
+              <span class="ext" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))
+      }
+      <li><a href="/rss.xml">RSS</a></li>
       <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
       <li>
         <a href="/paparazzi/" data-kit-link>
@@ -113,7 +128,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
         if (motionOn()) set(true);
         const lastSign = [...talk.querySelectorAll<HTMLElement>('.footer__sign')].pop();
         lastSign?.addEventListener('transitionend', () => talk.classList.remove('is-slow'), { once: true });
-      }, 300);
+      }, 1500);
     };
 
     if ('IntersectionObserver' in window) {
@@ -293,15 +308,16 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   /*
     touch: one letter at a time crossfades to its handshape, holds, and returns before the
-    next one starts, then the word rests. 9000ms period; each letter owns a 1000ms slot:
-    200ms in, hold to 800ms, 150ms out, 50ms breath. 1s lead so the hands settle first.
+    next one starts, then the word rests. 7 letters, no slot for the space; 8500ms period; each letter owns a 1000ms slot:
+    200ms in, hold to 800ms, 150ms out, 50ms breath. 1.5s of plain Latin before the first
+    pass and at least as long between passes.
   */
   .footer__talk.is-wave .footer__latin {
-    animation: wave-latin 9000ms linear calc(1000ms + var(--i) * 1000ms) infinite;
+    animation: wave-latin 8500ms linear calc(1500ms + var(--n) * 1000ms) infinite;
   }
 
   .footer__talk.is-wave .footer__sign {
-    animation: wave-sign 9000ms linear calc(1000ms + var(--i) * 1000ms) infinite;
+    animation: wave-sign 8500ms linear calc(1500ms + var(--n) * 1000ms) infinite;
   }
 
   /* touch: hands sit on their letters in every state; a tap is a quick in-place crossfade */
@@ -321,12 +337,12 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       opacity: 1;
       animation-timing-function: var(--ease-out);
     }
-    2.22%,
-    8.89% {
+    2.35%,
+    9.41% {
       opacity: 0;
       animation-timing-function: var(--ease-out);
     }
-    10.56%,
+    11.18%,
     100% {
       opacity: 1;
     }
@@ -337,12 +353,12 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       opacity: 0;
       animation-timing-function: var(--ease-out);
     }
-    2.22%,
-    8.89% {
+    2.35%,
+    9.41% {
       opacity: 1;
       animation-timing-function: var(--ease-out);
     }
-    10.56%,
+    11.18%,
     100% {
       opacity: 0;
     }
@@ -371,7 +387,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   .footer__nav {
     display: grid;
-    gap: var(--s-8);
+    gap: var(--s-6);
   }
 
   .footer__prime {
@@ -419,11 +435,38 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     color: var(--g);
   }
 
-  .footer__prime .ext--cam {
-    width: 1.15em;
-    height: 1.15em;
-    align-self: center;
-    margin-inline-start: 0.1em;
+  /* everything that isn't a way to reach me: one quiet mono row */
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+    color: var(--g);
+    text-decoration: none;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  .footer__links a:hover,
+  .footer__links a:focus-visible {
+    color: var(--neon);
+  }
+
+  .footer__links a:hover .ext,
+  .footer__links a:focus-visible .ext {
+    color: inherit;
+  }
+
+  .footer__links .ext--cam {
+    width: 1em;
+    height: 1em;
   }
 
   .footer__prime a:hover .ext,
