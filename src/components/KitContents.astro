@@ -11,28 +11,6 @@ const H = compact ? 'h3' : 'h2';
 ---
 
 <div class:list={['kit', { 'kit--compact': compact }]}>
-  <section class="kit__section" aria-labelledby="kit-logos">
-    <H id="kit-logos" class="label">marks</H>
-    <ul class="kit__grid">
-      {
-        kitAssets.map((a) => (
-          <li class:list={['kit__asset', { 'kit__asset--dark': a.dark, 'kit__asset--tile': a.tile }]}>
-            <img src={a.svg} alt={`${a.name}, ${a.note}`} loading="lazy" decoding="async" />
-            <div class="kit__meta">
-              <span class="kit__name">{a.name}</span>
-              <span class="kit__note small">{a.note}</span>
-              <span class="kit__actions small">
-                <a href={a.svg} download>SVG</a>
-                <a href={a.png} download>PNG</a>
-                <button type="button" data-copy-svg={a.svg}>Copy SVG</button>
-              </span>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
   <div class="kit__row">
     <section class="kit__section" aria-labelledby="kit-colours">
       <H id="kit-colours" class="label">colours</H>
@@ -64,6 +42,28 @@ const H = compact ? 'h3' : 'h2';
     </section>
   </div>
 
+  <section class="kit__section" aria-labelledby="kit-logos">
+    <H id="kit-logos" class="label">marks</H>
+    <ul class="kit__grid">
+      {
+        kitAssets.map((a) => (
+          <li class:list={['kit__asset', { 'kit__asset--dark': a.dark, 'kit__asset--tile': a.tile }]}>
+            <img src={a.svg} alt={`${a.name}, ${a.note}`} loading="lazy" decoding="async" />
+            <div class="kit__meta">
+              <span class="kit__name">{a.name}</span>
+              <span class="kit__note small">{a.note}</span>
+              <span class="kit__actions small">
+                <a href={a.svg} download>SVG</a>
+                <a href={a.png} download>PNG</a>
+                <button type="button" data-copy-svg={a.svg}>Copy SVG</button>
+              </span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
   <section class="kit__section" aria-labelledby="kit-bio">
     <H id="kit-bio" class="label">boilerplate</H>
     <p class="kit__bio">{kitBoilerplate.long}</p>
@@ -80,7 +80,7 @@ const H = compact ? 'h3' : 'h2';
       <a class="kit__zip" href={kitZip} download data-umami-event="kit-download">Download PaparazziKit.zip</a>
       <a href={`mailto:${site.email}?subject=${encodeURIComponent('Press')}`}>Press contact</a>
     </p>
-    <p class="kit__fine">Please don't recolour, outline, stretch, or add effects to the marks. Volt is the only accent.</p>
+    <p class="kit__fine">Please don't recolour, outline, stretch, or add effects to the marks. Caution is the only accent.</p>
   </section>
 </div>
 
