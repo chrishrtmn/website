@@ -266,12 +266,19 @@ const kinds: [Kind, string][] = [
     font-size: 0.6em;
     vertical-align: 0.35em;
     color: var(--g);
-    transition: color var(--dur-1) var(--ease-out);
+    transition: color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
   }
 
   .xp__employer a:hover .xp__ext,
   .xp__employer a:focus-visible .xp__ext {
     color: inherit;
+  }
+
+  /* same nudge as the Receipts arrow, pointer devices only */
+  @media (hover: hover) and (pointer: fine) {
+    .xp__employer a:hover .xp__ext {
+      transform: translate(2px, -2px);
+    }
   }
 
   .xp__titles {

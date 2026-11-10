@@ -191,11 +191,14 @@ const projects = (await getCollection('projects'))
       grid-template-columns: 1fr auto;
       grid-template-areas:
         'name status'
-        'line line';
+        'line line'
+        'stack stack';
       row-gap: var(--s-1);
     }
+    .work__stack {
+      font-size: var(--text-xs);
+    }
     .work__index,
-    .work__stack,
     .work__year {
       display: none;
     }
