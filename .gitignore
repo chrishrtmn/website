@@ -13,3 +13,6 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# rendered banners stay out of the repo
+.banners/

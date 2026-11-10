@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "kit": "sh scripts/build-paparazzi-kit.sh",
+    "banners": "node scripts/banners/render.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
   },
   "packageManager": "pnpm@9.12.3",
   "devDependencies": {
+    "playwright-core": "^1.65.0",
     "typescript": "^5"
   },
   "private": true
