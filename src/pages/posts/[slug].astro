@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '~/layouts/Base.astro';
 import Footer from '~/components/Footer.astro';
 import '~/styles/prose.css';
+import { existsSync } from 'node:fs';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -14,9 +15,11 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 const words = post.body?.split(/\s+/).length ?? 0;
 const minutes = Math.max(1, Math.round(words / 220));
+const og = `/og/posts/${post.id}.png`;
+const ogImage = existsSync(`public${og}`) ? og : undefined;
 ---
 
-<Base title={post.data.title} description={post.data.summary}>
+<Base title={post.data.title} description={post.data.summary} ogImage={ogImage} ogType="article">
   <article class="article wrap">
     <header class="article__head">
       <p class="label">

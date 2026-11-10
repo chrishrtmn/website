@@ -87,6 +87,13 @@
   .card .name { font-size: calc(var(--u) * 0.085); letter-spacing: -0.02em; line-height: 1.1; }
   .card .mono { opacity: 0.75; }
 
+  .post { --bg: var(--volt); --fg: var(--ink); --accent: var(--ink); }
+  .post .safe { flex-direction: column; align-items: stretch; justify-content: space-between; padding: calc(var(--safe-h) * 0.1); }
+  .post .top, .post .bottom { display: flex; justify-content: space-between; align-items: center; }
+  .post .mono { font-size: calc(var(--safe-h) * 0.04); opacity: 0.75; }
+  .post h1 { margin: 0; font-size: calc(var(--safe-h) * 0.14); text-transform: uppercase; max-width: 15ch; text-wrap: balance; }
+  .post img { display: block; height: calc(var(--safe-h) * 0.1); width: auto; }
+
   /* no avatar overlay: centre the lockup instead of hugging the left */
   .centred .safe { justify-content: center; align-items: center; }
   .centred .stack { justify-items: start; }
@@ -135,7 +142,7 @@
 
   document.body.classList.add(dir);
   if (q.get('guides')) document.body.classList.add('guides');
-  if (!size.avoid && dir !== 'card') document.body.classList.add('centred');
+  if (!size.avoid && dir !== 'card' && dir !== 'post') document.body.classList.add('centred');
 
   if (size.avoid) {
     const a = document.getElementById('avoid');
@@ -150,8 +157,14 @@
     inverted: `<div class="stack"><img src="${brand}ope-ink.svg" alt="OPE!" />${url}</div>`,
     card: `<img src="${brand}ope-ink.svg" alt="OPE!" /><div class="meta"><div class="display name">Chris Hartman</div><span class="mono">Product engineer</span><span class="mono">northeast Ohio</span></div>`,
     tagline: `<div class="copy"><div class="rule"></div><h1 class="display">Product engineer in northeast Ohio.</h1>${url}</div><img src="${brand}ope-tile.svg" alt="OPE!" />`,
+    post: `<div class="top"><span class="mono">posts</span><span class="mono" id="date"></span></div><h1 class="display" id="title"></h1><div class="bottom"><span class="mono">chrishrtmn.com</span><img src="${brand}ope-ink.svg" alt="OPE!" /></div>`,
   };
   document.getElementById('safe').innerHTML = views[dir] ?? views.wordmark;
+  // post cards: title and date come from the query string, set as text so nothing is parsed as HTML
+  if (dir === 'post') {
+    document.getElementById('title').textContent = q.get('title') ?? '';
+    document.getElementById('date').textContent = q.get('date') ?? '';
+  }
 </script>
 </body>
 </html>

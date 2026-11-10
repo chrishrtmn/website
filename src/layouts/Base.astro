@@ -9,10 +9,11 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
   hero?: boolean;
 }
 
-const { title, description = site.description, ogImage = '/og/home.png', hero = false } = Astro.props;
+const { title, description = site.description, ogImage = '/og/home.png', ogType = 'website', hero = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.title;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const umamiId = import.meta.env.PROD ? import.meta.env.PUBLIC_UMAMI_ID : undefined;
@@ -27,7 +28,7 @@ const person = {
   jobTitle: 'Product Engineer',
   description: site.description,
   address: { '@type': 'PostalAddress', addressLocality: site.location.city, addressRegion: 'OH', addressCountry: 'US' },
-  sameAs: [site.links.github, site.links.linkedin],
+  sameAs: [site.links.github, site.links.linkedin, ...site.social.map((s) => s.url)],
 };
 ---
 
@@ -40,7 +41,7 @@ const person = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#111210" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -57,6 +58,7 @@ const person = {
     <link rel="preload" href="/fonts/geist-mono.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/json" href="/resume.json" title="Résumé" />
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title={`${site.name}, posts`} />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
     <script is:inline>
       (function () {
