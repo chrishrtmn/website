@@ -1,4 +1,7 @@
 ---
+import tickerViewScript from '~/inline/ticker-view.js?raw';
+import { cspHash } from '~/lib/csp';
+
 type Item = string | { name: string; via?: string };
 
 interface Line {
@@ -15,6 +18,7 @@ interface Props {
 }
 
 const { lines, label } = Astro.props;
+Astro.csp?.insertScriptHash(cspHash(tickerViewScript));
 const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } : i);
 ---
 
@@ -56,18 +60,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { name: i, via: undefined } :
   </div>
 </section>
 
-<script is:inline>
-  (function () {
-    try {
-      if (localStorage.getItem('ticker-view') !== 'grid') return;
-      var t = document.querySelector('.ticker');
-      if (!t) return;
-      t.dataset.view = 'grid';
-      var r = t.querySelector('input[value="grid"]');
-      if (r) r.checked = true;
-    } catch (e) {}
-  })();
-</script>
+<script is:inline set:html={tickerViewScript} />
 
 <script>
   const ticker = document.querySelector<HTMLElement>('.ticker');
