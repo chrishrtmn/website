@@ -12,6 +12,10 @@ export const site = {
     github: 'https://github.com/chrishrtmn',
     linkedin: 'https://www.linkedin.com/in/chrishrtmn',
   },
+  social: [
+    { network: 'X', username: 'chrishrtmn', url: 'https://x.com/chrishrtmn' },
+    { network: 'Bluesky', username: 'chrishrtmn.com', url: 'https://bsky.app/profile/chrishrtmn.com' },
+  ],
 } as const;
 
 export const nav = [

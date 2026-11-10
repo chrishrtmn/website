@@ -20,6 +20,7 @@ export const GET: APIRoute = async () => {
       profiles: [
         { network: 'GitHub', username: site.handle, url: site.links.github },
         { network: 'LinkedIn', username: site.handle, url: site.links.linkedin },
+        ...site.social,
       ],
     },
     work: experience.map((e) => ({
