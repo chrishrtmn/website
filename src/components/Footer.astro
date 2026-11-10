@@ -72,39 +72,81 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       talk.classList.toggle('is-signed', signed);
       talk.setAttribute('aria-pressed', String(signed));
     };
+    const touch = matchMedia('(hover: none), (pointer: coarse)');
     let seen = false;
+    let pinned = false;
+
+    // no hover to flip back on touch, so the word stays readable and fingerspells
+    // one letter at a time while it is on screen; a tap pins the full signed row
+    const latins = [...talk.querySelectorAll<HTMLElement>('.footer__latin')];
+    const signs = [...talk.querySelectorAll<HTMLElement>('.footer__sign')];
+    // the sign row has its own spacing; on touch each handshape sits over its own letter
+    // in every state, so the wave and the pinned row crossfade in place
+    const align = () => {
+      if (!touch.matches) return;
+      signs.forEach((s, i) => {
+        const a = latins[i]?.getBoundingClientRect();
+        const b = s.getBoundingClientRect();
+        const current = parseFloat(s.style.getPropertyValue('--dx')) || 0;
+        if (a) s.style.setProperty('--dx', `${(a.left + a.width / 2 - (b.left + b.width / 2 - current)).toFixed(1)}px`);
+      });
+    };
+    const wave = (on: boolean) => {
+      const active = on && touch.matches && motionOn() && !pinned;
+      if (active) align();
+      talk.classList.toggle('is-wave', active);
+    };
+    let resizeTimer = 0;
+    addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(align, 150);
+    });
+    document.fonts?.ready.then(align);
+
+    const reveal = () => {
+      if (!motionOn()) return;
+      if (touch.matches) return wave(true);
+      talk.classList.add('is-slow');
+      setTimeout(() => {
+        if (motionOn()) set(true);
+        const lastSign = [...talk.querySelectorAll<HTMLElement>('.footer__sign')].pop();
+        lastSign?.addEventListener('transitionend', () => talk.classList.remove('is-slow'), { once: true });
+      }, 300);
+    };
+
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(
+      new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
             if (e.isIntersecting) {
-              seen = true;
-              if (motionOn()) {
-                talk.classList.add('is-slow');
-                setTimeout(() => {
-                  if (motionOn()) set(true);
-                  const lastSign = [...talk.querySelectorAll<HTMLElement>('.footer__sign')].pop();
-                  lastSign?.addEventListener('transitionend', () => talk.classList.remove('is-slow'), { once: true });
-                }, 300);
-              }
-              io.disconnect();
-            }
+              if (!seen) {
+                seen = true;
+                reveal();
+              } else wave(true);
+            } else wave(false);
           }
         },
         { threshold: 0.6 },
-      );
-      io.observe(talk);
+      ).observe(talk);
     } else {
       seen = true;
       if (motionOn()) set(true);
     }
-    const touch = matchMedia('(hover: none), (pointer: coarse)');
+
     talk.addEventListener('click', () => {
-      if (touch.matches && motionOn()) set(!talk.classList.contains('is-signed'));
+      if (!touch.matches || !motionOn()) return;
+      pinned = !pinned;
+      wave(!pinned);
+      set(pinned);
     });
     new MutationObserver(() => {
-      if (!motionOn()) set(false);
-      else if (seen) set(true);
+      if (!motionOn()) {
+        set(false);
+        wave(false);
+      } else if (seen) {
+        if (touch.matches) wave(true);
+        else set(true);
+      }
     }).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
   }
   const cheat = document.querySelector<HTMLButtonElement>('[data-cheat]');
@@ -179,7 +221,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     letter-spacing: var(--tracking-display);
     text-transform: uppercase;
     -webkit-tap-highlight-color: transparent;
-    transition: transform var(--dur-1) var(--ease-out);
   }
 
   .footer__row {
@@ -201,11 +242,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   .footer__row--sign .footer__space {
     width: 0.24em;
-  }
-
-  .footer__talk:active {
-    transform: scale(0.985);
-    transform-origin: left center;
   }
 
   .footer__talk:focus-visible {
@@ -252,12 +288,66 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     opacity: 1;
   }
 
+  /*
+    touch: one letter at a time crossfades to its handshape, holds, and returns before the
+    next one starts, then the word rests. 9000ms period; each letter owns a 1000ms slot:
+    200ms in, hold to 800ms, 150ms out, 50ms breath. 1s lead so the hands settle first.
+  */
+  .footer__talk.is-wave .footer__latin {
+    animation: wave-latin 9000ms linear calc(1000ms + var(--i) * 1000ms) infinite;
+  }
+
+  .footer__talk.is-wave .footer__sign {
+    animation: wave-sign 9000ms linear calc(1000ms + var(--i) * 1000ms) infinite;
+  }
+
+  /* touch: hands sit on their letters in every state; a tap is a quick in-place crossfade */
+  @media (hover: none), (pointer: coarse) {
+    .footer__sign {
+      transform: translateX(var(--dx, 0px));
+    }
+    .footer__latin,
+    .footer__sign {
+      transition-duration: var(--dur-2);
+      transition-delay: calc(var(--i) * 20ms);
+    }
+  }
+
+  @keyframes wave-latin {
+    0% {
+      opacity: 1;
+      animation-timing-function: var(--ease-out);
+    }
+    2.22%,
+    8.89% {
+      opacity: 0;
+      animation-timing-function: var(--ease-out);
+    }
+    10.56%,
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes wave-sign {
+    0% {
+      opacity: 0;
+      animation-timing-function: var(--ease-out);
+    }
+    2.22%,
+    8.89% {
+      opacity: 1;
+      animation-timing-function: var(--ease-out);
+    }
+    10.56%,
+    100% {
+      opacity: 0;
+    }
+  }
+
   @media (hover: hover) and (pointer: fine) {
     .footer__talk {
       cursor: default;
-    }
-    .footer__talk:active {
-      transform: none;
     }
     .footer__talk.is-signed:hover .footer__latin {
       opacity: 1;
@@ -274,10 +364,6 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   :global(html[data-motion='off']) .footer__talk {
     cursor: default;
-  }
-
-  :global(html[data-motion='off']) .footer__talk:active {
-    transform: none;
   }
 
   .footer__nav {
