@@ -25,7 +25,7 @@ export default defineConfig({
         "img-src 'self' data:",
         "media-src 'self'",
         "font-src 'self'",
-        "connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev",
+        "connect-src 'self' https://cloud.umami.is https://gateway.umami.is https://api-gateway.umami.dev",
         "manifest-src 'self'",
         "object-src 'none'",
         "base-uri 'self'",
