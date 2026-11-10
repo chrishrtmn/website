@@ -13,6 +13,7 @@ export const site = {
     github: 'https://github.com/chrishrtmn',
     linkedin: 'https://www.linkedin.com/in/chrishrtmn',
     source: 'https://github.com/chrishrtmn/website',
+    book: 'https://cal.com/chrishrtmn',
   },
   social: [
     { network: 'X', username: 'chrishrtmn', url: 'https://x.com/chrishrtmn' },

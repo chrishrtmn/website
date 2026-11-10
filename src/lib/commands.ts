@@ -46,6 +46,7 @@ export async function buildCommands(): Promise<Command[]> {
 
   const act: Command[] = [
     { id: 'copy-email', group: 'do', label: 'Copy email address', action: 'copy-email' },
+    { id: 'book', group: 'do', label: 'Book a call', hint: '15 or 30 min', href: site.links.book, keywords: 'cal calendar meeting chat hire contract' },
     { id: 'request-resume', group: 'do', label: 'Request résumé', action: 'request-resume' },
     { id: 'resume-json', group: 'do', label: 'Open resume.json', href: '/resume.json' },
     { id: 'toggle-motion', group: 'do', label: 'Toggle motion', action: 'toggle-motion' },

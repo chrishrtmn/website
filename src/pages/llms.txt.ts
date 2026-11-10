@@ -28,6 +28,8 @@ export const GET: APIRoute = async () => {
     `- [LinkedIn](${site.links.linkedin})`,
     ...site.social.map((s) => `- [${s.network}](${s.url})`),
     `- [RSS](${site.url}/rss.xml)`,
+    `- [Every post in full](${site.url}/llms-full.txt)`,
+    `- [Book a call](${site.links.book}) (15 or 30 minutes)`,
     `- Email: ${site.email}`,
     '',
     '## Projects',
