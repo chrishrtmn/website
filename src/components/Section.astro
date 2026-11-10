@@ -5,12 +5,13 @@ interface Props {
   title?: string;
   tight?: boolean;
   flush?: boolean;
+  neon?: boolean;
 }
 
-const { id, label, title, tight = false, flush = false } = Astro.props;
+const { id, label, title, tight = false, flush = false, neon = false } = Astro.props;
 ---
 
-<section id={id} class:list={['section', 'wrap', { 'section--tight': tight, 'section--flush': flush }]} aria-labelledby={`${id}-label`}>
+<section id={id} class:list={['section', 'wrap', { 'section--tight': tight, 'section--flush': flush, 'section--neon on-neon': neon }]} aria-labelledby={`${id}-label`}>
   <header class="section__head">
     <p id={`${id}-label`} class="label">{label}</p>
     <div class="section__row">
@@ -68,6 +69,16 @@ const { id, label, title, tight = false, flush = false } = Astro.props;
     .section__title {
       font-size: var(--text-xl);
     }
+  }
+
+  /* a Volt band like the ticker; the page's labels and rules invert */
+  .section--neon {
+    background: var(--neon);
+    color: var(--neon-ink);
+  }
+
+  .section--neon .label {
+    color: var(--neon-dim);
   }
 
   /* flush drops the top padding; put it back as scroll margin so #anchors land like the others */

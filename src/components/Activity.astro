@@ -1,0 +1,209 @@
+---
+import Section from './Section.astro';
+import activity from '~/content/activity.json';
+
+const rows = 7;
+const cols = activity.weeks.length;
+const month = (ym: string) => new Date(`${ym}-01T00:00:00Z`).toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+---
+
+<Section id="activity" label="activity" title="Still shipping" neon>
+  <span slot="head" class="mono act__range">{month(activity.from)} → {month(activity.to)}</span>
+
+  <div class="act__bleed">
+    <div
+      class="act__wall"
+      role="img"
+      aria-label={`Daily activity for the last year: ${activity.total} commits, pull requests and reviews on ${activity.active} of ${activity.days} days.`}
+      style={`--all: ${cols}; --rows: ${rows}`}
+      data-wall
+    >
+      {Array.from({ length: rows }, (_, r) => activity.weeks.map((w, c) => <i data-l={w[r]} data-old={c < cols - 26 ? '' : undefined} />))}
+    </div>
+  </div>
+
+  <dl class="act__caption mono">
+    <div><dt>events</dt><dd>{activity.total}</dd></div>
+    <div><dt>days</dt><dd>{activity.active} <span class="act__of">/ {activity.days}</span></dd></div>
+    <div class="act__half"><dt>shown</dt><dd>6 months</dd></div>
+    <div class="act__src"><dt>source</dt><dd>github.com + work, counts only</dd></div>
+  </dl>
+</Section>
+
+<script>
+  // cells near the pointer darken towards ink, nearest first, then settle
+  const wall = document.querySelector<HTMLElement>('[data-wall]');
+  if (wall) {
+    const motionOn = () => document.documentElement.dataset.motion !== 'off';
+    const all = [...wall.children] as HTMLElement[];
+    let cells: HTMLElement[] = [];
+    let centres: [number, number][] = [];
+    let raf = 0;
+    let px = -1e4;
+    let py = -1e4;
+    let touched = new Set<HTMLElement>();
+    const R = 90;
+
+    // one layout read per cell, only after the grid changes; the pointer loop reads nothing
+    const measure = () => {
+      cells = all.filter((c) => c.offsetParent !== null);
+      centres = cells.map((c) => {
+        const r = c.getBoundingClientRect();
+        return [r.left + r.width / 2, r.top + r.height / 2];
+      });
+    };
+
+    const tick = () => {
+      raf = 0;
+      if (!centres.length) measure();
+      const next = new Set<HTMLElement>();
+      for (let i = 0; i < cells.length; i++) {
+        const d = Math.hypot(centres[i][0] - px, centres[i][1] - py);
+        if (d >= R) continue;
+        const t = 1 - d / R;
+        const c = cells[i];
+        c.style.setProperty('--t', t.toFixed(2));
+        c.classList.toggle('is-lit', t > 0.72);
+        next.add(c);
+      }
+      for (const c of touched) {
+        if (next.has(c)) continue;
+        c.style.removeProperty('--t');
+        c.classList.remove('is-lit');
+      }
+      touched = next;
+    };
+
+    const move = (x: number, y: number) => {
+      if (!motionOn()) return;
+      px = x;
+      py = y;
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    const leave = () => move(-1e4, -1e4);
+
+    wall.addEventListener('pointermove', (e) => move(e.clientX, e.clientY));
+    wall.addEventListener('pointerleave', leave);
+    wall.addEventListener('touchmove', (e) => move(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    wall.addEventListener('touchend', () => setTimeout(leave, 120));
+    addEventListener('resize', () => (centres = []));
+    addEventListener('scroll', () => (centres = []), { passive: true });
+  }
+</script>
+
+<style>
+  .act__range {
+    color: var(--neon-dim);
+  }
+
+  .act__bleed {
+    margin-inline: calc(-1 * var(--gutter));
+  }
+
+  .act__wall {
+    --cols: var(--all);
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: 4px;
+    aspect-ratio: calc(var(--cols) / var(--rows));
+    touch-action: pan-y;
+  }
+
+  /* ink on Volt: quiet days are a faint tint, busy days solid ink. the ripple pulls cells
+     towards ink by distance (--t is 0..1); colour only, so edges stay crisp */
+  .act__wall > i {
+    --t: 0;
+    --base: color-mix(in oklch, var(--neon-ink) 5%, var(--neon));
+    display: block;
+    background: color-mix(in oklch, var(--neon-ink) calc(var(--t) * 100%), var(--base));
+    transition: background 360ms var(--ease-out);
+  }
+
+  .act__wall > i[data-l='1'] {
+    --base: color-mix(in oklch, var(--neon-ink) 30%, var(--neon));
+  }
+
+  .act__wall > i[data-l='2'] {
+    --base: color-mix(in oklch, var(--neon-ink) 55%, var(--neon));
+  }
+
+  .act__wall > i[data-l='3'] {
+    --base: color-mix(in oklch, var(--neon-ink) 80%, var(--neon));
+  }
+
+  .act__wall > i[data-l='4'] {
+    --base: var(--neon-ink);
+  }
+
+  .act__wall > i.is-lit {
+    background: var(--neon-ink);
+    transition-duration: 0ms;
+  }
+
+  .act__caption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-8);
+    margin: var(--s-6) 0 0;
+    color: var(--neon-dim);
+  }
+
+  .act__caption div {
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+
+  .act__caption dt {
+    color: var(--neon-dim);
+  }
+
+  .act__caption dd {
+    margin: 0;
+    font-weight: 700;
+    color: var(--neon-ink);
+  }
+
+  .act__of,
+  .act__src dd {
+    font-weight: 400;
+    color: var(--neon-dim);
+  }
+
+  .act__src {
+    flex-basis: 100%;
+  }
+
+  .act__half {
+    display: none;
+  }
+
+  /* under 900px show the last half year so each day is still a square you can feel */
+  @media (max-width: 900px) {
+    .act__wall {
+      --cols: 26;
+      gap: 3px;
+    }
+    .act__wall > i[data-old] {
+      display: none;
+    }
+    .act__range {
+      display: none;
+    }
+    .act__half {
+      display: flex;
+    }
+    .act__caption {
+      gap: var(--s-2) var(--s-6);
+    }
+    .act__src dd {
+      font-size: var(--text-xs);
+    }
+  }
+
+  :global(html[data-motion='off']) .act__wall > i {
+    transition: none;
+    background: var(--base);
+  }
+</style>

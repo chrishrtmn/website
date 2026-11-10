@@ -1,0 +1,54 @@
+// Writes src/content/activity.json from a contribs.sh export (merged, multi-source).
+//   node scripts/write-activity.ts path/to/contributions.json
+// Keeps counts only: a 53-week grid of levels 0–4 plus totals. No repos, hosts or dates per cell.
+import { readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+interface Day {
+  date: string;
+  count: number;
+  known: boolean;
+}
+interface Merged {
+  generatedAt: string;
+  years: { weeks: { days: Day[] }[] }[];
+}
+
+const src = process.argv[2];
+if (!src) {
+  console.error('usage: node scripts/write-activity.ts <contributions.json>');
+  process.exit(1);
+}
+
+const data: Merged = JSON.parse(readFileSync(src, 'utf8'));
+const days = data.years
+  .flatMap((y) => y.weeks.flatMap((w) => w.days))
+  .filter((d) => d.known)
+  .sort((a, b) => (a.date < b.date ? -1 : 1));
+
+const end = new Date(`${data.generatedAt.slice(0, 10)}T00:00:00Z`);
+const start = new Date(end);
+start.setUTCDate(start.getUTCDate() - 7 * 53);
+let window = days.filter((d) => {
+  const t = new Date(`${d.date}T00:00:00Z`);
+  return t >= start && t <= end;
+});
+while (window.length && new Date(`${window[0].date}T00:00:00Z`).getUTCDay() !== 0) window = window.slice(1);
+window = window.slice(0, Math.floor(window.length / 7) * 7);
+
+const level = (c: number) => (c === 0 ? 0 : c <= 2 ? 1 : c <= 4 ? 2 : c <= 7 ? 3 : 4);
+const weeks: string[] = [];
+for (let i = 0; i < window.length; i += 7) weeks.push(window.slice(i, i + 7).map((d) => level(d.count)).join(''));
+
+const out = {
+  from: window[0]?.date.slice(0, 7),
+  to: window.at(-1)?.date.slice(0, 7),
+  total: window.reduce((s, d) => s + d.count, 0),
+  active: window.filter((d) => d.count > 0).length,
+  days: window.length,
+  weeks,
+};
+
+const dest = fileURLToPath(new URL('../src/content/activity.json', import.meta.url));
+writeFileSync(dest, JSON.stringify(out, null, 2) + '\n');
+console.log(dest, `${out.weeks.length} weeks, ${out.active}/${out.days} days, ${out.total} events`);
