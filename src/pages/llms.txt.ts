@@ -24,6 +24,8 @@ export const GET: APIRoute = async () => {
     `- [Press kit](${site.url}/paparazzi/)`,
     `- [GitHub](${site.links.github})`,
     `- [LinkedIn](${site.links.linkedin})`,
+    ...site.social.map((s) => `- [${s.network}](${s.url})`),
+    `- [RSS](${site.url}/rss.xml)`,
     `- Email: ${site.email}`,
     '',
     '## Projects',
