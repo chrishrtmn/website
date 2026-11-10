@@ -9,7 +9,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 ---
 
 <footer class="footer wrap" id="contact">
-  <button type="button" class="footer__talk" aria-label="Hey chat. Toggle between Latin and sign-language letters" aria-pressed="false" data-talk>
+  <button type="button" class="footer__talk" aria-pressed="false" data-talk>
+    <span class="visually-hidden">hey chat, in Latin or sign-language letters</span>
     <span class="footer__row footer__row--latin" aria-hidden="true">
       {
         talk.map((ch, i) =>
@@ -48,7 +49,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     <span>© {year} Chris Hartman</span>
     <span class="footer__sep" aria-hidden="true">·</span>
     <span class="footer__serve">Serving hot plates of Midwestern hospitality</span>
-    <button type="button" class="footer__cheat" title="cheat code" aria-label="Cheat code hint" data-cheat>
+    <button type="button" class="footer__cheat" title="cheat code" data-cheat>
+      <span class="visually-hidden" data-cheat-label>Up up down down left right left right B A</span>
       {
         ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'].map((d, i) => (
           <svg class={`footer__key footer__key--${d}`} style={`--i: ${i}`} viewBox="0 0 10 10" width="10" height="10" aria-hidden="true">
@@ -56,7 +58,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
           </svg>
         ))
       }
-      <span style="--i: 8">BA</span>
+      <span style="--i: 8" aria-hidden="true">BA</span>
     </button>
   </div>
 </footer>
@@ -161,7 +163,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     const label = () => {
       const on = unlocked();
       cheat.title = on ? 'Open the Top 8' : 'cheat code';
-      cheat.setAttribute('aria-label', on ? 'Open the Top 8' : 'Cheat code hint');
+      const text = cheat.querySelector('[data-cheat-label]');
+      if (text) text.textContent = on ? 'Open the Top 8' : 'Up up down down left right left right B A';
     };
     label();
     document.addEventListener(UNLOCK_EVENT, label);
@@ -449,7 +452,7 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--s-4) var(--s-6);
-    color: var(--g2);
+    color: var(--g);
   }
 
   .footer__cheat {
@@ -460,13 +463,13 @@ const external = { target: '_blank', rel: 'noopener' } as const;
     padding: 0.2em 0.6em;
     border: 1px solid var(--line);
     border-radius: 999px;
-    color: var(--g2);
+    color: var(--g);
     font: inherit;
     letter-spacing: 0.08em;
     transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
   }
 
-  .footer__cheat span {
+  .footer__cheat span:not(.visually-hidden) {
     margin-inline-start: 0.3em;
   }
 
@@ -502,19 +505,19 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   }
 
   /* locked hint: each key lights up in play order, then settles back */
-  :global(html[data-motion='on']) .footer__cheat.is-nudge > * {
+  :global(html[data-motion='on']) .footer__cheat.is-nudge > :not(.visually-hidden) {
     animation: key-hint var(--dur-3) var(--ease-out) calc(var(--i) * 60ms) both;
   }
 
   @keyframes key-hint {
     0% {
-      color: var(--g2);
+      color: var(--g);
     }
     15% {
       color: var(--neon);
     }
     100% {
-      color: var(--g2);
+      color: var(--g);
     }
   }
 </style>

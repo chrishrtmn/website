@@ -206,8 +206,9 @@ export default function CommandMenu({ commands, email }: Props) {
 
   return (
     <>
-      <button type="button" class="cmd-trigger" onClick={show} aria-haspopup="dialog" aria-expanded={open} aria-label="Open menu">
+      <button type="button" class="cmd-trigger" onClick={show} aria-haspopup="dialog" aria-expanded={open}>
         <span class="cmd-trigger__word">menu</span>
+        <span class="visually-hidden">, command K</span>
         <span class="cmd-trigger__keys" aria-hidden="true">
           <kbd>⌘</kbd>
           <kbd>K</kbd>
@@ -222,13 +223,18 @@ export default function CommandMenu({ commands, email }: Props) {
             type="text"
             placeholder="Type a command or search"
             aria-label="Command"
+            role="combobox"
+            aria-expanded="true"
+            aria-controls="cmd-list"
+            aria-autocomplete="list"
+            aria-activedescendant={visible[active] ? `cmd-${visible[active].id}` : undefined}
             value={query}
             onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
             onKeyDown={onInputKey}
             autocomplete="off"
             spellcheck={false}
           />
-          <ul class="cmd__list" role="listbox" aria-label="Commands">
+          <ul id="cmd-list" class="cmd__list" role="listbox" aria-label="Commands" tabIndex={-1} onKeyDown={onInputKey}>
             {visible.length === 0 && <li class="cmd__empty">ope. nothing here.</li>}
             {visible.map((c, i) => {
               const header = c.group !== lastGroup;
@@ -241,6 +247,7 @@ export default function CommandMenu({ commands, email }: Props) {
                     </li>
                   )}
                   <li
+                    id={`cmd-${c.id}`}
                     role="option"
                     aria-selected={i === active}
                     class={`cmd__item ${i === active ? 'is-active' : ''}`}
@@ -250,6 +257,7 @@ export default function CommandMenu({ commands, email }: Props) {
                     <span>
                       {c.label}
                       {c.href && /^https?:/.test(c.href) && <span class="cmd__ext" aria-hidden="true"> ↗</span>}
+                      {c.href && /^https?:/.test(c.href) && <span class="visually-hidden">, opens in a new tab</span>}
                     </span>
                     {c.hint && <span class="cmd__hint">{c.hint}</span>}
                   </li>

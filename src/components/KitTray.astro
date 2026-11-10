@@ -17,7 +17,7 @@ import Flashes from './Flashes.astro';
       <div class="tray__tools small">
         <a href={kitZip} download>zip</a>
         <a href="/paparazzi/">page</a>
-        <button type="button" class="tray__close" data-sheet-close aria-label="Close">esc</button>
+        <button type="button" class="tray__close" data-sheet-close aria-label="Close, esc">esc</button>
       </div>
     </header>
     <div class="tray__body">
@@ -26,7 +26,7 @@ import Flashes from './Flashes.astro';
   </div>
 </dialog>
 
-<menu class="ctx small" id="logo-menu" hidden>
+<menu class="ctx small" id="logo-menu" role="menu" aria-label="Logo" hidden>
   <li><button type="button" role="menuitem" data-ctx="copy-svg">Copy OPE! SVG</button></li>
   <li><a role="menuitem" href="/brand/ope-volt.svg" download>Download SVG</a></li>
   <li><a role="menuitem" href="/brand/ope-volt.png" download>Download PNG</a></li>

@@ -6,11 +6,13 @@ interface Props {
   compact?: boolean;
 }
 const { compact = false } = Astro.props;
+// the tray sits under an h2; the page under an h1
+const H = compact ? 'h3' : 'h2';
 ---
 
 <div class:list={['kit', { 'kit--compact': compact }]}>
   <section class="kit__section" aria-labelledby="kit-logos">
-    <h3 id="kit-logos" class="label">marks</h3>
+    <H id="kit-logos" class="label">marks</H>
     <ul class="kit__grid">
       {
         kitAssets.map((a) => (
@@ -33,7 +35,7 @@ const { compact = false } = Astro.props;
 
   <div class="kit__row">
     <section class="kit__section" aria-labelledby="kit-colours">
-      <h3 id="kit-colours" class="label">colours</h3>
+      <H id="kit-colours" class="label">colours</H>
       <ul class="kit__colours">
         {
           kitColours.map((c) => (
@@ -51,7 +53,7 @@ const { compact = false } = Astro.props;
     </section>
 
     <section class="kit__section" aria-labelledby="kit-photo">
-      <h3 id="kit-photo" class="label">headshot</h3>
+      <H id="kit-photo" class="label">headshot</H>
       <a class="kit__photo" href={kitHeadshot.jpg} download>
         <picture>
           <source srcset={`${kitHeadshot.webp1} 1x, ${kitHeadshot.webp2} 2x`} type="image/webp" />
@@ -63,7 +65,7 @@ const { compact = false } = Astro.props;
   </div>
 
   <section class="kit__section" aria-labelledby="kit-bio">
-    <h3 id="kit-bio" class="label">boilerplate</h3>
+    <H id="kit-bio" class="label">boilerplate</H>
     <p class="kit__bio">{kitBoilerplate.long}</p>
     <p class="kit__bio kit__bio--short">{kitBoilerplate.short}</p>
     <p class="kit__actions small">
@@ -73,7 +75,7 @@ const { compact = false } = Astro.props;
   </section>
 
   <section class="kit__section kit__foot" aria-labelledby="kit-dl">
-    <h3 id="kit-dl" class="label">everything</h3>
+    <H id="kit-dl" class="label">everything</H>
     <p class="kit__actions small">
       <a class="kit__zip" href={kitZip} download>Download PaparazziKit.zip</a>
       <a href={`mailto:${site.email}?subject=${encodeURIComponent('Press')}`}>Press contact</a>
@@ -167,6 +169,14 @@ const { compact = false } = Astro.props;
 
   .kit__asset:not(.kit__asset--dark) .kit__meta {
     color: var(--k);
+  }
+
+  .kit__asset:not(.kit__asset--dark) .kit__note {
+    color: oklch(45% 0.012 115);
+  }
+
+  .kit__asset--tile .kit__note {
+    color: oklch(78% 0.012 115);
   }
 
   .kit__name {
@@ -283,7 +293,7 @@ const { compact = false } = Astro.props;
   }
 
   .kit__fine {
-    color: var(--g2);
+    color: var(--g);
     font-size: var(--text-sm);
   }
 

@@ -100,13 +100,14 @@
   padding: var(--s-2);
   overflow-y: auto;
   list-style: none;
+  outline: none;
 }
 
 .cmd__group {
   padding: var(--s-3) var(--s-4) var(--s-1);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
-  color: var(--g2);
+  color: var(--g);
 }
 
 .cmd__item {
@@ -143,7 +144,7 @@
   padding: var(--s-2) var(--s-4) var(--s-3);
   border-top: 1px solid var(--line);
   font-size: var(--text-xs);
-  color: var(--g2);
+  color: var(--g);
   max-width: none;
 }
 
