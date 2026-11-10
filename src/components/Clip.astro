@@ -1,0 +1,65 @@
+---
+interface Props {
+  name: string;
+  caption: string;
+  width: number;
+  height: number;
+  phone?: boolean;
+}
+
+const { name, caption, width, height, phone = false } = Astro.props;
+const base = `/posts/rebuild/${name}`;
+---
+
+<figure class:list={['clip', { 'clip--phone': phone }]}>
+  <video width={width} height={height} poster={`${base}.jpg`} muted loop playsinline preload="none" aria-label={caption} data-clip>
+    <source src={`${base}.webm`} type="video/webm" />
+    <source src={`${base}.mp4`} type="video/mp4" />
+  </video>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<script>
+  // play while on screen and motion is on; a poster otherwise
+  const clips = [...document.querySelectorAll<HTMLVideoElement>('[data-clip]')];
+  if (clips.length) {
+    const root = document.documentElement;
+    const motionOn = () => root.dataset.motion !== 'off';
+    const inView = new WeakSet<HTMLVideoElement>();
+    const sync = (v: HTMLVideoElement) => {
+      if (inView.has(v) && motionOn()) v.play().catch(() => {});
+      else v.pause();
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) inView.add(v);
+          else inView.delete(v);
+          sync(v);
+        }
+      },
+      { threshold: 0.4 },
+    );
+    clips.forEach((v) => io.observe(v));
+    new MutationObserver(() => clips.forEach(sync)).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
+  }
+</script>
+
+<style>
+  .clip {
+    margin: var(--s-8) 0;
+  }
+
+  .clip video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    background: var(--k2);
+  }
+
+  .clip--phone video {
+    width: min(100%, 20rem);
+  }
+</style>
