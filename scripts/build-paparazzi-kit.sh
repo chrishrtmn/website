@@ -19,10 +19,10 @@ Logos/
   ope-offwhite.svg/.png   OPE! wordmark, off-white, for dark backgrounds
   ope-volt.svg/.png       OPE! wordmark, Volt, for dark backgrounds
   ope-ink.svg/.png        OPE! wordmark, ink, for light backgrounds
+  ope-plate-volt.svg/.png OPE! wordmark, ink on a Volt plate (inverted)
+  ope-plate-night.svg/.png OPE! wordmark, Volt on a Night plate
   ope-tile.svg/.png       OPE! on a dark rounded tile; avatars and app icons
-  ch-offwhite.svg/.png    CH monogram, off-white
-  ch-volt.svg/.png        CH monogram, Volt
-  ch-tile.svg/.png        CH monogram on a dark tile
+  ope-tile-volt.svg/.png  OPE! on a Volt rounded tile (inverted)
 Headshots/
   chris-hartman.jpg       500 px, web use
 colours.txt               hex and rgb values, font names and licences

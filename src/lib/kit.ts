@@ -12,10 +12,10 @@ export const kitAssets: KitAsset[] = [
   { id: 'ope-offwhite', name: 'OPE! wordmark', note: 'off-white, for dark backgrounds', svg: '/brand/ope-offwhite.svg', png: '/brand/ope-offwhite.png', dark: true },
   { id: 'ope-volt', name: 'OPE! wordmark', note: 'Volt, for dark backgrounds', svg: '/brand/ope-volt.svg', png: '/brand/ope-volt.png', dark: true },
   { id: 'ope-ink', name: 'OPE! wordmark', note: 'ink, for light backgrounds', svg: '/brand/ope-ink.svg', png: '/brand/ope-ink.png' },
+  { id: 'ope-plate-volt', name: 'OPE! plate', note: 'inverted, ink on Volt', svg: '/brand/ope-plate-volt.svg', png: '/brand/ope-plate-volt.png', dark: true, tile: true },
+  { id: 'ope-plate-night', name: 'OPE! plate', note: 'Volt on Night', svg: '/brand/ope-plate-night.svg', png: '/brand/ope-plate-night.png', dark: true, tile: true },
   { id: 'ope-tile', name: 'OPE! tile', note: 'avatars and app icons', svg: '/brand/ope-tile.svg', png: '/brand/ope-tile.png', dark: true, tile: true },
-  { id: 'ch-offwhite', name: 'CH monogram', note: 'off-white', svg: '/brand/ch-offwhite.svg', png: '/brand/ch-offwhite.png', dark: true },
-  { id: 'ch-volt', name: 'CH monogram', note: 'Volt', svg: '/brand/ch-volt.svg', png: '/brand/ch-volt.png', dark: true },
-  { id: 'ch-tile', name: 'CH tile', note: 'avatars', svg: '/brand/ch-tile.svg', png: '/brand/ch-tile.png', dark: true, tile: true },
+  { id: 'ope-tile-volt', name: 'OPE! tile', note: 'inverted, for avatars on dark UIs', svg: '/brand/ope-tile-volt.svg', png: '/brand/ope-tile-volt.png', dark: true, tile: true },
 ];
 
 export const kitColours = [
