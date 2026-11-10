@@ -29,5 +29,11 @@
     "playwright-core": "^1.65.0",
     "typescript": "^5"
   },
-  "private": true
+  "private": true,
+  "pnpm": {
+    "overrides": {
+      "@vercel/routing-utils>path-to-regexp": "6.3.0",
+      "@vercel/nft>glob": "14.0.4"
+    }
+  }
 }
