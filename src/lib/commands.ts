@@ -1,10 +1,9 @@
 import { getCollection } from 'astro:content';
 import { site } from './site';
-import { top8 as top8Entries } from '~/content/top8';
 
 export interface Command {
   id: string;
-  group: 'go' | 'projects' | 'posts' | 'do' | 'hidden' | 'top8';
+  group: 'go' | 'projects' | 'posts' | 'do' | 'find' | 'hidden';
   label: string;
   hint?: string;
   href?: string;
@@ -50,24 +49,21 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'request-resume', group: 'do', label: 'Request résumé', action: 'request-resume' },
     { id: 'resume-json', group: 'do', label: 'Open resume.json', href: '/resume.json' },
     { id: 'toggle-motion', group: 'do', label: 'Toggle motion', action: 'toggle-motion' },
-    { id: 'github', group: 'do', label: 'GitHub', href: site.links.github },
-    { id: 'linkedin', group: 'do', label: 'LinkedIn', href: site.links.linkedin },
   ];
 
-  const top8: Command[] = top8Entries.filter((e) => !e.placeholder).map((e, i) => ({
-    id: `top8-${i}`,
-    group: 'top8' as const,
-    label: `${i + 1}. ${e.name}`,
-    hint: e.note,
-    href: e.url,
-  }));
+  const findMe: Command[] = [
+    { id: 'github', group: 'find', label: 'GitHub', href: site.links.github, keywords: 'social code' },
+    { id: 'linkedin', group: 'find', label: 'LinkedIn', href: site.links.linkedin, keywords: 'social' },
+    ...site.social.map((s) => ({ id: s.network.toLowerCase(), group: 'find' as const, label: s.network, href: s.url, keywords: `social ${s.username}` })),
+    { id: 'rss', group: 'find', label: 'RSS feed', href: '/rss.xml', keywords: 'feed subscribe posts' },
+  ];
 
   const hidden: Command[] = [
+    { id: 'talent-3', group: 'hidden', label: 'Reads lips with uncanny accuracy', toast: 'I saw what you said.', keywords: 'hidden talent' },
     { id: 'talent-1', group: 'hidden', label: 'Tears on cue', toast: "it's called acting.", keywords: 'hidden talent' },
     { id: 'talent-2', group: 'hidden', label: 'Double-jointed thumbs', keywords: 'hidden talent' },
-    { id: 'talent-3', group: 'hidden', label: 'Reads lips with uncanny accuracy', toast: "could've been an FBI lip reader in another life.", keywords: 'hidden talent' },
     { id: 'talent-4', group: 'hidden', label: 'JCVD splits', toast: 'still in training.', keywords: 'hidden talent van damme' },
   ];
 
-  return [...go, ...work, ...postCmds, ...act, ...top8, ...hidden];
+  return [...go, ...work, ...postCmds, ...act, ...findMe, ...hidden];
 }

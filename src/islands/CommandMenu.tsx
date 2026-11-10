@@ -4,7 +4,7 @@ import './CommandMenu.css';
 
 export interface Command {
   id: string;
-  group: 'go' | 'projects' | 'posts' | 'do' | 'hidden' | 'top8';
+  group: 'go' | 'projects' | 'posts' | 'do' | 'find' | 'hidden';
   label: string;
   hint?: string;
   href?: string;
@@ -23,9 +23,11 @@ const GROUPS: Record<Command['group'], string> = {
   projects: 'projects',
   posts: 'posts',
   do: 'do',
-  top8: 'top 8',
+  find: 'find me',
   hidden: 'hidden talents',
 };
+
+const track = (event: string) => (window as { umami?: { track: (e: string) => void } }).umami?.track(event);
 
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 
@@ -36,7 +38,6 @@ export default function CommandMenu({ commands, email }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
-  const [unlocked, setUnlocked] = useState(false);
   const [toast, setToast] = useState('');
   const [toastOut, setToastOut] = useState(false);
   const toastTimer = useRef<number>();
@@ -75,21 +76,13 @@ export default function CommandMenu({ commands, email }: Props) {
     return () => document.removeEventListener('toast', onToast);
   }, []);
 
-  useEffect(() => {
-    try {
-      if (sessionStorage.getItem(UNLOCK_KEY) === '1') setUnlocked(true);
-    } catch {}
-  }, []);
-
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const top8 = q === 'myspace' || q === 'top 8' || q === 'top8' || unlocked;
     return commands.filter((c) => {
-      if (c.group === 'top8') return top8;
       if (!q) return true;
       return `${c.label} ${c.hint ?? ''} ${c.keywords ?? ''}`.toLowerCase().includes(q);
     });
-  }, [commands, query, unlocked]);
+  }, [commands, query]);
 
   function show() {
     setQuery('');
@@ -121,7 +114,6 @@ export default function CommandMenu({ commands, email }: Props) {
         if (progress === KONAMI.length) {
           progress = 0;
           e.preventDefault();
-          setUnlocked(true);
           try {
             sessionStorage.setItem(UNLOCK_KEY, '1');
           } catch {}
@@ -156,6 +148,7 @@ export default function CommandMenu({ commands, email }: Props) {
   }, [query]);
 
   async function run(cmd: Command) {
+    if (cmd.action === 'copy-email' || cmd.action === 'request-resume') track(cmd.action === 'copy-email' ? 'email-copy' : 'resume-request');
     if (cmd.action === 'copy-email') {
       try {
         await navigator.clipboard.writeText(email);
