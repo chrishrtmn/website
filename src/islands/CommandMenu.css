@@ -76,6 +76,7 @@
 
 .cmd__panel {
   display: grid;
+  outline: none;
 }
 
 .cmd__input {

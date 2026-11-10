@@ -10,6 +10,7 @@ export interface Command {
   href?: string;
   action?: 'copy-email' | 'request-resume' | 'toggle-motion';
   keywords?: string;
+  toast?: string;
 }
 
 export async function buildCommands(): Promise<Command[]> {
@@ -62,10 +63,10 @@ export async function buildCommands(): Promise<Command[]> {
   }));
 
   const hidden: Command[] = [
-    { id: 'talent-1', group: 'hidden', label: 'Tears on cue', keywords: 'hidden talent' },
+    { id: 'talent-1', group: 'hidden', label: 'Tears on cue', toast: "it's called acting.", keywords: 'hidden talent' },
     { id: 'talent-2', group: 'hidden', label: 'Double-jointed thumbs', keywords: 'hidden talent' },
-    { id: 'talent-3', group: 'hidden', label: 'Reads lips with uncanny accuracy', keywords: 'hidden talent' },
-    { id: 'talent-4', group: 'hidden', label: 'JCVD splits', hint: 'in training', keywords: 'hidden talent van damme' },
+    { id: 'talent-3', group: 'hidden', label: 'Reads lips with uncanny accuracy', toast: "could've been an FBI lip reader in another life.", keywords: 'hidden talent' },
+    { id: 'talent-4', group: 'hidden', label: 'JCVD splits', toast: 'still in training.', keywords: 'hidden talent van damme' },
   ];
 
   return [...go, ...work, ...postCmds, ...act, ...top8, ...hidden];

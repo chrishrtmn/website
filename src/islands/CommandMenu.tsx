@@ -10,6 +10,7 @@ export interface Command {
   href?: string;
   action?: 'copy-email' | 'request-resume' | 'toggle-motion';
   keywords?: string;
+  toast?: string;
 }
 
 interface Props {
@@ -31,6 +32,7 @@ const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'Ar
 export default function CommandMenu({ commands, email }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const input = useRef<HTMLInputElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
@@ -94,7 +96,9 @@ export default function CommandMenu({ commands, email }: Props) {
     setActive(0);
     setOpen(true);
     dialog.current?.showModal();
-    requestAnimationFrame(() => input.current?.focus());
+    // on touch devices the keyboard would cover the list; focus the panel instead
+    const coarse = matchMedia('(pointer: coarse)').matches;
+    requestAnimationFrame(() => (coarse ? panel.current : input.current)?.focus());
   }
 
   function hide() {
@@ -134,7 +138,6 @@ export default function CommandMenu({ commands, email }: Props) {
     const nopes = ['nope. not that easy.', "it's not a button. it's a code.", 'up up down down left right left right b a. on your keyboard.'];
     let nope = 0;
     const onNope = () => {
-      if (matchMedia('(pointer: coarse)').matches) return flash('nope. needs a keyboard.', 2400);
       const i = Math.min(nope, nopes.length - 1);
       flash(nopes[i], i === nopes.length - 1 ? 4000 : 2800);
       nope++;
@@ -160,7 +163,6 @@ export default function CommandMenu({ commands, email }: Props) {
       } catch {
         flash(email, 1800);
       }
-      hide();
       return;
     }
     if (cmd.action === 'request-resume') {
@@ -173,7 +175,6 @@ export default function CommandMenu({ commands, email }: Props) {
       const next = root.dataset.motion === 'off' ? 'on' : 'off';
       root.dataset.motion = next;
       localStorage.setItem('motion', next);
-      hide();
       flash(`motion ${next}`);
       return;
     }
@@ -184,7 +185,7 @@ export default function CommandMenu({ commands, email }: Props) {
       return;
     }
     if (cmd.group === 'hidden') {
-      flash(cmd.hint === 'in training' ? 'working on it.' : 'true story.', 1800);
+      flash(cmd.toast ?? 'true story.', cmd.toast ? 2400 : 1800);
     }
   }
 
@@ -214,7 +215,7 @@ export default function CommandMenu({ commands, email }: Props) {
       </button>
 
       <dialog ref={dialog} class="cmd" onClose={() => setOpen(false)} onClick={(e) => e.target === dialog.current && hide()}>
-        <div class="cmd__panel" role="document">
+        <div ref={panel} class="cmd__panel" role="document" tabIndex={-1}>
           <input
             ref={input}
             class="cmd__input"
