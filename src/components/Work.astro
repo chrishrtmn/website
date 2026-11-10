@@ -18,7 +18,10 @@ const projects = (await getCollection('projects'))
           <li class="work__item">
             <Tag class="work__row" href={href} target={href ? '_blank' : undefined} rel={href ? 'noopener' : undefined}>
               <span class="work__index mono">{String(i + 1).padStart(2, '0')}</span>
-              <span class="work__name">{p.name}</span>
+              <span class="work__name">
+                {p.name}
+                {href && <span class="work__ext" aria-hidden="true">↗</span>}
+              </span>
               <span class="work__line">{p.line}</span>
               <span class="work__stack small">{p.stack.join(' · ')}</span>
               <span class:list={['work__status', 'small', `work__status--${p.status}`]}>{p.status}</span>
@@ -80,6 +83,16 @@ const projects = (await getCollection('projects'))
     letter-spacing: var(--tracking-tight);
     text-transform: uppercase;
     line-height: 1;
+  }
+
+  /* the name carries the arrow where the trailing column is gone */
+  .work__ext {
+    display: none;
+    margin-inline-start: 0.2em;
+    font-family: var(--font-sans);
+    font-size: 0.6em;
+    vertical-align: 0.35em;
+    color: var(--neon);
   }
 
   .work__line {
@@ -165,6 +178,9 @@ const projects = (await getCollection('projects'))
     }
     .work__arrow {
       display: none;
+    }
+    .work__ext {
+      display: inline-block;
     }
   }
 
