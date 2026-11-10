@@ -5,65 +5,69 @@ const year = new Date().getFullYear();
 const subject = encodeURIComponent('Résumé request');
 const body = encodeURIComponent('Hi Chris, could you send over your résumé? Here is a bit about the role: ');
 const talk = 'hey chat'.split('');
-// letter-only position, so the phone wave runs straight from Y to C without a slot for the space
+// letter-only position, so the stagger runs straight from Y to C without a slot for the space
 const nth = (i: number) => talk.slice(0, i).filter((c) => c !== ' ').length;
 const external = { target: '_blank', rel: 'noopener' } as const;
+const handle = site.handle;
 ---
 
-<footer class="footer wrap" id="contact">
-  <button type="button" class="footer__talk" aria-pressed="false" data-talk>
-    <span class="visually-hidden">hey chat, in Latin or sign-language letters</span>
-    <span class="footer__row footer__row--latin" aria-hidden="true">
-      {
-        talk.map((ch, i) =>
-          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__latin" style={`--i: ${i}; --n: ${nth(i)}`}>{ch}</span>,
-        )
-      }
-    </span>
-    <span class="footer__row footer__row--sign" aria-hidden="true">
-      {
-        talk.map((ch, i) =>
-          ch === ' ' ? <span class="footer__space"> </span> : <span class="footer__sign" style={`--i: ${i}; --n: ${nth(i)}`}>{ch}</span>,
-        )
-      }
-    </span>
-  </button>
+<footer class="footer on-neon" id="contact">
+  <div class="footer__top wrap">
+    <div class="footer__intro">
+      <button type="button" class="footer__talk" aria-pressed="false" data-talk>
+        <span class="visually-hidden">hey chat, in Latin or sign-language letters</span>
+        {
+          talk.map((ch, i) =>
+            ch === ' ' ? (
+              <span class="footer__space" aria-hidden="true" />
+            ) : (
+              <span class="footer__cell" aria-hidden="true" style={`--n: ${nth(i)}`}>
+                <span class="footer__latin">{ch}</span>
+                <span class="footer__sign">{ch}</span>
+              </span>
+            ),
+          )
+        }
+      </button>
+    </div>
 
-  <nav class="footer__nav" aria-label="Footer">
-    <ul class="footer__prime">
-      <li><a href={`mailto:${site.email}`} data-umami-event="email">Email</a></li>
-      <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`} data-umami-event="resume-request">Request résumé</a></li>
-    </ul>
-    <ul class="footer__links mono">
-      <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
-      <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
-      {
-        site.social.map((s) => (
-          <li>
-            <a href={s.url} {...external} rel="me noopener">
-              {s.network}
-              <span class="ext" aria-hidden="true">↗</span>
-            </a>
-          </li>
-        ))
-      }
-      <li><a href="/rss.xml">RSS</a></li>
-      <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
-      <li>
-        <a href="/paparazzi/" data-kit-link>
-          Paparazzi kit<svg class="ext ext--cam" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M5.5 3.5 4.6 5H2.5A1.5 1.5 0 0 0 1 6.5v6A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 13.5 5h-2.1l-.9-1.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
-            <circle cx="8" cy="9.25" r="2.6" fill="none" stroke="currentColor" stroke-width="1.4" />
-          </svg>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <nav class="footer__col" aria-labelledby="footer-talk">
+      <p class="label" id="footer-talk">talk</p>
+      <ul>
+        <li><a href={`mailto:${site.email}`} data-umami-event="email">Email</a></li>
+        <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`} data-umami-event="resume-request">Request résumé</a></li>
+        <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
+        {
+          site.social.map((s) => (
+            <li>
+              <a href={s.url} {...external} rel="me noopener">{s.network}<span class="ext" aria-hidden="true">↗</span></a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
 
-  <div class="footer__fine mono">
-    <span>© {year} Chris Hartman</span>
-    <span class="footer__sep" aria-hidden="true">·</span>
-    <span class="footer__serve">Serving hot plates of Midwestern hospitality</span>
+    <nav class="footer__col" aria-labelledby="footer-site">
+      <p class="label" id="footer-site">site</p>
+      <ul>
+        <li><a href="/rss.xml">RSS</a></li>
+        <li><a href={site.links.source} {...external}>Source<span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
+        <li>
+          <a href="/paparazzi/" data-kit-link>
+            Paparazzi kit<svg class="ext ext--cam" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M5.5 3.5 4.6 5H2.5A1.5 1.5 0 0 0 1 6.5v6A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 13.5 5h-2.1l-.9-1.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+              <circle cx="8" cy="9.25" r="2.6" fill="none" stroke="currentColor" stroke-width="1.4" />
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer__fine wrap mono">
+    <span>© {year} Chris Hartman · Serving hot plates of Midwestern hospitality</span>
     <button type="button" class="footer__cheat" title="cheat code" data-cheat>
       <span class="visually-hidden" data-cheat-label>Up up down down left right left right B A</span>
       {
@@ -76,96 +80,81 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       <span style="--i: 8" aria-hidden="true">BA</span>
     </button>
   </div>
+
+  <span class="footer__handle" aria-hidden="true"><span class="footer__at">@</span>{handle}</span>
 </footer>
 
 <script>
   import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
 
+  // HEY CHAT: each letter blurs into its sign and back, on a timer while the footer is
+  // on screen; hover or tap switches it now and holds it
   const talk = document.querySelector<HTMLButtonElement>('[data-talk]');
   if (talk) {
     const root = document.documentElement;
     const motionOn = () => root.dataset.motion !== 'off';
-    const set = (signed: boolean) => {
-      talk.classList.toggle('is-signed', signed);
-      talk.setAttribute('aria-pressed', String(signed));
+    const signed = () => talk.classList.contains('is-signed');
+    const set = (on: boolean) => {
+      talk.classList.toggle('is-signed', on);
+      talk.setAttribute('aria-pressed', String(on));
     };
-    const touch = matchMedia('(hover: none), (pointer: coarse)');
-    let seen = false;
-    let pinned = false;
 
-    // no hover to flip back on touch, so the word stays readable and fingerspells
-    // one letter at a time while it is on screen; a tap pins the full signed row
-    const latins = [...talk.querySelectorAll<HTMLElement>('.footer__latin')];
-    const signs = [...talk.querySelectorAll<HTMLElement>('.footer__sign')];
-    // the sign row has its own spacing; on touch each handshape sits over its own letter
-    // in every state, so the wave and the pinned row crossfade in place
-    const align = () => {
-      if (!touch.matches) return;
-      signs.forEach((s, i) => {
-        const a = latins[i]?.getBoundingClientRect();
-        const b = s.getBoundingClientRect();
-        const current = parseFloat(s.style.getPropertyValue('--dx')) || 0;
-        if (a) s.style.setProperty('--dx', `${(a.left + a.width / 2 - (b.left + b.width / 2 - current)).toFixed(1)}px`);
-      });
+    const EVERY = 4000;
+    let timer = 0;
+    let held = false;
+    let inView = false;
+    const stop = () => {
+      clearInterval(timer);
+      timer = 0;
     };
-    const wave = (on: boolean) => {
-      const active = on && touch.matches && motionOn() && !pinned;
-      if (active) align();
-      talk.classList.toggle('is-wave', active);
-    };
-    let resizeTimer = 0;
-    addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(align, 150);
-    });
-    document.fonts?.ready.then(align);
-
-    const reveal = () => {
-      if (!motionOn()) return;
-      if (touch.matches) return wave(true);
-      talk.classList.add('is-slow');
-      setTimeout(() => {
-        if (motionOn()) set(true);
-        const lastSign = [...talk.querySelectorAll<HTMLElement>('.footer__sign')].pop();
-        lastSign?.addEventListener('transitionend', () => talk.classList.remove('is-slow'), { once: true });
-      }, 1500);
+    const start = () => {
+      if (timer || held || !inView || !motionOn()) return;
+      timer = window.setInterval(() => {
+        if (!document.hidden) set(!signed());
+      }, EVERY);
     };
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
-            if (e.isIntersecting) {
-              if (!seen) {
-                seen = true;
-                reveal();
-              } else wave(true);
-            } else wave(false);
+            inView = e.isIntersecting;
+            if (inView) start();
+            else stop();
           }
         },
-        { threshold: 0.6 },
+        { threshold: 0.5 },
       ).observe(talk);
-    } else {
-      seen = true;
-      if (motionOn()) set(true);
     }
 
-    talk.addEventListener('click', () => {
-      if (!touch.matches || !motionOn()) return;
-      pinned = !pinned;
-      wave(!pinned);
-      set(pinned);
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    talk.addEventListener('pointerenter', () => {
+      if (!fine.matches) return;
+      held = true;
+      stop();
+      set(!signed());
     });
+    talk.addEventListener('pointerleave', () => {
+      if (!fine.matches) return;
+      held = false;
+      start();
+    });
+    // touch and keyboard: a press switches it and pauses the timer; a second press resumes
+    talk.addEventListener('click', (e) => {
+      if (fine.matches && e.detail > 0) return;
+      held = !held;
+      if (held) {
+        stop();
+        set(!signed());
+      } else start();
+    });
+
     new MutationObserver(() => {
-      if (!motionOn()) {
-        set(false);
-        wave(false);
-      } else if (seen) {
-        if (touch.matches) wave(true);
-        else set(true);
-      }
+      if (motionOn()) start();
+      else stop();
     }).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
   }
+
   const cheat = document.querySelector<HTMLButtonElement>('[data-cheat]');
   if (cheat) {
     const unlocked = () => {
@@ -218,295 +207,204 @@ const external = { target: '_blank', rel: 'noopener' } as const;
       start();
     }
   }
-
 </script>
 
 <style>
+  /* the page closes on a Caution slab, the handle running off the bottom edge */
   .footer {
-    display: grid;
-    gap: var(--s-8);
-    padding-block: var(--s-16) var(--s-8);
-    border-top: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    background: var(--neon);
+    color: var(--neon-ink);
   }
 
-  .footer__talk {
+  /* wide: HEY CHAT and the two link columns share a row; narrower: HEY CHAT sits above them */
+  .footer__top {
     display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-12) clamp(var(--s-8), 4vw, var(--s-16));
+    align-items: start;
+    padding-block: var(--s-16) var(--s-12);
+  }
+
+  .footer__intro {
+    min-width: 0;
+  }
+
+  /* HEY CHAT */
+  .footer__talk {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
     max-width: none;
     margin: 0;
     text-align: left;
-    font-size: clamp(3rem, 12vw, 11rem);
+    /* side by side the column is ~52% of the content width; 7.4vw keeps the line inside it */
+    font-size: min(7.4vw, 9rem);
+    white-space: nowrap;
     line-height: 1;
     letter-spacing: var(--tracking-display);
     text-transform: uppercase;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .footer__row {
-    grid-area: 1 / 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
-
-  /* pull the first glyph's side bearing back onto the gutter */
-  .footer__row--latin {
-    margin-inline-start: -0.07em;
-  }
-
-  .footer__row--sign {
-    gap: 0.16em;
-    margin-inline-start: -0.06em;
-  }
-
-  .footer__row--sign .footer__space {
-    width: 0.24em;
-  }
-
   .footer__talk:focus-visible {
-    outline: 2px solid var(--neon);
+    outline: 2px solid var(--neon-ink);
     outline-offset: 0.08em;
   }
 
   .footer__space {
-    width: 0.3em;
+    width: 0.28em;
   }
 
+  /* blur morph: the letter blurs and shrinks out while the hand blurs in from slightly larger,
+     so mid-transition they read as one soft shape changing */
+  .footer__cell {
+    display: grid;
+  }
+
+  /* the blur clears before the fade ends and the hands never scale, so their line weight is
+     fixed by the time they are fully visible; own layers keep them from re-rasterising at the end */
   .footer__latin,
   .footer__sign {
-    transition: opacity var(--dur-3) var(--ease-out);
-    transition-delay: calc(var(--i) * 60ms);
+    grid-area: 1 / 1;
+    transition:
+      opacity 700ms var(--ease-out),
+      filter 420ms var(--ease-out),
+      transform 700ms var(--ease-out);
+    transition-delay: calc(var(--n) * 90ms);
+    will-change: opacity, filter, transform;
   }
 
-  .footer__talk.is-slow .footer__latin,
-  .footer__talk.is-slow .footer__sign {
-    transition-duration: 500ms;
-    transition-delay: calc(var(--i) * 45ms);
-  }
-
+  /* outline letters, the same treatment as the "built for" ticker line */
   .footer__latin {
     font-family: var(--font-display);
     font-weight: 700;
-    color: var(--w);
+    color: transparent;
+    -webkit-text-stroke: 0.02em var(--neon-ink);
   }
 
   .footer__sign {
+    justify-self: center;
     font-family: var(--font-sign);
     font-weight: 400;
     letter-spacing: 0;
     text-transform: lowercase;
-    color: var(--neon);
+    /* the hand glyphs sit on the baseline; lift them so their middle lines up with the capitals */
+    --lift: -0.075em;
     opacity: 0;
+    filter: blur(0.08em);
+    transform: translateY(var(--lift));
   }
 
   .footer__talk.is-signed .footer__latin {
     opacity: 0;
+    filter: blur(0.08em);
+    transform: scale(0.9);
   }
 
   .footer__talk.is-signed .footer__sign {
     opacity: 1;
+    filter: blur(0);
+    transform: translateY(var(--lift));
   }
 
-  /*
-    touch: one letter at a time crossfades to its handshape, holds, and returns before the
-    next one starts, then the word rests. 7 letters, no slot for the space; 8500ms period; each letter owns a 1000ms slot:
-    200ms in, hold to 800ms, 150ms out, 50ms breath. 1.5s of plain Latin before the first
-    pass and at least as long between passes.
-  */
-  .footer__talk.is-wave .footer__latin {
-    animation: wave-latin 8500ms linear calc(1500ms + var(--n) * 1000ms) infinite;
-  }
-
-  .footer__talk.is-wave .footer__sign {
-    animation: wave-sign 8500ms linear calc(1500ms + var(--n) * 1000ms) infinite;
-  }
-
-  /* touch: hands sit on their letters in every state; a tap is a quick in-place crossfade */
-  @media (hover: none), (pointer: coarse) {
-    .footer__sign {
-      transform: translateX(var(--dx, 0px));
-    }
-    .footer__latin,
-    .footer__sign {
-      transition-duration: var(--dur-2);
-      transition-delay: calc(var(--i) * 20ms);
-    }
-  }
-
-  @keyframes wave-latin {
-    0% {
-      opacity: 1;
-      animation-timing-function: var(--ease-out);
-    }
-    2.35%,
-    9.41% {
-      opacity: 0;
-      animation-timing-function: var(--ease-out);
-    }
-    11.18%,
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes wave-sign {
-    0% {
-      opacity: 0;
-      animation-timing-function: var(--ease-out);
-    }
-    2.35%,
-    9.41% {
-      opacity: 1;
-      animation-timing-function: var(--ease-out);
-    }
-    11.18%,
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .footer__talk {
-      cursor: default;
-    }
-    .footer__talk.is-signed:hover .footer__latin {
-      opacity: 1;
-    }
-    .footer__talk.is-signed:hover .footer__sign {
-      opacity: 0;
-    }
-  }
-
+  /* motion off: faces swap in place, no blur */
   :global(html[data-motion='off']) .footer__latin,
   :global(html[data-motion='off']) .footer__sign {
     transition: none;
+    filter: none;
   }
 
-  :global(html[data-motion='off']) .footer__talk {
-    cursor: default;
+  :global(html[data-motion='off']) .footer__latin {
+    transform: none;
   }
 
-  .footer__nav {
+  :global(html[data-motion='off']) .footer__sign {
+    transform: translateY(var(--lift));
+  }
+
+  /* link columns */
+  .footer__col .label {
+    margin: 0 0 var(--s-3);
+    padding-bottom: var(--s-2);
+    border-bottom: 2px solid var(--neon-ink);
+    color: var(--neon-dim);
+  }
+
+  .footer__col ul {
     display: grid;
-    gap: var(--s-6);
-  }
-
-  .footer__prime {
+    gap: var(--s-2);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .footer__prime {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-4) var(--s-8);
-  }
-
-  .footer__prime a {
+  .footer__col a {
     display: inline-flex;
     align-items: baseline;
-    gap: 0.25em;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-    letter-spacing: var(--tracking-tight);
-    text-transform: uppercase;
-    line-height: 1;
+    font-weight: 500;
     text-decoration: none;
-    color: var(--w);
-    transition: color var(--dur-1) var(--ease-out);
+    color: var(--neon-ink);
   }
 
-  .footer__prime a:hover,
-  .footer__prime a:focus-visible {
-    color: var(--neon);
+  .footer__col a:hover,
+  .footer__col a:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
-  .footer__prime .ext {
-    font-size: 0.5em;
-    font-family: var(--font-sans);
-    font-weight: 400;
+  .footer :focus-visible {
+    outline-color: var(--neon-ink);
   }
 
   .ext {
     display: inline-block;
+    margin-inline-start: 0.2em;
+    font-size: 0.75em;
     text-decoration: none;
-    font-size: 0.8em;
-    color: var(--g);
+    color: var(--neon-dim);
+    transition: color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
   }
 
-  /* everything that isn't a way to reach me: one quiet mono row */
-  .footer__links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-6);
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .footer__col a:hover .ext,
+  .footer__col a:focus-visible .ext {
+    color: var(--neon-ink);
   }
 
-  .footer__links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25em;
-    color: var(--g);
-    text-decoration: none;
-    transition: color var(--dur-1) var(--ease-out);
+  @media (hover: hover) and (pointer: fine) {
+    .footer__col a:hover .ext {
+      transform: translate(2px, -2px);
+    }
   }
 
-  .footer__links a:hover,
-  .footer__links a:focus-visible {
-    color: var(--neon);
-  }
-
-  .footer__links a:hover .ext,
-  .footer__links a:focus-visible .ext {
-    color: inherit;
-  }
-
-  .footer__links .ext--cam {
+  .ext--cam {
     width: 1em;
     height: 1em;
+    align-self: center;
   }
 
-  .footer__prime a:hover .ext,
-  .footer__prime a:focus-visible .ext {
-    color: inherit;
-  }
-
-  @media (max-width: 600px) {
-    .footer__prime {
-      gap: var(--s-3) var(--s-6);
-    }
-    .footer__prime a {
-      font-size: 1.5rem;
-    }
-    .footer__sep {
-      display: none;
-    }
-    .footer__serve {
-      flex-basis: 100%;
-      order: 1;
-    }
-  }
-
+  /* fine print */
   .footer__fine {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--s-4) var(--s-6);
-    color: var(--g);
+    justify-content: space-between;
+    gap: var(--s-2) var(--s-6);
+    padding-block: var(--s-4);
+    border-top: 2px solid var(--neon-ink);
+    color: var(--neon-dim);
   }
 
   .footer__cheat {
     display: inline-flex;
     align-items: center;
     gap: 0.15em;
-    margin-inline-start: auto;
     padding: 0.2em 0.6em;
-    border: 1px solid var(--line);
+    border: 1px solid var(--neon-dim);
     border-radius: 999px;
-    color: var(--g);
+    color: var(--neon-dim);
     font: inherit;
     letter-spacing: 0.08em;
     transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
@@ -536,8 +434,8 @@ const external = { target: '_blank', rel: 'noopener' } as const;
   }
 
   .footer__cheat:hover {
-    color: var(--neon);
-    border-color: var(--neon);
+    color: var(--neon-ink);
+    border-color: var(--neon-ink);
   }
 
   /* the code needs arrow keys; no pill where there are none */
@@ -554,13 +452,45 @@ const external = { target: '_blank', rel: 'noopener' } as const;
 
   @keyframes key-hint {
     0% {
-      color: var(--g);
+      color: var(--neon-dim);
     }
     15% {
-      color: var(--neon);
+      color: var(--neon-ink);
     }
     100% {
-      color: var(--g);
+      color: var(--neon-dim);
+    }
+  }
+
+  /* the handle, cropped by the bottom of the page; decorative, the links above are the real ones */
+  .footer__handle {
+    display: block;
+    margin: var(--s-4) 0 -3.9vw -0.9vw;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17.5vw;
+    line-height: 0.78;
+    letter-spacing: -0.065em;
+    white-space: nowrap;
+    color: var(--neon-ink);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .footer__at {
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 1100px) {
+    .footer__top {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-8) var(--s-6);
+    }
+    .footer__intro {
+      grid-column: 1 / -1;
+    }
+    .footer__talk {
+      font-size: min(14.5vw, 9rem);
     }
   }
 </style>
