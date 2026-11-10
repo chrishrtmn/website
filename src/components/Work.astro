@@ -43,14 +43,13 @@ const projects = (await getCollection('projects'))
     margin: 0;
     padding: 0;
     list-style: none;
-    border-top: 1px solid var(--line);
   }
 
   .work__item {
     display: grid;
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
-    border-bottom: 1px solid var(--line);
+    border-top: 1px solid var(--line);
   }
 
   .work__row {
