@@ -12,7 +12,7 @@ interface Props {
   hero?: boolean;
 }
 
-const { title, description = site.description, ogImage, hero = false } = Astro.props;
+const { title, description = site.description, ogImage = '/og/home.png', hero = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.title;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const umamiId = import.meta.env.PROD ? import.meta.env.PUBLIC_UMAMI_ID : undefined;
@@ -45,8 +45,12 @@ const person = {
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {ogImage && <meta property="og:image" content={new URL(ogImage, site.url).href} />}
-    {ogImage && <meta name="twitter:card" content="summary_large_image" />}
+    <meta property="og:image" content={new URL(ogImage, site.url).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`OPE! ${site.name}, product engineer in northeast Ohio`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL(ogImage, site.url).href} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/schibsted-grotesk-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin />
