@@ -15,7 +15,7 @@ export const GET: APIRoute = async () => {
       name: site.name,
       label: 'Product Engineer',
       url: site.url,
-      summary: site.description,
+      summary: `${site.description} ${site.openTo}`,
       location: { city: site.location.city, region: site.location.region, countryCode: 'US' },
       profiles: [
         { network: 'GitHub', username: site.handle, url: site.links.github },

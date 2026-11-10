@@ -14,6 +14,7 @@ const text = [
   `Handle: ${site.handle}`,
   `Pronunciation: ${site.pronunciation}`,
   `Location: ${site.location.city}, ${site.location.region} (remote)`,
+  `Availability: ${site.openTo}`,
   `Site: ${site.url}`,
   '',
 ].join('\n');

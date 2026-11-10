@@ -56,6 +56,7 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'linkedin', group: 'find', label: 'LinkedIn', href: site.links.linkedin, keywords: 'social' },
     ...site.social.map((s) => ({ id: s.network.toLowerCase(), group: 'find' as const, label: s.network, href: s.url, keywords: `social ${s.username}` })),
     { id: 'rss', group: 'find', label: 'RSS feed', href: '/rss.xml', keywords: 'feed subscribe posts' },
+    { id: 'source', group: 'find', label: 'Site source', href: site.links.source, keywords: 'code repo github colophon' },
   ];
 
   const hidden: Command[] = [

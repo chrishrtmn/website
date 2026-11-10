@@ -8,9 +8,11 @@ export const site = {
   pronunciation: 'HART-mun',
   email: 'hello@chrishrtmn.com',
   location: { city: 'Kent', region: 'Ohio', tz: 'America/New_York', lat: 41.15, lng: -81.36 },
+  openTo: 'Open to contract work and senior product engineer roles, remote or hybrid in northeast Ohio.',
   links: {
     github: 'https://github.com/chrishrtmn',
     linkedin: 'https://www.linkedin.com/in/chrishrtmn',
+    source: 'https://github.com/chrishrtmn/website',
   },
   social: [
     { network: 'X', username: 'chrishrtmn', url: 'https://x.com/chrishrtmn' },

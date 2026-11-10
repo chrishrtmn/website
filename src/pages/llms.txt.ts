@@ -17,6 +17,8 @@ export const GET: APIRoute = async () => {
     '',
     kitBoilerplate.long,
     '',
+    site.openTo,
+    '',
     '## Links',
     '',
     `- [Home](${site.url}/)`,
