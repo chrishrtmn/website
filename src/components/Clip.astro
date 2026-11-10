@@ -26,6 +26,15 @@ const base = `/posts/rebuild/${name}`;
     const root = document.documentElement;
     const motionOn = () => root.dataset.motion !== 'off';
     const inView = new WeakSet<HTMLVideoElement>();
+    const counted = new WeakSet<HTMLVideoElement>();
+    const umami = () => (window as { umami?: { track: (e: string, d?: object) => void } }).umami;
+    clips.forEach((v) =>
+      v.addEventListener('playing', () => {
+        if (counted.has(v)) return;
+        counted.add(v);
+        umami()?.track('post-clip-play', { clip: v.closest('figure')?.querySelector('source')?.getAttribute('src')?.split('/').pop()?.replace(/\.\w+$/, '') });
+      }),
+    );
     const sync = (v: HTMLVideoElement) => {
       if (inView.has(v) && motionOn()) v.play().catch(() => {});
       else v.pause();
