@@ -1,7 +1,7 @@
 chrishrtmn.com colours
 
-Volt (accent)      #E8FF2E   rgb(232, 255, 46)
-Ink                #121400   rgb(18, 20, 0)      type on Volt
+Caution (accent)   #FEFF09   rgb(254, 255, 9)
+Ink                #0E0E01   rgb(14, 14, 1)      type on Caution
 Night (background) #111210   rgb(17, 18, 16)
 Off-white (text)   #F3F1EE   rgb(243, 241, 238)
 

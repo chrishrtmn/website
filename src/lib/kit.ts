@@ -10,17 +10,17 @@ export interface KitAsset {
 
 export const kitAssets: KitAsset[] = [
   { id: 'ope-offwhite', name: 'OPE! wordmark', note: 'off-white, for dark backgrounds', svg: '/brand/ope-offwhite.svg', png: '/brand/ope-offwhite.png', dark: true },
-  { id: 'ope-volt', name: 'OPE! wordmark', note: 'Volt, for dark backgrounds', svg: '/brand/ope-volt.svg', png: '/brand/ope-volt.png', dark: true },
+  { id: 'ope-caution', name: 'OPE! wordmark', note: 'Caution, for dark backgrounds', svg: '/brand/ope-caution.svg', png: '/brand/ope-caution.png', dark: true },
   { id: 'ope-ink', name: 'OPE! wordmark', note: 'ink, for light backgrounds', svg: '/brand/ope-ink.svg', png: '/brand/ope-ink.png' },
-  { id: 'ope-plate-volt', name: 'OPE! plate', note: 'inverted, ink on Volt', svg: '/brand/ope-plate-volt.svg', png: '/brand/ope-plate-volt.png', dark: true, tile: true },
-  { id: 'ope-plate-night', name: 'OPE! plate', note: 'Volt on Night', svg: '/brand/ope-plate-night.svg', png: '/brand/ope-plate-night.png', dark: true, tile: true },
+  { id: 'ope-plate-caution', name: 'OPE! plate', note: 'inverted, ink on Caution', svg: '/brand/ope-plate-caution.svg', png: '/brand/ope-plate-caution.png', dark: true, tile: true },
+  { id: 'ope-plate-night', name: 'OPE! plate', note: 'Caution on Night', svg: '/brand/ope-plate-night.svg', png: '/brand/ope-plate-night.png', dark: true, tile: true },
   { id: 'ope-tile', name: 'OPE! tile', note: 'avatars and app icons', svg: '/brand/ope-tile.svg', png: '/brand/ope-tile.png', dark: true, tile: true },
-  { id: 'ope-tile-volt', name: 'OPE! tile', note: 'inverted, for avatars on dark UIs', svg: '/brand/ope-tile-volt.svg', png: '/brand/ope-tile-volt.png', dark: true, tile: true },
+  { id: 'ope-tile-caution', name: 'OPE! tile', note: 'inverted, for avatars on dark UIs', svg: '/brand/ope-tile-caution.svg', png: '/brand/ope-tile-caution.png', dark: true, tile: true },
 ];
 
 export const kitColours = [
-  { name: 'Volt', hex: '#E8FF2E', use: 'accent' },
-  { name: 'Ink', hex: '#121400', use: 'type on Volt' },
+  { name: 'Caution', hex: '#FEFF09', use: 'accent' },
+  { name: 'Ink', hex: '#0E0E01', use: 'type on Caution' },
   { name: 'Night', hex: '#111210', use: 'background' },
   { name: 'Off-white', hex: '#F3F1EE', use: 'text' },
 ];

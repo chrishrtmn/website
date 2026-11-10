@@ -28,8 +28,8 @@ import Flashes from './Flashes.astro';
 
 <menu class="ctx small" id="logo-menu" role="menu" aria-label="Logo" hidden>
   <li><button type="button" role="menuitem" data-ctx="copy-svg">Copy OPE! SVG</button></li>
-  <li><a role="menuitem" href="/brand/ope-volt.svg" download>Download SVG</a></li>
-  <li><a role="menuitem" href="/brand/ope-volt.png" download>Download PNG</a></li>
+  <li><a role="menuitem" href="/brand/ope-caution.svg" download>Download SVG</a></li>
+  <li><a role="menuitem" href="/brand/ope-caution.png" download>Download PNG</a></li>
   <li><a role="menuitem" href={kitZip} download data-umami-event="kit-download">Download kit (.zip)</a></li>
   <li><button type="button" role="menuitem" data-ctx="open-tray">Open paparazzi kit</button></li>
 </menu>
@@ -106,12 +106,12 @@ import Flashes from './Flashes.astro';
     if (b.dataset.ctx === 'open-tray') openTray();
     if (b.dataset.ctx === 'copy-svg') {
       try {
-        const svg = await (await fetch('/brand/ope-volt.svg')).text();
+        const svg = await (await fetch('/brand/ope-caution.svg')).text();
         await navigator.clipboard.writeText(svg);
         b.textContent = 'Copied';
         setTimeout(() => (b.textContent = 'Copy OPE! SVG'), 1200);
       } catch {
-        window.open('/brand/ope-volt.svg', '_blank', 'noopener');
+        window.open('/brand/ope-caution.svg', '_blank', 'noopener');
       }
     }
     if (b.dataset.ctx !== 'copy-svg') hideMenu();

@@ -2,9 +2,9 @@
   color-scheme: dark;
 
   /* color */
-  --neon: oklch(95% 0.21 115);
-  --neon-ink: oklch(16% 0.03 115);
-  --neon-dim: oklch(38% 0.11 115);
+  --neon: #feff09;
+  --neon-ink: oklch(16% 0.03 110);
+  --neon-dim: oklch(38% 0.11 110);
   --k: oklch(15% 0.006 115);
   --k2: oklch(19% 0.007 115);
   --line: oklch(26% 0.008 115);

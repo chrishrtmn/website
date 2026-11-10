@@ -17,18 +17,18 @@ chrishrtmn.com paparazzi kit
 
 Logos/
   ope-offwhite.svg/.png   OPE! wordmark, off-white, for dark backgrounds
-  ope-volt.svg/.png       OPE! wordmark, Volt, for dark backgrounds
+  ope-caution.svg/.png    OPE! wordmark, Caution, for dark backgrounds
   ope-ink.svg/.png        OPE! wordmark, ink, for light backgrounds
-  ope-plate-volt.svg/.png OPE! wordmark, ink on a Volt plate (inverted)
-  ope-plate-night.svg/.png OPE! wordmark, Volt on a Night plate
+  ope-plate-caution.svg/.png OPE! wordmark, ink on a Caution plate (inverted)
+  ope-plate-night.svg/.png OPE! wordmark, Caution on a Night plate
   ope-tile.svg/.png       OPE! on a dark rounded tile; avatars and app icons
-  ope-tile-volt.svg/.png  OPE! on a Volt rounded tile (inverted)
+  ope-tile-caution.svg/.png OPE! on a Caution rounded tile (inverted)
 Headshots/
   chris-hartman.jpg       500 px, web use
 colours.txt               hex and rgb values, font names and licences
 boilerplate.txt           long and short bios, name, handle, location
 
-Please don't recolour, outline, stretch, or add effects to the marks. Volt is the only accent.
+Please don't recolour, outline, stretch, or add effects to the marks. Caution is the only accent.
 TXT
 find "$kit" -exec touch -t 202601010000 {} +
 rm -f public/paparazzi/PaparazziKit.zip
