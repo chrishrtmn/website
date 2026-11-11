@@ -4,11 +4,11 @@ import './CommandMenu.css';
 
 export interface Command {
   id: string;
-  group: 'go' | 'projects' | 'posts' | 'do' | 'find' | 'hidden';
+  group: 'go' | 'projects' | 'posts' | 'do' | 'find' | 'hidden' | 'secret';
   label: string;
   hint?: string;
   href?: string;
-  action?: 'copy-email' | 'toggle-motion';
+  action?: 'copy-email' | 'toggle-motion' | 'open-top8';
   keywords?: string;
   toast?: string;
 }
@@ -25,6 +25,17 @@ const GROUPS: Record<Command['group'], string> = {
   do: 'do',
   find: 'find me',
   hidden: 'hidden talents',
+  secret: 'secret',
+};
+
+// trying every hidden talent earns the Top 8: the way in for anyone without arrow keys
+const TALENTS_KEY = 'talents-seen';
+const readSeen = (): string[] => {
+  try {
+    return JSON.parse(sessionStorage.getItem(TALENTS_KEY) ?? '[]');
+  } catch {
+    return [];
+  }
 };
 
 const track = (event: string) => (window as { umami?: { track: (e: string) => void } }).umami?.track(event);
@@ -38,6 +49,10 @@ export default function CommandMenu({ commands, email }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
+  const [seen, setSeen] = useState<string[]>([]);
+  const talents = useMemo(() => commands.filter((c) => c.group === 'hidden').map((c) => c.id), [commands]);
+  const earned = talents.length > 0 && talents.every((t) => seen.includes(t));
+  useEffect(() => setSeen(readSeen()), []);
   const [toast, setToast] = useState('');
   const [toastOut, setToastOut] = useState(false);
   const toastTimer = useRef<number>();
@@ -79,10 +94,11 @@ export default function CommandMenu({ commands, email }: Props) {
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     return commands.filter((c) => {
+      if (c.group === 'secret' && !earned) return false;
       if (!q) return true;
       return `${c.label} ${c.hint ?? ''} ${c.keywords ?? ''}`.toLowerCase().includes(q);
     });
-  }, [commands, query]);
+  }, [commands, query, earned]);
 
   function show() {
     setQuery('');
@@ -172,7 +188,25 @@ export default function CommandMenu({ commands, email }: Props) {
       hide();
       return;
     }
+    if (cmd.action === 'open-top8') {
+      track('top8-secret');
+      try {
+        sessionStorage.setItem(UNLOCK_KEY, '1');
+      } catch {}
+      hide();
+      document.dispatchEvent(new CustomEvent(UNLOCK_EVENT));
+      return;
+    }
     if (cmd.group === 'hidden') {
+      const next = seen.includes(cmd.id) ? seen : [...seen, cmd.id];
+      setSeen(next);
+      try {
+        sessionStorage.setItem(TALENTS_KEY, JSON.stringify(next));
+      } catch {}
+      if (!earned && talents.every((t) => next.includes(t))) {
+        flash('all four. check the bottom.', 3000);
+        return;
+      }
       flash(cmd.toast ?? 'true story.', cmd.toast ? 2400 : 1800);
     }
   }

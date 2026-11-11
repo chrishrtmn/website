@@ -124,10 +124,13 @@ html:has(dialog.cmd[open]) {
   color: var(--g);
 }
 
+/* label and hint share a row; on narrow screens the hint wraps under the label instead of squeezing it */
 .cmd__item {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: var(--s-4);
+  align-items: baseline;
+  gap: 0 var(--s-4);
   padding: var(--s-2) var(--s-4);
   border-radius: 6px;
   cursor: pointer;
@@ -136,6 +139,10 @@ html:has(dialog.cmd[open]) {
 .cmd__item.is-active {
   background: var(--neon);
   color: var(--neon-ink);
+}
+
+.cmd__item > span:first-child {
+  white-space: nowrap;
 }
 
 .cmd__hint {

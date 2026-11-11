@@ -3,11 +3,11 @@ import { site } from './site';
 
 export interface Command {
   id: string;
-  group: 'go' | 'projects' | 'posts' | 'do' | 'find' | 'hidden';
+  group: 'go' | 'projects' | 'posts' | 'do' | 'find' | 'hidden' | 'secret';
   label: string;
   hint?: string;
   href?: string;
-  action?: 'copy-email' | 'toggle-motion';
+  action?: 'copy-email' | 'toggle-motion' | 'open-top8';
   keywords?: string;
   toast?: string;
 }
@@ -63,6 +63,7 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'talent-1', group: 'hidden', label: 'Tears on cue', toast: "it's called acting.", keywords: 'hidden talent' },
     { id: 'talent-2', group: 'hidden', label: 'Double-jointed thumbs', keywords: 'hidden talent' },
     { id: 'talent-4', group: 'hidden', label: 'JCVD splits', toast: 'still in training.', keywords: 'hidden talent van damme' },
+    { id: 'top8', group: 'secret', label: 'Open the Top 8', action: 'open-top8', keywords: 'secret top 8 myspace friends konami' },
   ];
 
   return [...go, ...work, ...postCmds, ...act, ...findMe, ...hidden];
