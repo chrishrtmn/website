@@ -1,17 +1,24 @@
 [
   {
     "id": "elc",
+    "type": "contract → full-time",
     "employer": "The Estée Lauder Companies",
     "url": "https://www.elcompanies.com",
     "noreferrer": true,
     "titles": [
       "Senior Engineer, Brand Experience, Global Online",
-      "Front-End Engineer (contract)"
+      "Front-End Engineer"
     ],
     "start": 2021,
     "startMonth": 2,
     "location": "Remote",
-    "scope": "Global e-commerce front-end for 23 brands: Drupal templates, React components inside Drupal, Elixir and Perl services, performance work, code review, and live-site support.",
+    "scope": "Online stores for 23 beauty brands like Estée Lauder, MAC and Clinique: Drupal, React and Elixir front-ends, code review, and live-site support.",
+    "highlights": [
+      "Co-led the greenfield front-end for the platform rebuild and the onboarding that followed",
+      "Hardened storefronts against third-party outages and recurring production errors",
+      "Patched legacy front-end libraries for known vulnerabilities",
+      "Moved builds off deprecated tooling"
+    ],
     "stack": [
       "Drupal",
       "React",
@@ -25,6 +32,7 @@
   },
   {
     "id": "dss",
+    "type": "self-employed",
     "employer": "Double Slash Studios",
     "titles": [
       "Principal Engineer"
@@ -32,7 +40,11 @@
     "start": 2019,
     "startMonth": 9,
     "location": "Northeast Ohio",
-    "scope": "My own studio for product work and client builds, with accessibility and performance treated as requirements rather than extras.",
+    "scope": "Sites and products for businesses that need them accessible and fast, plus products of my own. Accessibility and performance are requirements, not extras.",
+    "highlights": [
+      "Launched a SaaS with 400+ users that kept idle credit cards active",
+      "Designed and prototyped a job board for developers looking for modern JavaScript roles"
+    ],
     "stack": [
       "Next.js",
       "Astro",
@@ -44,6 +56,7 @@
   },
   {
     "id": "nas",
+    "type": "full-time",
     "employer": "NAS Recruitment Communications",
     "titles": [
       "Front-End UI Developer"
@@ -53,7 +66,11 @@
     "end": 2020,
     "endMonth": 3,
     "location": "Hybrid, Northeast Ohio",
-    "scope": "45+ recruitment marketing sites on one ATS-connected platform for brands like Olive Garden, GNC, and Cardinal Health; created the platform's design system and theming layer.",
+    "scope": "Career sites that help employers like Olive Garden, GNC and Cardinal Health hire: 50 recruitment sites on one ATS-connected platform.",
+    "highlights": [
+      "Built the shared design system behind every client site, so new ones shipped faster",
+      "Standardised and themed each component, like job search, to match every client's brand"
+    ],
     "stack": [
       "Sass",
       "JavaScript",
@@ -64,6 +81,7 @@
   },
   {
     "id": "questex",
+    "type": "full-time",
     "employer": "Questex",
     "titles": [
       "Front-End Technical Lead",
@@ -74,7 +92,11 @@
     "end": 2018,
     "endMonth": 3,
     "location": "Remote",
-    "scope": "Front-ends for five multi-site Drupal platforms serving about 60 media brands; owned front-end direction, code review and the shared Sass design system.",
+    "scope": "Event, news and e-learning sites for B2B industries like healthcare, travel and tech: about 60 brands on five multi-site Drupal platforms.",
+    "highlights": [
+      "Owned front-end direction and code review across all five platforms",
+      "Ran Drupal migrations and upgrades across the platforms, with faster build tooling"
+    ],
     "stack": [
       "Drupal",
       "Sass",
@@ -85,6 +107,7 @@
   },
   {
     "id": "independent",
+    "type": "contract",
     "employer": "Independent",
     "titles": [
       "Drupal Front-End Developer"
@@ -94,7 +117,11 @@
     "end": 2014,
     "endMonth": 4,
     "location": "Remote",
-    "scope": "Seven years of contract Drupal work: three full-time with ImageX Media (47 projects, including Warner Music Group and Arizona State University), then subcontracting through Drupal Connect, Origin Eight and others for clients including 79 Sony Music artist sites, Stanford, Juilliard, and Human Rights Watch.",
+    "scope": "Websites for record labels, universities and nonprofits: seven years of contract Drupal work, first with ImageX Media, then through Drupal Connect, Origin Eight and others.",
+    "highlights": [
+      "Delivered 47 projects in three years with ImageX Media, including Warner Music Group and Arizona State University",
+      "Themed and maintained 79 Sony Music artist sites, including Beyoncé, Michael Jackson and AC/DC"
+    ],
     "stack": [
       "Drupal",
       "Sass",

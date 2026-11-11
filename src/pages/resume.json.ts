@@ -30,7 +30,7 @@ export const GET: APIRoute = async () => {
       startDate: `${e.start}-${String(e.startMonth).padStart(2, '0')}`,
       endDate: e.end && e.endMonth ? `${e.end}-${String(e.endMonth).padStart(2, '0')}` : undefined,
       summary: e.scope,
-      highlights: e.titles.length > 1 ? e.titles : undefined,
+      highlights: e.highlights,
       location: e.location,
     })),
     projects: projects.map((p) => ({

@@ -33,7 +33,9 @@ const experience = defineCollection({
     end: year.optional(),
     endMonth: z.number().int().min(1).max(12).optional(),
     location: z.string(),
+    type: z.string(),
     scope: z.string(),
+    highlights: z.array(z.string()).optional(),
     stack: z.array(z.string()),
   }),
 });
@@ -49,19 +51,6 @@ const skills = defineCollection({
   }),
 });
 
-const timeline = defineCollection({
-  loader: file('src/content/timeline.json'),
-  schema: z.object({
-    id: z.string(),
-    date: z.string().regex(/^\d{4}(-\d{2})?(-\d{2})?$/),
-    kind: z.enum(['project', 'event', 'hearing']),
-    title: z.string(),
-    detail: z.string().optional(),
-    place: z.string().optional(),
-    url: z.string().url().optional(),
-  }),
-});
-
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: 'src/content/posts' }),
   schema: z.object({
@@ -73,4 +62,4 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { projects, experience, skills, timeline, posts };
+export const collections = { projects, experience, skills, posts };
