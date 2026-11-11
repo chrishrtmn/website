@@ -17,7 +17,7 @@ const iso = (d: string) => {
 const contact = [
   { label: 'Send Message', href: mailto },
   { label: 'Forward to Friend', action: 'copy' },
-  { label: 'Add to Friends', action: 'menu' },
+  { label: 'Add to Friends', href: site.links.linkedin, external: true },
   { label: 'Add to Favorites', action: 'nope' },
   { label: 'Instant Message', href: site.links.linkedin, external: true },
   { label: 'Block User', action: 'nope' },
@@ -103,8 +103,15 @@ const details = [
                   c.href ? (
                     <li>
                       <a href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined}>
-                        {c.label}
-                        {c.external && <span class="visually-hidden"> (opens in a new tab)</span>}
+                        {c.external ? (
+                          <>
+                            {c.label.split(' ').slice(0, -1).join(' ')}{' '}
+                            <span class="ms__last">{c.label.split(' ').at(-1)}<span class="ms__ext" aria-hidden="true">↗</span></span>
+                            <span class="visually-hidden"> (opens in a new tab)</span>
+                          </>
+                        ) : (
+                          c.label
+                        )}
                       </a>
                     </li>
                   ) : (
@@ -167,7 +174,7 @@ const details = [
 
           <section class="ms__module" aria-labelledby="ms-friends">
             <h3 class="ms__bar" id="ms-friends">Chris's Friend Space</h3>
-            <p class="ms__count">Chris has <b>{friends}</b> {friends === 1 ? 'Friend' : 'Friends'}.</p>
+            <p class="ms__count">Chris has <b>500+</b> Friends.</p>
             <ol class="top8__grid">
               {
                 top8.map((e, i) => (
@@ -237,7 +244,7 @@ const details = [
               <textarea id="ms-comment-text" name="body" rows="3" placeholder="thanks for the add!!" class="mono small"></textarea>
               <input type="hidden" name="subject" value="Recommendation for Chris's Space" />
               <p class="ms__hint mono small">
-                want it on the record? <a href={site.links.linkedin} target="_blank" rel="noopener">add me on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a> and leave one there too.
+                want it on the record? <a href={site.links.linkedin} target="_blank" rel="noopener">add me on LinkedIn<span class="ms__ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a> and leave one there too.
               </p>
               <button type="submit" class="mono small">Add Comment</button>
             </form>
@@ -299,10 +306,6 @@ const details = [
           grid.classList.add('is-flash');
         }
         toast(friends === 1 ? "that's all of them. for now." : "that's all of them.");
-      }
-      if (action === 'menu') {
-        top8.close();
-        setTimeout(() => document.dispatchEvent(new CustomEvent('command-menu:open')), 250);
       }
     });
 
@@ -664,6 +667,18 @@ const details = [
   .ms__viewall button,
   .ms__displaying button {
     color: var(--neon);
+    text-decoration: none;
+  }
+
+  /* same small arrow as the rest of the site's outside links; never underlined */
+  .ms__last {
+    white-space: nowrap;
+  }
+
+  .ms__ext {
+    display: inline-block;
+    margin-inline-start: 0.15em;
+    font-size: 0.85em;
     text-decoration: none;
   }
 

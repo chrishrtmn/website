@@ -14,7 +14,7 @@ export interface Top8Comment {
 
 const tbd: Top8Entry = { name: 'tbd', note: '', placeholder: true };
 
-export const top8: Top8Entry[] = [{ name: 'Tom', note: 'always #1', photo: '/top8/tom.jpg' }, tbd, tbd, tbd, tbd, tbd, tbd, tbd];
+export const top8: Top8Entry[] = [{ name: 'Tom', photo: '/top8/tom.jpg' }, tbd, tbd, tbd, tbd, tbd, tbd, tbd];
 
 export const profileSong: { title: string; artist: string; url?: string } | null = {
   title: 'Ohio Is for Lovers',
