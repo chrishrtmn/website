@@ -17,6 +17,7 @@ const { href = '/' } = Astro.props;
     color: var(--w);
     text-decoration: none;
     line-height: 1.1;
+    transition: color var(--dur-1) var(--ease-out);
   }
 
   .wm__half {
@@ -29,6 +30,25 @@ const { href = '/' } = Astro.props;
     width: 1ch;
     text-align: center;
     color: var(--neon);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  /* hover: the name and the slashes swap colours */
+  @media (hover: hover) and (pointer: fine) {
+    .wm:hover {
+      color: var(--neon);
+    }
+    .wm:hover .wm__slash {
+      color: var(--w);
+    }
+  }
+
+  .wm:focus-visible {
+    color: var(--neon);
+  }
+
+  .wm:focus-visible .wm__slash {
+    color: var(--w);
   }
 
   .wm__slash::before {
@@ -40,9 +60,15 @@ const { href = '/' } = Astro.props;
     animation: glyphs 9s steps(1, end) var(--phase) infinite;
   }
 
+  /* hover and focus run the same glitch once, right away, the second slash a beat behind the first */
   :global(html[data-motion='on']) .wm:hover .wm__slash::before,
   :global(html[data-motion='on']) .wm:focus-visible .wm__slash::before {
-    animation-play-state: paused;
+    animation: glyphs-once 600ms steps(1, end) both;
+  }
+
+  :global(html[data-motion='on']) .wm:hover .wm__half + .wm__half .wm__slash::before,
+  :global(html[data-motion='on']) .wm:focus-visible .wm__half + .wm__half .wm__slash::before {
+    animation-delay: 90ms;
   }
 
   @keyframes glyphs {
@@ -69,6 +95,32 @@ const { href = '/' } = Astro.props;
       content: '_';
     }
     99.3%,
+    100% {
+      content: '/';
+    }
+  }
+
+  /* the idle sequence, compressed into one pass */
+  @keyframes glyphs-once {
+    0% {
+      content: '_';
+    }
+    12% {
+      content: '▌';
+    }
+    28% {
+      content: 'a';
+    }
+    44% {
+      content: '|';
+    }
+    60% {
+      content: '>';
+    }
+    76% {
+      content: '_';
+    }
+    92%,
     100% {
       content: '/';
     }
