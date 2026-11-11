@@ -2,8 +2,6 @@
 import { site } from '~/lib/site';
 
 const year = new Date().getFullYear();
-const subject = encodeURIComponent('Résumé request');
-const body = encodeURIComponent('Hi Chris, could you send over your résumé? Here is a bit about the role: ');
 const talk = 'hey chat'.split('');
 // letter-only position, so the stagger runs straight from Y to C without a slot for the space
 const nth = (i: number) => talk.slice(0, i).filter((c) => c !== ' ').length;
@@ -35,7 +33,6 @@ const handle = site.handle;
       <p class="label" id="footer-talk">talk</p>
       <ul>
         <li><a href={`mailto:${site.email}`} data-umami-event="email">Email</a></li>
-        <li><a href={`mailto:${site.email}?subject=${subject}&body=${body}`} data-umami-event="resume-request">Request résumé</a></li>
         <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
         <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
         {
@@ -340,9 +337,8 @@ const handle = site.handle;
     list-style: none;
   }
 
+  /* plain inline, so the hover underline stays on the words; the inline-block arrows don't inherit it */
   .footer__col a {
-    display: inline-flex;
-    align-items: baseline;
     font-weight: 500;
     text-decoration: none;
     color: var(--neon-ink);
@@ -382,7 +378,7 @@ const handle = site.handle;
   .ext--cam {
     width: 1em;
     height: 1em;
-    align-self: center;
+    vertical-align: -0.12em;
   }
 
   /* fine print */

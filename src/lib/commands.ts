@@ -7,7 +7,7 @@ export interface Command {
   label: string;
   hint?: string;
   href?: string;
-  action?: 'copy-email' | 'request-resume' | 'toggle-motion';
+  action?: 'copy-email' | 'toggle-motion';
   keywords?: string;
   toast?: string;
 }
@@ -19,7 +19,7 @@ export async function buildCommands(): Promise<Command[]> {
   const go: Command[] = [
     { id: 'home', group: 'go', label: 'Home', href: '/' },
     { id: 'projects', group: 'go', label: 'Projects', href: '/#projects', keywords: 'receipts work' },
-    { id: 'experience', group: 'go', label: 'Experience', href: '/#experience', keywords: 'résumé resume timeline career' },
+    { id: 'experience', group: 'go', label: 'Work', href: '/#experience', keywords: 'resume experience career jobs work history' },
     { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
     { id: 'contact', group: 'go', label: 'Contact', href: '/#contact' },
     { id: 'paparazzi', group: 'go', label: 'Paparazzi kit', href: '/paparazzi/' },
@@ -46,7 +46,6 @@ export async function buildCommands(): Promise<Command[]> {
 
   const act: Command[] = [
     { id: 'copy-email', group: 'do', label: 'Copy email address', action: 'copy-email' },
-    { id: 'request-resume', group: 'do', label: 'Request résumé', action: 'request-resume' },
     { id: 'resume-json', group: 'do', label: 'Open resume.json', href: '/resume.json' },
     { id: 'toggle-motion', group: 'do', label: 'Toggle motion', action: 'toggle-motion' },
   ];

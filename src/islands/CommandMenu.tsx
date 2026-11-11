@@ -8,7 +8,7 @@ export interface Command {
   label: string;
   hint?: string;
   href?: string;
-  action?: 'copy-email' | 'request-resume' | 'toggle-motion';
+  action?: 'copy-email' | 'toggle-motion';
   keywords?: string;
   toast?: string;
 }
@@ -148,7 +148,7 @@ export default function CommandMenu({ commands, email }: Props) {
   }, [query]);
 
   async function run(cmd: Command) {
-    if (cmd.action === 'copy-email' || cmd.action === 'request-resume') track(cmd.action === 'copy-email' ? 'email-copy' : 'resume-request');
+    if (cmd.action === 'copy-email') track('email-copy');
     if (cmd.action === 'copy-email') {
       try {
         await navigator.clipboard.writeText(email);
@@ -156,11 +156,6 @@ export default function CommandMenu({ commands, email }: Props) {
       } catch {
         flash(email, 1800);
       }
-      return;
-    }
-    if (cmd.action === 'request-resume') {
-      location.href = `mailto:${email}?subject=${encodeURIComponent('Résumé request')}`;
-      hide();
       return;
     }
     if (cmd.action === 'toggle-motion') {
