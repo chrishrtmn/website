@@ -192,8 +192,8 @@ const handle = site.handle;
       if (timer || unlocked()) return;
       timer = window.setTimeout(() => {
         nudge();
-        timer = window.setInterval(nudge, 6000);
-      }, 1500);
+        timer = window.setInterval(nudge, 5000);
+      }, 1200);
     };
     document.addEventListener(UNLOCK_EVENT, stop);
     cheat.addEventListener('animationend', (e) => {
@@ -508,20 +508,51 @@ const handle = site.handle;
     }
   }
 
-  /* locked hint: each key lights up in play order, then settles back */
+  /* locked hint: each key pops up in ink in play order, like it's being pressed, then settles;
+     the pill's outline darkens for the run so the eye finds it */
   :global(html[data-motion='on']) .footer__cheat.is-nudge > :not(.visually-hidden) {
-    animation: key-hint var(--dur-3) var(--ease-out) calc(var(--i) * 60ms) both;
+    animation: key-hint 520ms var(--ease-out) calc(var(--i) * 90ms) both;
+  }
+
+  :global(html[data-motion='on']) .footer__cheat.is-nudge {
+    animation: pill-hint 1360ms var(--ease-out);
   }
 
   @keyframes key-hint {
     0% {
       color: var(--neon-dim);
+      translate: 0 0;
     }
-    15% {
+    25% {
       color: var(--neon-ink);
+      translate: 0 -0.22em;
     }
     100% {
       color: var(--neon-dim);
+      translate: 0 0;
+    }
+  }
+
+  @keyframes pill-hint {
+    0%,
+    100% {
+      border-color: var(--neon-dim);
+    }
+    15%,
+    80% {
+      border-color: var(--neon-ink);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes key-hint {
+      0%,
+      100% {
+        color: var(--neon-dim);
+      }
+      25% {
+        color: var(--neon-ink);
+      }
     }
   }
 
