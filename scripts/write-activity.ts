@@ -34,12 +34,18 @@ let window = days.filter((d) => {
   return t >= start && t <= end;
 });
 while (window.length && new Date(`${window[0].date}T00:00:00Z`).getUTCDay() !== 0) window = window.slice(1);
-window = window.slice(0, Math.floor(window.length / 7) * 7);
+// end on the export day, so the wall is current; the unfinished week is padded with blank (future) days
+const blanks = (7 - (window.length % 7)) % 7;
 
 const level = (c: number) => (c === 0 ? 0 : c <= 2 ? 1 : c <= 4 ? 2 : c <= 7 ? 3 : 4);
+const cells = [...window.map((d) => String(level(d.count))), ...Array(blanks).fill('-')];
 const weeks: string[] = [];
-for (let i = 0; i < window.length; i += 7) weeks.push(window.slice(i, i + 7).map((d) => level(d.count)).join(''));
+for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7).join(''));
+// keep 53 columns
+while (weeks.length > 53) weeks.shift();
 
+const shown = window.slice(-(weeks.length * 7 - blanks));
+window = shown;
 const out = {
   from: window[0]?.date.slice(0, 7),
   to: window.at(-1)?.date.slice(0, 7),

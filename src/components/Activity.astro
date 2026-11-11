@@ -53,7 +53,7 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
     // one layout read per cell, only after the grid changes; the pointer loop reads nothing
     const measure = () => {
-      cells = all.filter((c) => c.offsetParent !== null);
+      cells = all.filter((c) => c.offsetParent !== null && c.dataset.l !== '-');
       centres = cells.map((c) => {
         const r = c.getBoundingClientRect();
         return [r.left + r.width / 2, r.top + r.height / 2];
@@ -177,6 +177,11 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
   .act__wall > i.is-lit {
     background: var(--neon-ink);
     transition-duration: 0ms;
+  }
+
+  /* days later this week that haven't happened yet: no cell, and the ripple skips them */
+  .act__wall > i[data-l='-'] {
+    visibility: hidden;
   }
 
   .act__caption {
