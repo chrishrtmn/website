@@ -6,8 +6,6 @@ tags: [site, design, ai]
 draft: false
 ---
 
-import Clip from '~/components/Clip.astro';
-
 The last version of this site shipped in 2020 on Next.js 12. It had skewed gradient bands, a ticker of company names, and a stat that read "11, volume cranked." It was fine. It was also four years old, said "front-end developer" in a way that undersold the work, and I had stopped looking at it.
 
 <figure>
@@ -16,8 +14,6 @@ The last version of this site shipped in 2020 on Next.js 12. It had skewed gradi
 </figure>
 
 ## The word
-
-<Clip name="hero-intro" width={1280} height={800} caption="The hero on a first visit: the word wipes in, the ledger slides over it." />
 
 Every version of this site I sketched over the last two years had the same word on it: OPE. It's what you say in Ohio when you bump into someone, almost drop something, or need to squeeze past. It's an apology and a greeting at once. For a personal site it does a lot of work in three letters: it tells you where I'm from, it tells you I don't take the exercise too seriously, and it is impossible to confuse with anyone else's portfolio.
 
@@ -35,34 +31,16 @@ Once a section costs ten minutes instead of a weekend, you stop talking yourself
 
 The first thing I built was the Top 8. I came up on MySpace, and the idea of a personal site without one felt wrong, so there's one here. You won't find it in the nav. Punch in the Konami code and it slides up from the bottom, profile song and all. Tom is in the number one spot, same as always; the other seven I'm still thinking about. On a keyboard there's a little pill in the footer with the code on it that just says "nope" if you click it instead of typing it. I'm aware that's annoying. It's supposed to be. On a phone the pill isn't there at all; the code needs arrow keys, so the Top 8 stays a desktop secret.
 
-<Clip name="top8" width={1280} height={800} caption="Up, up, down, down, left, right, left, right, B, A." />
-
 The "HEY CHAT" down in the footer fingerspells itself. Scroll it into view and the letters flip from Latin to hand shapes one at a time. Hover and they flip back. On a phone there's no hover, so the word stays readable and spells itself one letter at a time while it's on screen; tap it to hold the signed version.
 
-<Clip name="hey-chat-desktop" width={1280} height={800} caption="Desktop: the letters flip to Gallaudet hand shapes, hover flips them back." />
-
-<Clip name="hey-chat-mobile" width={390} height={664} phone caption="Phone: one letter at a time, a tap pins the signed row." />
-
-Press ⌘K and you get a menu with every page, project, and post, plus the stuff I actually get asked for: copy my email, send me a résumé request, open `resume.json`. It's the quickest way around the site, and it's where the rest of the hidden stuff ends up once you've unlocked it.
-
-<Clip name="command-menu" width={1280} height={800} caption="⌘K: search, arrow, enter. The hidden talents are in there too." />
+Press ⌘K and you get a menu with every page, project, and post, plus the stuff I actually get asked for: copy my email, open `resume.json`, flip the motion switch. It's the quickest way around the site, and it's where the rest of the hidden stuff ends up once you've unlocked it.
 
 I also made a press kit, which I'm fully aware nobody has asked for. Right-click the logo (hold it on your phone) and you can grab the OPE! wordmark as SVG or PNG. There's a tray behind it with headshots, the colours, a short bio, and a zip of all of it. The zip is built by a script so it can't drift from the site. The tray has camera flashes when it opens. It did not need camera flashes.
 
-<Clip name="kit-tray" width={1280} height={800} caption="The paparazzi kit, with the flashes it did not need." />
-
-<Clip name="logo-menu" width={1280} height={800} caption="Right-click the wordmark for the quick version." />
-
 Under the hero there are two tickers: what I do, and who I've done it for, scrolling in opposite directions. If that's too much, there's a toggle to lay them out as a plain grid, and a motion switch in the header that shuts off every animation on the site. It remembers what you picked.
 
-<Clip name="ticker" width={1280} height={800} caption="Hover slows the tickers to a crawl; the toggle lays them out as a grid." />
-
-<Clip name="motion-toggle" width={1280} height={800} caption="Motion off: every animation on the site stops, including the ones above." />
-
-The résumé section is just the jobs: who it was for, what kind of gig it was, and a few bullets on what I actually changed. Projects get their own section, so the résumé doesn't have to pretend a side project is a job.
+The work section is just the jobs: who it was for, what kind of gig it was, and a few bullets on what I actually changed, tucked behind a toggle so it stays short. Projects get their own section, so the résumé doesn't have to pretend a side project is a job.
 
 Below it there's a year of commits as a wall of ink on caution yellow, merged from github.com and the work account so it's the real shape of the year and not just the public slice. Run a finger or a pointer over it and the cells ripple. Counts only, no repo names.
-
-<Clip name="activity-wall" width={1280} height={800} caption="Still shipping: a year of days, ripple included." />
 
 Then the boring-but-right things. `resume.json` follows the JSON Resume schema. There's an `llms.txt` so a model can read about me without scraping the whole thing. Every tray is a real `<dialog>`, so escape closes it and focus goes back where it came from. Nobody will notice any of that, which is how you know it's done properly.
