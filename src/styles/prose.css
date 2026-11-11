@@ -77,8 +77,24 @@
   border-top: 1px solid var(--line);
 }
 
-.prose img {
-  border: 1px solid var(--line);
+/* the About photo's frame: a Caution mat, then a thin outer line */
+.prose img,
+.prose video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: var(--s-2);
+  border: 2px solid var(--neon);
+  outline: 1px solid var(--line);
+  outline-offset: 6px;
+  background: var(--k2);
+}
+
+/* room for the outline on every side, so it isn't clipped and the caption clears it */
+.prose figure,
+.prose .clip {
+  padding: 7px;
 }
 
 .prose figure {
@@ -86,7 +102,7 @@
 }
 
 .prose figcaption {
-  margin-top: var(--s-2);
+  margin-top: var(--s-4);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-mono);

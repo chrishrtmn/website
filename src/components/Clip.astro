@@ -11,7 +11,7 @@ const { name, caption, width, height, phone = false } = Astro.props;
 const base = `/posts/rebuild/${name}`;
 ---
 
-<figure class:list={['clip', { 'clip--phone': phone }]}>
+<figure class:list={['clip', { 'clip--phone': phone }]} style={`--clip-max: ${width / 2}px`}>
   <video width={width} height={height} poster={`${base}.jpg`} muted loop playsinline preload="none" aria-label={caption} data-clip>
     <source src={`${base}.webm`} type="video/webm" />
     <source src={`${base}.mp4`} type="video/mp4" />
@@ -60,12 +60,10 @@ const base = `/posts/rebuild/${name}`;
     margin: var(--s-8) 0;
   }
 
+  /* never wider than the recording at 2x, so small close-ups stay crisp instead of stretching */
   .clip video {
-    display: block;
     width: 100%;
-    height: auto;
-    border: 1px solid var(--line);
-    background: var(--k2);
+    max-width: var(--clip-max);
   }
 
   .clip--phone video {
