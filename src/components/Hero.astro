@@ -50,7 +50,7 @@ const ledger: Row[] = [
                 >
                   {row.link.label.split(' ').slice(0, -1).join(' ')}{row.link.label.includes(' ') ? ' ' : ''}
                   <span class="hero__last">
-                    {row.link.label.split(' ').at(-1)}<span class="hero__ext" aria-hidden="true">↗</span>
+                    {row.link.label.split(' ').at(-1)}<span class="hero__ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span>
                   </span>
                 </a>
               )}

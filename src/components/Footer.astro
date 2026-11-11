@@ -33,12 +33,12 @@ const handle = site.handle;
       <p class="label" id="footer-talk">talk</p>
       <ul>
         <li><a href={`mailto:${site.email}`} data-umami-event="email">Email</a></li>
-        <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span></a></li>
-        <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href={site.links.github} {...external} rel="me noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        <li><a href={site.links.linkedin} {...external} rel="me noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
         {
           site.social.map((s) => (
             <li>
-              <a href={s.url} {...external} rel="me noopener">{s.network}<span class="ext" aria-hidden="true">↗</span></a>
+              <a href={s.url} {...external} rel="me noopener">{s.network}<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
             </li>
           ))
         }
@@ -49,8 +49,8 @@ const handle = site.handle;
       <p class="label" id="footer-site">site</p>
       <ul>
         <li><a href="/rss.xml">RSS</a></li>
-        <li><a href={site.links.source} {...external}>Source<span class="ext" aria-hidden="true">↗</span></a></li>
-        <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span></a></li>
+        <li><a href={site.links.source} {...external}>Source<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
         <li>
           <a href="/paparazzi/" data-kit-link>
             Paparazzi kit<svg class="ext ext--cam" viewBox="0 0 16 16" aria-hidden="true">

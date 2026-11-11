@@ -54,7 +54,7 @@ const studioMail = `mailto:hello@doubleslashstudios.com?subject=${encodeURICompo
                 <a href={r.url} target="_blank" rel={r.noreferrer ? 'noopener noreferrer' : 'noopener'} referrerpolicy={r.noreferrer ? 'no-referrer' : undefined}>
                   {r.title.split(' ').slice(0, -1).join(' ')}{r.title.includes(' ') ? ' ' : ''}
                   <span class="xp__last">
-                    {r.title.split(' ').at(-1)}<span class="xp__ext" aria-hidden="true">↗</span>
+                    {r.title.split(' ').at(-1)}<span class="xp__ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span>
                   </span>
                 </a>
               ) : (
@@ -92,7 +92,7 @@ const studioMail = `mailto:hello@doubleslashstudios.com?subject=${encodeURICompo
             {r.title === dss?.employer && (
               <p class="xp__lede">
                 <span>
-                  <a href={dss?.url} target="_blank" rel="noopener">Double Slash Studios<span class="xp__lede-ext" aria-hidden="true">↗</span></a> takes on builds, audits, integrations and AI tooling.
+                  <a href={dss?.url} target="_blank" rel="noopener">Double Slash Studios<span class="xp__lede-ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a> takes on builds, audits, integrations and AI tooling.
                 </span>
                 <a class="xp__email small" href={studioMail} data-umami-event="studio-email">Email works</a>
               </p>

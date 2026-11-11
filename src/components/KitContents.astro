@@ -53,9 +53,15 @@ const H = compact ? 'h3' : 'h2';
               <span class="kit__name">{a.name}</span>
               <span class="kit__note small">{a.note}</span>
               <span class="kit__actions small">
-                <a href={a.svg} download>SVG</a>
-                <a href={a.png} download>PNG</a>
-                <button type="button" data-copy-svg={a.svg}>Copy SVG</button>
+                <a href={a.svg} download>
+                  <span class="visually-hidden">Download {a.name} ({a.note}), </span>SVG
+                </a>
+                <a href={a.png} download>
+                  <span class="visually-hidden">Download {a.name} ({a.note}), </span>PNG
+                </a>
+                <button type="button" data-copy-svg={a.svg}>
+                  Copy<span class="visually-hidden"> {a.name} ({a.note})</span> SVG
+                </button>
               </span>
             </div>
           </li>
@@ -86,14 +92,14 @@ const H = compact ? 'h3' : 'h2';
 
 <script>
   async function copy(text: string, el: HTMLElement) {
-    const prev = el.textContent;
+    const prev = [...el.childNodes];
     try {
       await navigator.clipboard.writeText(text);
       el.textContent = 'copied';
     } catch {
       el.textContent = 'copy failed';
     }
-    setTimeout(() => (el.textContent = prev), 1400);
+    setTimeout(() => el.replaceChildren(...prev), 1400);
   }
   document.addEventListener('click', async (e) => {
     const t = (e.target as HTMLElement).closest<HTMLElement>('[data-copy],[data-copy-svg]');
