@@ -38,7 +38,7 @@ const dss = jobs.find((j) => j.employer === 'Double Slash Studios');
 const studioMail = `mailto:hello@doubleslashstudios.com?subject=${encodeURIComponent('Project enquiry via chrishrtmn.com')}&body=${encodeURIComponent("Hi Chris,\n\nI found you through chrishrtmn.com and I'm interested in working with Double Slash Studios.\n\nWhat we need:\n\nTimeline:\n\nBudget:\n")}`;
 ---
 
-<Section id="work" label="work" title="Random access memories">
+<Section id="work" label="work" title="Lore">
   <label class="xp__toggle small" slot="head">
     <input type="checkbox" id="xp-details" aria-controls="xp-list" /> <span>show details</span>
   </label>
@@ -94,7 +94,7 @@ const studioMail = `mailto:hello@doubleslashstudios.com?subject=${encodeURICompo
                 <span>
                   <a href={dss?.url} target="_blank" rel="noopener">Double Slash Studios<span class="xp__lede-ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a> takes on builds, audits, integrations and AI tooling.
                 </span>
-                <a class="xp__email small" href={studioMail} data-umami-event="studio-email">Email works</a>
+                <a class="xp__email small" href={studioMail} data-umami-event="studio-email">email works</a>
               </p>
             )}
           </dd>
@@ -136,16 +136,17 @@ const studioMail = `mailto:hello@doubleslashstudios.com?subject=${encodeURICompo
 
   .xp__email {
     padding: 0.25em 0.8em;
-    border: 1px solid var(--neon);
+    border: 1px solid var(--line);
     border-radius: 999px;
-    color: var(--w);
+    color: var(--g);
     text-decoration: none;
     white-space: nowrap;
-    transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+    transition: background-color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
   }
 
   .xp__email:hover,
   .xp__email:focus-visible {
+    border-color: var(--neon);
     background: var(--neon);
     color: var(--neon-ink);
   }
@@ -244,7 +245,10 @@ const studioMail = `mailto:hello@doubleslashstudios.com?subject=${encodeURICompo
     color: var(--w);
   }
 
+  /* the head row aligns on baselines, which drops a padded pill below the caps; centre it on the cap height instead */
   .xp__toggle {
+    align-self: center;
+    translate: 0 -0.15rem;
     position: relative;
     padding: 0.25em 0.8em;
     border: 1px solid var(--line);

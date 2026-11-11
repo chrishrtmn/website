@@ -1,6 +1,7 @@
 ---
 import Section from './Section.astro';
 import activity from '~/content/activity.json';
+import { site } from '~/lib/site';
 
 const rows = 7;
 const cols = activity.weeks.length;
@@ -8,8 +9,13 @@ const month = (ym: string) => new Date(`${ym}-01T00:00:00Z`).toLocaleString('en-
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 ---
 
-<Section id="activity" label="activity" title="Still shipping" neon>
-  <span slot="head" class="mono act__range">{month(activity.from)} → {month(activity.to)}</span>
+<Section id="activity" label="activity" title="Locked in" neon>
+  <div slot="head" class="act__head">
+    <span class="mono act__range">{month(activity.from)} → {month(activity.to)}</span>
+    <a class="act__gh small" href={site.links.github} target="_blank" rel="me noopener" data-umami-event="activity-github">
+      view github<span class="visually-hidden"> (opens in a new tab)</span>
+    </a>
+  </div>
 
   <div class="act__bleed">
     <div
@@ -93,8 +99,40 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 </script>
 
 <style>
+  .act__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2) var(--s-4);
+    /* same nudge as the work toggle: centre the pill on the title's caps */
+    align-self: center;
+    translate: 0 -0.15rem;
+  }
+
   .act__range {
     color: var(--neon-dim);
+  }
+
+  /* the work section's pill, in the Caution band's colours */
+  .act__gh {
+    padding: 0.25em 0.8em;
+    border: 1px solid var(--neon-dim);
+    border-radius: 999px;
+    color: var(--neon-ink);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+  }
+
+  .act__gh:hover,
+  .act__gh:focus-visible {
+    background: var(--neon-ink);
+    color: var(--neon);
+    text-decoration: none;
+  }
+
+  .act__gh:focus-visible {
+    outline-color: var(--neon-ink);
   }
 
   .act__bleed {
