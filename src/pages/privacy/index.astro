@@ -1,0 +1,51 @@
+---
+import Base from '~/layouts/Base.astro';
+import Footer from '~/components/Footer.astro';
+import { site } from '~/lib/site';
+---
+
+<Base title="Privacy" description="What chrishrtmn.com counts, what it doesn't, and how to switch it off.">
+  <section class="page wrap">
+    <p class="label">privacy</p>
+    <h1 class="page__title">Nothing to see here</h1>
+    <div class="page__body">
+      <p>
+        No cookies, no ads, no trackers following you around. Visits are counted with Umami, which records the page,
+        where you came from, and your browser, device type, screen size and country. Nothing that identifies you is
+        stored, and visits can't be tied together across days.
+      </p>
+      <p>
+        If your browser sends Do Not Track or Global Privacy Control, the counter never loads. You can also switch it
+        off from the privacy link in the footer; the choice is kept in your browser.
+      </p>
+      <p>Questions or a request about your data: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-24) var(--s-16);
+  }
+
+  .page__title {
+    margin-block: var(--s-3) var(--s-8);
+    font-size: var(--text-3xl);
+  }
+
+  .page__body {
+    display: grid;
+    gap: var(--s-4);
+    max-width: 44rem;
+    color: var(--g);
+  }
+
+  .page__body p {
+    margin: 0;
+  }
+
+  .page__body a {
+    color: var(--w);
+  }
+</style>

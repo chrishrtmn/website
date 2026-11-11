@@ -48,9 +48,6 @@ const handle = site.handle;
     <nav class="footer__col" aria-labelledby="footer-site">
       <p class="label" id="footer-site">site</p>
       <ul>
-        <li><a href="/rss.xml">RSS</a></li>
-        <li><a href={site.links.source} {...external}>Source<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
-        <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
         <li>
           <a href="/paparazzi/" data-kit-link>
             Paparazzi kit<svg class="ext ext--cam" viewBox="0 0 16 16" aria-hidden="true">
@@ -60,6 +57,10 @@ const handle = site.handle;
             </svg>
           </a>
         </li>
+        <li><a href="/rss.xml">RSS</a></li>
+        <li><a href="/resume.json" {...external}>resume.json<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        <li><a href={site.links.source} {...external}>Source<span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        <li><a href="/privacy/" data-privacy-link>Privacy</a></li>
       </ul>
     </nav>
   </div>

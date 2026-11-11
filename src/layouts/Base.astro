@@ -4,7 +4,9 @@ import { site } from '~/lib/site';
 import Header from '~/components/Header.astro';
 import KitTray from '~/components/KitTray.astro';
 import Top8 from '~/components/Top8.astro';
+import PrivacyTray from '~/components/PrivacyTray.astro';
 import motionScript from '~/inline/motion.js?raw';
+import analyticsScript from '~/inline/analytics.js?raw';
 import { cspHash } from '~/lib/csp';
 
 interface Props {
@@ -36,6 +38,7 @@ const personJson = JSON.stringify(person);
 
 // inline scripts are not hashed by Astro's CSP automatically; pin these exact bodies
 Astro.csp?.insertScriptHash(cspHash(motionScript));
+if (umamiId) Astro.csp?.insertScriptHash(cspHash(analyticsScript));
 Astro.csp?.insertScriptHash(cspHash(personJson));
 ---
 
@@ -70,7 +73,7 @@ Astro.csp?.insertScriptHash(cspHash(personJson));
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title={`${site.name}, posts`} />
     <script type="application/ld+json" set:html={personJson} />
     <script is:inline set:html={motionScript} />
-    {umamiId && <script defer src="https://cloud.umami.is/script.js" data-website-id={umamiId} />}
+    {umamiId && <script is:inline data-website={umamiId} set:html={analyticsScript} />}
     <slot name="head" />
   </head>
   <body>
@@ -82,6 +85,7 @@ Astro.csp?.insertScriptHash(cspHash(personJson));
     <slot name="footer" />
     <KitTray />
     <Top8 />
+    <PrivacyTray />
     <script>
       import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
       import { site } from '~/lib/site';
