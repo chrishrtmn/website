@@ -10,6 +10,8 @@ trap 'rm -rf "$tmp"' EXIT
 kit="$tmp/PaparazziKit"
 mkdir -p "$kit/Logos" "$kit/Headshots"
 cp public/brand/*.svg public/brand/*.png "$kit/Logos/"
+# the ink wordmark only feeds the social banners; it's not offered in the kit
+rm -f "$kit/Logos/ope-ink.svg" "$kit/Logos/ope-ink.png"
 cp public/paparazzi/chris-hartman.jpg "$kit/Headshots/"
 cp public/paparazzi/colours.txt public/paparazzi/boilerplate.txt "$kit/"
 cat > "$kit/README.txt" <<'TXT'
@@ -18,7 +20,6 @@ chrishrtmn.com paparazzi kit
 Logos/
   ope-offwhite.svg/.png   OPE! wordmark, off-white, for dark backgrounds
   ope-caution.svg/.png    OPE! wordmark, Caution, for dark backgrounds
-  ope-ink.svg/.png        OPE! wordmark, ink, for light backgrounds
   ope-plate-caution.svg/.png OPE! wordmark, ink on a Caution plate (inverted)
   ope-plate-night.svg/.png OPE! wordmark, Caution on a Night plate
   ope-tile.svg/.png       OPE! on a dark rounded tile; avatars and app icons

@@ -11,7 +11,6 @@ export interface KitAsset {
 export const kitAssets: KitAsset[] = [
   { id: 'ope-offwhite', name: 'OPE! wordmark', note: 'off-white, for dark backgrounds', svg: '/brand/ope-offwhite.svg', png: '/brand/ope-offwhite.png', dark: true },
   { id: 'ope-caution', name: 'OPE! wordmark', note: 'Caution, for dark backgrounds', svg: '/brand/ope-caution.svg', png: '/brand/ope-caution.png', dark: true },
-  { id: 'ope-ink', name: 'OPE! wordmark', note: 'ink, for light backgrounds', svg: '/brand/ope-ink.svg', png: '/brand/ope-ink.png' },
   { id: 'ope-plate-caution', name: 'OPE! plate', note: 'inverted, ink on Caution', svg: '/brand/ope-plate-caution.svg', png: '/brand/ope-plate-caution.png', dark: true, tile: true },
   { id: 'ope-plate-night', name: 'OPE! plate', note: 'Caution on Night', svg: '/brand/ope-plate-night.svg', png: '/brand/ope-plate-night.png', dark: true, tile: true },
   { id: 'ope-tile', name: 'OPE! tile', note: 'avatars and app icons', svg: '/brand/ope-tile.svg', png: '/brand/ope-tile.png', dark: true, tile: true },
