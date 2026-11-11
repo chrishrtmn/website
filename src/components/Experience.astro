@@ -251,6 +251,17 @@ const studioMail = `mailto:hello@doubleslashstudios.com?subject=${encodeURICompo
     border-radius: 999px;
     color: var(--g);
     cursor: pointer;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .xp__toggle:hover {
+      border-color: var(--g);
+      color: var(--w);
+    }
+    .xp__toggle:has(:checked):hover {
+      border-color: var(--neon);
+    }
   }
 
   .xp__toggle input {
