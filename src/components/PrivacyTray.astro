@@ -17,8 +17,9 @@ import { site } from '~/lib/site';
     </header>
     <div class="tray__body privacy__body">
       <p>
-        No cookies, no ads, no trackers following you around. Visits are counted with Umami, which records the page,
-        where you came from, and your browser, device type, screen size and country. Nothing that identifies you is
+        No cookies, no ads, no trackers following you around. Visits are counted with Vercel Web Analytics, which records
+        the page, where you came from, your browser, operating system and device type, and roughly where you are (country,
+        region, city). Nothing that identifies you is
         stored, and visits can't be tied together across days.
       </p>
       <p>
@@ -50,7 +51,7 @@ import { site } from '~/lib/site';
     };
     const optedOut = () => {
       try {
-        return localStorage.getItem('umami.disabled') === '1';
+        return localStorage.getItem('analytics.disabled') === '1' || localStorage.getItem('umami.disabled') === '1';
       } catch {
         return false;
       }
@@ -69,8 +70,10 @@ import { site } from '~/lib/site';
     };
     toggle?.addEventListener('click', () => {
       try {
-        if (optedOut()) localStorage.removeItem('umami.disabled');
-        else localStorage.setItem('umami.disabled', '1');
+        if (optedOut()) {
+          localStorage.removeItem('analytics.disabled');
+          localStorage.removeItem('umami.disabled');
+        } else localStorage.setItem('analytics.disabled', '1');
       } catch {}
       render();
     });

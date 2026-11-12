@@ -38,7 +38,7 @@ const readSeen = (): string[] => {
   }
 };
 
-const track = (event: string) => (window as { umami?: { track: (e: string) => void } }).umami?.track(event);
+const track = (name: string) => (window as { va?: (t: 'event', e: { name: string }) => void }).va?.('event', { name });
 
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 

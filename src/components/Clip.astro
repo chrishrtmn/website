@@ -27,12 +27,12 @@ const base = `/posts/rebuild/${name}`;
     const motionOn = () => root.dataset.motion !== 'off';
     const inView = new WeakSet<HTMLVideoElement>();
     const counted = new WeakSet<HTMLVideoElement>();
-    const umami = () => (window as { umami?: { track: (e: string, d?: object) => void } }).umami;
+    const va = () => (window as { va?: (t: 'event', e: { name: string; data?: object }) => void }).va;
     clips.forEach((v) =>
       v.addEventListener('playing', () => {
         if (counted.has(v)) return;
         counted.add(v);
-        umami()?.track('post-clip-play', { clip: v.closest('figure')?.querySelector('source')?.getAttribute('src')?.split('/').pop()?.replace(/\.\w+$/, '') });
+        va()?.('event', { name: 'post-clip-play', data: { clip: v.closest('figure')?.querySelector('source')?.getAttribute('src')?.split('/').pop()?.replace(/\.\w+$/, '') ?? '' } });
       }),
     );
     const sync = (v: HTMLVideoElement) => {

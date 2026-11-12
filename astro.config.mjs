@@ -17,7 +17,7 @@ export default defineConfig({
   // shiki colours code with inline styles the CSP would block; posts stay plain
   markdown: { syntaxHighlight: false },
   security: {
-    // bundled and inline scripts are allowed by build-time hash; Umami is the one third party
+    // bundled and inline scripts are allowed by build-time hash; analytics is served from this origin
     csp: {
       algorithm: 'SHA-256',
       directives: [
@@ -25,7 +25,7 @@ export default defineConfig({
         "img-src 'self' data:",
         "media-src 'self'",
         "font-src 'self'",
-        "connect-src 'self' https://cloud.umami.is https://gateway.umami.is https://api-gateway.umami.dev",
+        "connect-src 'self'",
         "manifest-src 'self'",
         "object-src 'none'",
         "base-uri 'self'",
@@ -33,7 +33,7 @@ export default defineConfig({
         'upgrade-insecure-requests',
       ],
       scriptDirective: {
-        resources: ["'self'", 'https://cloud.umami.is'],
+        resources: ["'self'"],
       },
       styleDirective: {
         // per-letter and per-cell custom properties live in style="" attributes

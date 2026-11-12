@@ -20,7 +20,7 @@ interface Props {
 const { title, description = site.description, ogImage = '/og/home.png', ogType = 'website', hero = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.title;
 const canonical = new URL(Astro.url.pathname, site.url).href;
-const umamiId = import.meta.env.PROD ? import.meta.env.PUBLIC_UMAMI_ID : undefined;
+const analytics = import.meta.env.PROD;
 
 const person = {
   '@context': 'https://schema.org',
@@ -38,7 +38,7 @@ const personJson = JSON.stringify(person);
 
 // inline scripts are not hashed by Astro's CSP automatically; pin these exact bodies
 Astro.csp?.insertScriptHash(cspHash(motionScript));
-if (umamiId) Astro.csp?.insertScriptHash(cspHash(analyticsScript));
+if (analytics) Astro.csp?.insertScriptHash(cspHash(analyticsScript));
 Astro.csp?.insertScriptHash(cspHash(personJson));
 ---
 
@@ -73,7 +73,7 @@ Astro.csp?.insertScriptHash(cspHash(personJson));
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title={`${site.name}, posts`} />
     <script type="application/ld+json" set:html={personJson} />
     <script is:inline set:html={motionScript} />
-    {umamiId && <script is:inline data-website={umamiId} set:html={analyticsScript} />}
+    {analytics && <script is:inline set:html={analyticsScript} />}
     <slot name="head" />
   </head>
   <body>
