@@ -11,8 +11,9 @@
       "Drizzle",
       "Postgres"
     ],
-    "status": "building",
+    "status": "shipping",
     "year": 2026,
+    "url": "https://linuxstatistics.com",
     "repo": "https://github.com/linuxstatistics/linuxstatistics",
     "featured": true
   },
