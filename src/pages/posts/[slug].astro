@@ -23,7 +23,7 @@ const ogImage = existsSync(`public${og}`) ? og : undefined;
   <article class="article wrap">
     <header class="article__head">
       <p class="label">
-        <a href="/posts">posts</a> · <time datetime={post.data.date.toISOString()}>{fmt.format(post.data.date)}</time> · {minutes} min
+        <a href="/posts/">posts</a> · <time datetime={post.data.date.toISOString()}>{fmt.format(post.data.date)}</time> · {minutes} min
       </p>
       <h1 class="article__title">{post.data.title}</h1>
       <p class="article__summary">{post.data.summary}</p>
@@ -33,7 +33,7 @@ const ogImage = existsSync(`public${og}`) ? og : undefined;
     </div>
     <footer class="article__foot small">
       <span>Chris Hartman · {post.data.tags.join(' · ')}</span>
-      <a href="/posts">← all posts</a>
+      <a href="/posts/">← all posts</a>
     </footer>
   </article>
   <Footer slot="footer" />

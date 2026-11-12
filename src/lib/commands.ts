@@ -20,7 +20,7 @@ export async function buildCommands(): Promise<Command[]> {
     { id: 'home', group: 'go', label: 'Home', href: '/' },
     { id: 'projects', group: 'go', label: 'Projects', href: '/#projects', keywords: 'receipts side projects' },
     { id: 'work', group: 'go', label: 'Work', href: '/#work', keywords: 'resume experience career jobs work history' },
-    { id: 'posts', group: 'go', label: 'Posts', href: '/posts' },
+    { id: 'posts', group: 'go', label: 'Posts', href: '/posts/' },
     { id: 'contact', group: 'go', label: 'Contact', href: '/#contact' },
     { id: 'paparazzi', group: 'go', label: 'Paparazzi kit', href: '/paparazzi/' },
   ];
@@ -40,7 +40,7 @@ export async function buildCommands(): Promise<Command[]> {
     id: `post-${p.id}`,
     group: 'posts',
     label: p.data.title,
-    href: `/posts/${p.id}`,
+    href: `/posts/${p.id}/`,
     keywords: p.data.tags.join(' '),
   }));
 

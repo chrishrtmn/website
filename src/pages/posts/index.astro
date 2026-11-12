@@ -20,7 +20,7 @@ const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', 
         <ol class="posts">
           {posts.map((p) => (
             <li class="post">
-              <a href={`/posts/${p.id}`} class="post__link">
+              <a href={`/posts/${p.id}/`} class="post__link">
                 <time class="post__date mono" datetime={p.data.date.toISOString()}>
                   {fmt.format(p.data.date)}
                 </time>
