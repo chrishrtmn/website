@@ -18,8 +18,23 @@
     "featured": true
   },
   {
-    "id": "templates-sh",
+    "id": "contribs",
     "order": 2,
+    "name": "contribs.sh",
+    "line": "One heatmap from GitHub, GitLab, Bitbucket, Azure DevOps, Forgejo and local repos, exported as a banner.",
+    "stack": [
+      "Vite",
+      "React",
+      "TypeScript"
+    ],
+    "status": "shipping",
+    "year": 2026,
+    "featured": true,
+    "repo": "https://github.com/contribs-sh/contribs"
+  },
+  {
+    "id": "templates-sh",
+    "order": 3,
     "name": "templates.sh",
     "line": "A registry of Next.js and shadcn templates that get built, typechecked, and tested every night.",
     "stack": [
@@ -33,7 +48,7 @@
   },
   {
     "id": "degreefast",
-    "order": 3,
+    "order": 4,
     "name": "DegreeFast",
     "line": "Pre-enrollment course planner and transfer-rule change watcher for accelerated degree programs.",
     "stack": [
@@ -41,20 +56,6 @@
       "Drizzle",
       "Postgres",
       "Docker"
-    ],
-    "status": "building",
-    "year": 2026,
-    "featured": true
-  },
-  {
-    "id": "contribs",
-    "order": 4,
-    "name": "contribs.sh",
-    "line": "One contribution heatmap merged across GitHub, GitHub Enterprise, and Forgejo accounts.",
-    "stack": [
-      "Vite",
-      "React",
-      "TypeScript"
     ],
     "status": "building",
     "year": 2026,

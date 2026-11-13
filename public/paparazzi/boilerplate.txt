@@ -1,4 +1,4 @@
-Chris Hartman is a product engineer in northeast Ohio with over fifteen years building web products for global brands, currently on the e-commerce platform behind 23 beauty brands at The Estée Lauder Companies. He builds and runs his own products, including LinuxStatistics, from design through deployment. He ships apps, websites and AI tooling in React, TypeScript and Node, with AI in the loop every day.
+Chris Hartman is a product engineer in northeast Ohio with over fifteen years building web products for global brands, currently on the e-commerce platform behind 23 beauty brands at The Estée Lauder Companies. He builds and runs his own products, including LinuxStatistics and contribs.sh, from design through deployment. He ships apps, websites and AI tooling in React, TypeScript and Node, with AI in the loop every day.
 
 Short: Chris Hartman, product engineer in northeast Ohio. Over fifteen years building web products for global brands; builds and runs his own.
 
