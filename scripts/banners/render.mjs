@@ -24,6 +24,7 @@ const dims = {
   bluesky: [3000, 1000],
   linkedin: [1584, 396],
   github: [1280, 640],
+  readme: [1280, 320],
   youtube: [2560, 1440],
   og: [1200, 630],
 };
