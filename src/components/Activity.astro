@@ -2,10 +2,13 @@
 import Section from './Section.astro';
 import activity from '~/content/activity.json';
 import { site } from '~/lib/site';
+import projects from '~/content/projects.json';
 
 const rows = 7;
 const cols = activity.weeks.length;
 const month = (ym: string) => new Date(`${ym}-01T00:00:00Z`).toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const contribsRepo = projects.find((p) => p.id === 'contribs')?.repo;
+const [srcBefore, srcAfter] = activity.source.includes('contribs.sh') ? activity.source.split('contribs.sh') : [activity.source, undefined];
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 ---
 
@@ -33,7 +36,18 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
     <div><dt>events</dt><dd>{activity.total}</dd></div>
     <div><dt>days</dt><dd>{activity.active} <span class="act__of">/ {activity.days}</span></dd></div>
     <div class="act__half"><dt>shown</dt><dd>6 months</dd></div>
-    <div class="act__src"><dt>source</dt><dd>{activity.source}</dd></div>
+    <div class="act__src">
+      <dt>source</dt>
+      <dd>
+        {srcAfter !== undefined && contribsRepo ? (
+          <>
+            {srcBefore}<a class="act__src-link" href={contribsRepo} target="_blank" rel="noopener">contribs.sh<span class="act__ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>{srcAfter}
+          </>
+        ) : (
+          activity.source
+        )}
+      </dd>
+    </div>
   </dl>
 </Section>
 
@@ -216,6 +230,29 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
   .act__src {
     flex-basis: 100%;
+  }
+
+  .act__src-link {
+    color: var(--neon-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--neon-dim);
+    text-underline-offset: 0.2em;
+  }
+
+  .act__src-link:hover,
+  .act__src-link:focus-visible {
+    text-decoration-color: currentColor;
+  }
+
+  .act__src-link:focus-visible {
+    outline-color: var(--neon-ink);
+  }
+
+  .act__ext {
+    display: inline-block;
+    margin-inline-start: 0.15em;
+    font-size: 0.85em;
+    text-decoration: none;
   }
 
   .act__caption .act__half {
