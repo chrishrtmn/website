@@ -77,6 +77,7 @@ const handle = site.handle;
         ))
       }
       <span style="--i: 8" aria-hidden="true">BA</span>
+      <span class="footer__cheat-open" aria-hidden="true">Open Secret Space</span>
     </button>
   </div>
 
@@ -84,7 +85,7 @@ const handle = site.handle;
 </footer>
 
 <script>
-  import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
+  import { EARNED_EVENT, UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
 
   // HEY CHAT: each letter blurs into its sign and back, on a timer while the footer is
   // on screen; hover or tap switches it now and holds it
@@ -165,12 +166,14 @@ const handle = site.handle;
     };
     const label = () => {
       const on = unlocked();
-      cheat.title = on ? 'Open the Top 8' : 'cheat code';
+      cheat.title = on ? 'Open Secret Space' : 'cheat code';
       const text = cheat.querySelector('[data-cheat-label]');
-      if (text) text.textContent = on ? 'Open the Top 8' : 'Up up down down left right left right B A';
+      if (text) text.textContent = on ? 'Open Secret Space' : 'Up up down down left right left right B A';
+      cheat.classList.toggle('is-open', on);
     };
     label();
     document.addEventListener(UNLOCK_EVENT, label);
+    document.addEventListener(EARNED_EVENT, label);
     cheat.addEventListener('click', () => {
       document.dispatchEvent(new CustomEvent(unlocked() ? UNLOCK_EVENT : 'command-menu:nope'));
     });
@@ -197,6 +200,7 @@ const handle = site.handle;
       }, 1200);
     };
     document.addEventListener(UNLOCK_EVENT, stop);
+    document.addEventListener(EARNED_EVENT, stop);
     cheat.addEventListener('animationend', (e) => {
       if ((e.target as HTMLElement).style.getPropertyValue('--i') === '8') cheat.classList.remove('is-nudge');
     });
@@ -495,6 +499,18 @@ const handle = site.handle;
 
   .footer__key--right {
     transform: rotate(90deg);
+  }
+
+  /* unlocked: the keys give way to a plain label */
+  .footer__cheat .footer__cheat-open,
+  .footer__cheat.is-open > :not(.visually-hidden, .footer__cheat-open) {
+    display: none;
+  }
+
+  .footer__cheat.is-open .footer__cheat-open {
+    display: inline;
+    margin: 0;
+    letter-spacing: 0.04em;
   }
 
   .footer__cheat:hover {

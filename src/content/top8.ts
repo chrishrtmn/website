@@ -118,3 +118,5 @@ export const comments: Top8Comment[] = [
 
 export const UNLOCK_KEY = 'top8';
 export const UNLOCK_EVENT = 'top8:unlock';
+// unlocked without opening, e.g. by finding every hidden talent
+export const EARNED_EVENT = 'top8:earned';

@@ -141,6 +141,19 @@ html:has(dialog.cmd[open]) {
   color: var(--neon-ink);
 }
 
+html[data-motion='on'] .cmd__item.is-new {
+  animation: cmd-new 900ms var(--ease-out) 2;
+}
+
+@keyframes cmd-new {
+  from {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--neon) 45%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
 .cmd__item > span:first-child {
   white-space: nowrap;
 }

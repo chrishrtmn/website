@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
+import { EARNED_EVENT, UNLOCK_EVENT, UNLOCK_KEY } from '~/content/top8';
 import './CommandMenu.css';
 
 export interface Command {
@@ -51,8 +51,17 @@ export default function CommandMenu({ commands, email }: Props) {
   const [active, setActive] = useState(0);
   const [seen, setSeen] = useState<string[]>([]);
   const talents = useMemo(() => commands.filter((c) => c.group === 'hidden').map((c) => c.id), [commands]);
-  const earned = talents.length > 0 && talents.every((t) => seen.includes(t));
-  useEffect(() => setSeen(readSeen()), []);
+  const allSeen = (list: string[]) => talents.length > 0 && talents.every((t) => list.includes(t));
+  // the secret shows up a beat after the fourth talent, so that talent gets its own toast first
+  const [earned, setEarned] = useState(false);
+  const [fresh, setFresh] = useState(false);
+  const revealTimer = useRef<number>();
+  useEffect(() => {
+    const s = readSeen();
+    setSeen(s);
+    setEarned(allSeen(s));
+    return () => window.clearTimeout(revealTimer.current);
+  }, []);
   const [toast, setToast] = useState('');
   const [toastOut, setToastOut] = useState(false);
   const toastTimer = useRef<number>();
@@ -135,7 +144,7 @@ export default function CommandMenu({ commands, email }: Props) {
           } catch {}
           document.dispatchEvent(new CustomEvent(UNLOCK_EVENT));
           if (open) hide();
-          flash('top 8 unlocked', 2000);
+          flash('secret space unlocked', 2000);
         }
       } else {
         progress = key === KONAMI[0] ? 1 : 0;
@@ -203,13 +212,36 @@ export default function CommandMenu({ commands, email }: Props) {
       try {
         sessionStorage.setItem(TALENTS_KEY, JSON.stringify(next));
       } catch {}
-      if (!earned && talents.every((t) => next.includes(t))) {
-        flash('all four. check the bottom.', 3000);
-        return;
+      const ms = cmd.toast ? 2400 : 1800;
+      flash(cmd.toast ?? 'true story.', ms);
+      if (!earned && allSeen(next)) {
+        window.clearTimeout(revealTimer.current);
+        revealTimer.current = window.setTimeout(() => {
+          try {
+            sessionStorage.setItem(UNLOCK_KEY, '1');
+          } catch {}
+          document.dispatchEvent(new CustomEvent(EARNED_EVENT));
+          setEarned(true);
+          setFresh(true);
+          flash("ope. there's more down there.", 3000);
+        }, ms + 300);
       }
-      flash(cmd.toast ?? 'true story.', cmd.toast ? 2400 : 1800);
     }
   }
+
+  // once the secret appears, bring it into view and select it
+  useEffect(() => {
+    if (!fresh) return;
+    const t = window.setTimeout(() => setFresh(false), 2000);
+    if (!dialog.current?.open) return () => window.clearTimeout(t);
+    const i = visible.findIndex((c) => c.group === 'secret');
+    if (i >= 0) {
+      setActive(i);
+      const behavior = document.documentElement.dataset.motion === 'off' ? 'instant' : 'smooth';
+      requestAnimationFrame(() => document.getElementById(`cmd-${visible[i].id}`)?.scrollIntoView({ block: 'nearest', behavior }));
+    }
+    return () => window.clearTimeout(t);
+  }, [fresh]);
 
   function onInputKey(e: KeyboardEvent) {
     if (e.key === 'ArrowDown') {
@@ -272,7 +304,7 @@ export default function CommandMenu({ commands, email }: Props) {
                     id={`cmd-${c.id}`}
                     role="option"
                     aria-selected={i === active}
-                    class={`cmd__item ${i === active ? 'is-active' : ''}`}
+                    class={`cmd__item${i === active ? ' is-active' : ''}${fresh && c.group === 'secret' ? ' is-new' : ''}`}
                     onMouseEnter={() => setActive(i)}
                     onClick={() => run(c)}
                   >
