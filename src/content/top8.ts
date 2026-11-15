@@ -12,10 +12,6 @@ export interface Top8Comment {
   text: string;
 }
 
-const tbd: Top8Entry = { name: 'tbd', note: '', placeholder: true };
-
-export const top8: Top8Entry[] = [{ name: 'Tom', photo: '/top8/tom.jpg' }, tbd, tbd, tbd, tbd, tbd, tbd, tbd];
-
 export const profileSong: { title: string; artist: string; url?: string } | null = {
   title: 'Ohio Is for Lovers',
   artist: 'Hawthorne Heights',
@@ -114,6 +110,20 @@ export const comments: Top8Comment[] = [
     date: '7/12/2010',
     text: 'I had the pleasure of working with Chris for a number of years. During that time Chris grew professionally and in his technical skills. He was a go-to developer for Drupal projects that needed extra care and attention in theming. At all times Chris was a team player who put his all into his work.',
   },
+];
+
+// Tom, then whoever left the seven most recent comments
+const when = (d: string) => {
+  const [m, day, y] = d.split('/').map(Number);
+  return Date.UTC(y, m - 1, day);
+};
+
+export const top8: Top8Entry[] = [
+  { name: 'Tom', note: '', photo: '/top8/tom.webp' },
+  ...[...comments]
+    .sort((a, b) => when(b.date) - when(a.date))
+    .slice(0, 7)
+    .map((c) => ({ name: c.name, note: '' })),
 ];
 
 export const UNLOCK_KEY = 'top8';
