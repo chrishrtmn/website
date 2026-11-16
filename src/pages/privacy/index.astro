@@ -13,10 +13,15 @@ import { site } from '~/lib/site';
         No cookies, no ads, no trackers following you around. Visits are counted with Vercel Web Analytics, which records
         the page, where you came from, your browser, operating system and device type, and roughly where you are (country,
         region, city). Nothing that identifies you is
-        stored, and visits can't be tied together across days.
+        stored, and visits can't be tied together across days. Clicks on downloads, email links and links to other sites
+        are counted the same way.
       </p>
       <p>
-        If your browser sends Do Not Track or Global Privacy Control, the counter never loads. You can also switch it
+        Vercel Speed Insights measures how fast each page loads and responds, along with the page and device type. It
+        uses no cookies either.
+      </p>
+      <p>
+        If your browser sends Do Not Track or Global Privacy Control, neither one loads. You can also switch them
         off from the privacy link in the footer; the choice is kept in your browser.
       </p>
       <p>Questions or a request about your data: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
