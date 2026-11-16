@@ -1,3 +1,5 @@
+<a href="https://chrishrtmn.com"><img src=".github/readme-banner.png" alt="OPE! chrishrtmn.com" width="100%"></a>
+
 Ope! Personal site of Chris Hartman, product engineer in northeast Ohio. Astro with a few Preact islands, plain CSS, on Vercel.
 
 Run it with `pnpm install` and `pnpm dev`. Content lives in `src/content`. `pnpm kit` rebuilds the press kit, `pnpm activity` refreshes the commit wall, `pnpm banners` renders social cards.
