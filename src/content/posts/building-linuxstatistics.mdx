@@ -1,0 +1,57 @@
+---
+title: Building LinuxStatistics
+date: 2026-11-17
+summary: A Linux distro leaderboard that admits what its numbers mean.
+tags: [linuxstatistics, design, engineering, ai]
+draft: false
+---
+
+Nobody knows how many people use each Linux distro. Windows and macOS check in with Microsoft and Apple; Linux doesn't check in with anyone, and most distros never phone home. Every "most popular distro" chart is really measuring attention.
+
+[LinuxStatistics](https://linuxstatistics.com) is my attempt at a leaderboard that says so up front: "interest, not installs," right in the headline.
+
+<figure>
+  <img src="/posts/linuxstatistics/home.webp" width="1440" height="900" alt="The LinuxStatistics home page: a large headline naming the number one distro, a top-three podium, and a dense ranked table beside a Climbing fastest list" loading="lazy" decoding="async" />
+  <figcaption>The home page: a podium, then the table.</figcaption>
+</figure>
+
+## It started as a solar system
+
+The first version was 3D. Each distro was a planet, sized by popularity, orbiting its family. It looked great in a screen recording and was useless for picking a distro.
+
+I parked it and shipped a table. The table was the thing I kept opening anyway.
+
+<figure>
+  <img src="/posts/linuxstatistics/galaxy.webp" width="1440" height="860" alt="The parked 3D prototype: distros as labeled planets orbiting a sun, with a Linux desktop share card in the corner" loading="lazy" decoding="async" />
+  <figcaption>The galaxy. Pretty, and no help at all.</figcaption>
+</figure>
+
+## Four mockups, one day
+
+I didn't start from a moodboard. I built four styles against real data and lived with them for a day. The winner mixed a bold headline and podium with a dense, monospace data table, plus a neon green I checked against major brand colors so it wouldn't read as someone else's.
+
+<figure>
+  <img src="/posts/linuxstatistics/mockups.webp" width="1440" height="978" alt="Four dark style mockups in a grid: a quiet ledger, a poster-style chart with huge type, a monospace console table, and the mix that shipped" loading="lazy" decoding="async" />
+  <figcaption>Ledger, Chart, Console, and the Mix that won.</figcaption>
+</figure>
+
+## Numbers you can check
+
+The rank blends four signals: Wikipedia views, DistroWatch rank, GitHub stars and views on the site. Each signal has its own blind spots, and mixing them keeps any single source from setting the order. The weights are public, and every change goes in a changelog.
+
+The other pages answer real questions. Which distros send usage data by default? I checked 51 against their own docs, and 31 send nothing. When does my release stop getting updates? Mint or Fedora if I'm leaving Windows?
+
+<figure>
+  <img src="/posts/linuxstatistics/telemetry.webp" width="1440" height="900" alt="The telemetry page: 31 distros send nothing, 9 only if you agree, 8 send an anonymous count, 3 send usage data by default, with a sourced entry for each distro" loading="lazy" decoding="async" />
+  <figcaption>Every entry links to the project's own documentation.</figcaption>
+</figure>
+
+The data is open: CC BY, a keyless API, CSV downloads. The code is AGPL.
+
+## The tooling
+
+Same deal as this site: I make the calls, agents do the typing. The lesson at this size was that agents write code that passes the check you gave them. They're bad at noticing when the check itself is wrong, so most of the project's guardrails exist because a check once lied to me.
+
+## Ope.
+
+It's live in a soft launch, and the data gets better every day. If you spot a distro with wrong data, there's a suggest form on the site.
