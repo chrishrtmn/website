@@ -39,6 +39,8 @@ const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', 
 <style>
   .page {
     padding-block: var(--s-24) var(--s-16);
+    max-width: calc(var(--measure) + 2 * var(--gutter));
+    margin-inline: auto;
   }
 
   .page__title {
